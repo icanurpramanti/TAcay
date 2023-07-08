@@ -144,7 +144,7 @@
             serverSide: true,
             autoWidth: false,
             ajax: {
-                url: '{{ route('admin.dashboard.pembelian_detail.data', $kode_pembelian) }}',
+                url: '{{ route("admin.dashboard.pembelian_detail.data", $kode_pembelian) }}',
             },
             columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},
@@ -217,16 +217,16 @@
         tambahProduk();
     }
     function tambahProduk() {
-        $.post('{{ route('admin.dashboard.pembelian_detail.store') }}', $('.form-produk').serialize())
-            .done(response => {
-                $('#kode_produk').focus();
-                // table.ajax.reload(() => loadForm($('#diskon').val()));
-            })
-            .fail(errors => {
-                alert('Tidak dapat menyimpan data');
-                return;
-            });
+    $.post('{{ route("admin.dashboard.pembelian_detail.store") }}', $('.form-produk').serialize())
+        .done(response => {
+        $('#kode_produk').focus();
+        table.ajax.reload(() => loadForm($('#diskon').val()));
+        })
+        .fail(errors => {
+        alert('Tidak dapat menyimpan data');
+        });
     }
+
     function deleteData(url) {
         if (confirm('Yakin ingin menghapus data terpilih?')) {
             $.post(url, {
