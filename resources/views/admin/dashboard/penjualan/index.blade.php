@@ -1,64 +1,85 @@
 @extends('admin.dashboard.layout.template')
+
 @section('content')
 
 @if (session()->has('pesan'))
 <div class="alert alert-success" role="alert">
-  {{session('pesan')}}
+  {{ session('pesan') }}
 </div>
 @endif
-<div class="row">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Data Pembelian</h4>
-        <div class="box-header with-border">
-                <button onclick="addForm()" class="btn btn-success btn-xs btn-flat">
-                  <i class="fa fa-plus-circle"></i> Transaksi Baru</button>
-        </div>
-      </div>
 
-      <!-- Start kode untuk form pencarian -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table" id="tabel-data">
-                    <thead class=" text-primary">
-                       <th width="5%">No</th>
+@section('content')
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box">
+            <div class="box-body table-responsive">
+                <table class="table table-stiped table-bordered table-penjualan">
+                    <thead>
+                        <th width="5%">No</th>
                         <th>Tanggal</th>
-                        <th>Supplier</th>
                         <th>Total Item</th>
                         <th>Total Harga</th>
                         <th>Diskon</th>
                         <th>Total Bayar</th>
+                        <th>Kasir</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
-                  </thead>
-              </table>
+                    </thead>
+                </table>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
 
-@includeIf('pembelian.supplier')
-@includeIf('pembelian.detail')
+@includeIf('penjualan.detail')
 @endsection
 
 @push('scripts')
 <script>
     let table, table1;
-   
-    function addForm() {
-       $('#modal-supplier').modal('show');
-      
-    }
-    
+
+    $(function () {
+        table = $('.table-penjualan').DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            autoWidth: false,
+            ajax: {
+                url: '{{ route("penjualan.data") }}',
+            },
+            columns: [
+                {data: 'DT_RowIndex', searchable: false, sortable: false},
+                {data: 'tanggal'},
+                {data: 'total_item'},
+                {data: 'total_harga'},
+                {data: 'diskon'},
+                {data: 'bayar'},
+                {data: 'kasir'},
+                {data: 'aksi', searchable: false, sortable: false},
+            ]
+        });
+
+        table1 = $('.table-detail').DataTable({
+            processing: true,
+            bSort: false,
+            dom: 'Brt',
+            columns: [
+                {data: 'DT_RowIndex', searchable: false, sortable: false},
+                {data: 'kode_produk'},
+                {data: 'nama_produk'},
+                {data: 'harga_jual'},
+                {data: 'jumlah'},
+                {data: 'subtotal'},
+            ]
+        })
+    });
+
     function showDetail(url) {
         $('#modal-detail').modal('show');
+
         table1.ajax.url(url);
         table1.ajax.reload();
     }
+
     function deleteData(url) {
         if (confirm('Yakin ingin menghapus data terpilih?')) {
             $.post(url, {
@@ -76,3 +97,5 @@
     }
 </script>
 @endpush
+
+

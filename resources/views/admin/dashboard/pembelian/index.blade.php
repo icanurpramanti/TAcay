@@ -13,9 +13,9 @@
     <div class="box">
       <div class="box-header with-border">
         <button onclick="addForm()" class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Transaksi Baru</button>
-        @empty(! session('kode_pembelian'))
-        <a href="{{ route('admin.dashboard.pembelian_detail.index') }}" class="btn btn-info btn-xs btn-flat"><i class="fa fa-pencil"></i> Transaksi Aktif</a>
-        @endempty
+       
+        <a href="/pembelian_detail" class="btn btn-info btn-xs btn-flat"><i class="fa fa-pencil"></i> Transaksi Aktif</a>
+       
       </div>
 
       <div class="box-body table-responsive">

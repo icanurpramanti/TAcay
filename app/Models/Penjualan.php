@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Penjualan extends Model
 {
     use HasFactory;
+
+    protected $table = 'penjualans';
+    protected $primaryKey = 'kode_penjualan';
+    protected $guarded = [];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'kode_user', 'kode_user');
+    }
 }

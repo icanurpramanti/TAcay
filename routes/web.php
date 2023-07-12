@@ -19,6 +19,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TransaksiController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,18 +51,37 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/pembelian', PembelianController::class)
         ->except('create');
     Route::get('/pembelian/data', [PembelianController::class, 'data'])->name('admin.dashboard.pembelian.data');
+    
+
 
     //pembelian detail
     Route::resource('/pembelian_detail', PembelianDetailController::class)
         ->except('create', 'show', 'edit');
     Route::get('/pembelian_detail/{id}/data', [PembelianDetailController::class, 'data'])->name('admin.dashboard.pembelian_detail.data');
     Route::get('/pembelian_detail/loadform/{diskon}/{total}', [PembelianDetailController::class, 'loadForm'])->name('admin.dashboard.pembelian_detail.load_form');
+    Route::get('/pembelian_detail', [PembelianDetailController::class, 'index'])->name('admin.dashboard.pembelian_detail.index');
 
 
     //penjualan
-    Route::get('/penjualan/baru', [PenjualanController::class, 'create'])->name('penjualan.baru');
-    Route::resource('/penjualan', PenjualanDetailController::class)
-        ->except('show');
+    Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
+    Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+    Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
+    Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
+    
+    Route::get('/transaksi/baru', [PenjualanController::class, 'create'])->name('transaksi.baru');
+    Route::post('/transaksi/simpan', [PenjualanController::class, 'store'])->name('transaksi.simpan');
+    Route::get('/transaksi/selesai', [PenjualanController::class, 'selesai'])->name('transaksi.selesai');
+    Route::get('/transaksi/nota-kecil', [PenjualanController::class, 'notaKecil'])->name('transaksi.nota_kecil');
+    Route::get('/transaksi/nota-besar', [PenjualanController::class, 'notaBesar'])->name('transaksi.nota_besar');
+
+    //penjualandetail
+    Route::get('/transaksi/{id}/data', [PenjualanDetailController::class, 'data'])->name('transaksi.data');
+    Route::get('/transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadForm'])->name('transaksi.load_form');
+    Route::resource('/transaksi', PenjualanDetailController::class)
+        ->except('create', 'show', 'edit');
+
+
+    
 
     //setting    
     Route::get('/setting', [SettingController::class, 'index'])->name('admin.dashboard.setting.index');

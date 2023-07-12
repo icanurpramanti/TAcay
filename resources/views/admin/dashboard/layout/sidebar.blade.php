@@ -74,17 +74,17 @@
 
   <li>
   <li class="{{ Request::is('penjualan') ? 'active' : ''}}">
-    <a href="{{ route ('penjualan.index') }}">
-      <i class="nc-icon nc-single-02"></i>
-      <p>Penjualan Lama </p>
+    <a href="/transaksi.index">
+      <i class="nc-icon nc-badge"></i>
+      <p>Transaksi Lama</p>
     </a>
   </li>
 
   <li>
   <li class="{{ Request::is('penjualan') ? 'active' : ''}}">
-    <a href="{{ route ('penjualan.baru') }}">
-      <i class="nc-icon nc-single-02"></i>
-      <p>Penjualan Baru</p>
+    <a href="/transaksi.baru">
+      <i class="nc-icon nc-badge"></i>
+      <p>Transaksi Baru</p>
     </a>
   </li>
 

@@ -14,9 +14,9 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        return view('kasir.dashboard.transaksi.index',[
-            'users' =>  User::all()
-        ]);
+        // return view('kasir.dashboard.transaksi.index',[
+        //     'users' =>  User::all()
+        // ]);
     }
 
     /**
