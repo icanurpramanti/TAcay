@@ -41,18 +41,22 @@
         <div class="box">
             <div class="box-header with-border">
                 <table>
+                    @if(!empty($suppliers))
+                    @foreach($suppliers as $item)
                     <tr>
                         <td>Supplier</td>
-                        <td>: {{ $suppliers->nama_supplier }}</td>
+                        <td>: {{ $item->nama_supplier }}</td>
                     </tr>
                     <tr>
                         <td>Telepon</td>
-                        <td>: {{ $suppliers->no_hp }}</td>
+                        <td>: {{ $item->no_hp }}</td>
                     </tr>
                     <tr>
                         <td>Alamat</td>
-                        <td>: {{ $suppliers->alamat_supplier }}</td>
+                        <td>: {{ $item->alamat_supplier }}</td>
                     </tr>
+                    @endforeach
+                    @endif
                 </table>
             </div>
             <div class="box-body">
@@ -93,7 +97,7 @@
                         <div class="tampil-terbilang"></div>
                     </div>
                     <div class="col-lg-4">
-                        <form action="{{ route('admin.dashboard.pembelian.store') }}" class="form-pembelian" method="post">
+                        <form action="{{  route('pembelian_detail.store') }}" class="form-pembelian" method="post">
                             @csrf
                             <input type="hidden" name="kode_pembelian" value="{{ $kode_pembelian }}">
                             <input type="hidden" name="total" id="total">
@@ -210,15 +214,15 @@
     function hideProduk() {
         $('#modal-produk').modal('hide');
     }
-    function pilihProduk(kode, kode) {
-        $('#kode_produk').val(kode);
-        $('#kode_produk').val(kode);
+    function pilihProduk(kode_produk) {
+        $('#kode_produk').val(kode_produk);
         hideProduk();
         tambahProduk();
     }
     function tambahProduk() {
-        $.post('{{ route("admin.dashboard.pembelian_detail.store") }}', $('.form-produk').serialize())
+        $.post('{{ route("pembelian_detail.store") }}', $('.form-produk').serialize())
             .done(response => {
+                console.log(response);
                 $('#kode_produk').focus();
                 table.ajax.reload(() => loadForm($('#diskon').val()));
             })

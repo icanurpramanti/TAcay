@@ -16,22 +16,24 @@ class PembelianDetailController extends Controller
      */
     public function index()
     {
+        // return view('admin.dashboard.pembelian_detail.index');
         $kode_pembelian = session('kode_pembelian');
         $produks = Produk::orderBy('nama_produk')->get();
-        $suppliers = Supplier::find(session('kode_supplier'));
+        $suppliers = Supplier::find('kode_supplier');
         $diskon = Pembelian::find($kode_pembelian)->diskon ?? 0;
-        
-        if (! $suppliers) {
-            abort(404);
+        dd($suppliers,$produks,$kode_pembelian);
+        if (!$suppliers) {
+            echo "supplier ndk ado do";
+        } else {
+            return view('admin.dashboard.pembelian_detail.index');
         }
-
-        return view('admin.dashboard.pembelian_detail.index', compact('kode_pembelian', 'produks', 'suppliers','diskon'));
+    
     }
 
-    public function data($id)
+    public function data($kode_pembeliandetail)
     {
         $detail = PembelianDetail::with('produk')
-            ->where('kode_pembelian', $id)
+            ->where('kode_pembelian', $kode_pembeliandetail)
             ->get();
         $data = array();
         $total = 0;
@@ -90,10 +92,11 @@ class PembelianDetailController extends Controller
     public function store(Request $request)
     {
         $produks = Produk::where('kode_produk', $request->kode_produk)->first();
-        if (! $produks) {
+        // dd($produks);
+        if (!$produks) {
             return response()->json('Data gagal disimpan', 400);
         }
-
+        
         $detail = new PembelianDetail();
         $detail->kode_pembelian = $request->kode_pembelian;
         $detail->kode_produk = $produks->kode_produk;
@@ -105,15 +108,38 @@ class PembelianDetailController extends Controller
         return response()->json('Data berhasil disimpan', 200);
     }
 
+    public function pilihProduk($kode_produk){
+        $produks = Produk::where('kode_produk','=',$kode_produk)->get();
+        // dd($produks);
+        return view('admin.dashboard.pembelian_detail.produk',[
+            'produks' => $produks
+        ]);
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\PembelianDetail  $pembelianDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(PembelianDetail $pembelianDetail)
+    public function show(PembelianDetail $pembelianDetail,$kode_supplier)
     {
-        //
+        // return view('admin.dashboard.pembelian_detail.index');
+        $kode_pembelian = session('kode_pembelian');
+        $produks = Produk::orderBy('nama_produk')->get();
+        $suppliers = Supplier::where('kode_supplier', $kode_supplier)->get();
+        $diskon = Pembelian::find($kode_pembelian)->diskon ?? 0;
+        // dd($suppliers,$produks,$kode_pembelian,$diskon);
+        if (!$suppliers) {
+            echo "supplier ndk ado do";
+        } else {
+            return view('admin.dashboard.pembelian_detail.index',[
+                'suppliers'=> $suppliers,
+                'kode_pembelian'=> $kode_pembelian,
+                'diskon' => $diskon,
+                'produks' => $produks
+            ]);
+        }
     }
 
     /**

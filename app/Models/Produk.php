@@ -16,7 +16,9 @@ class Produk extends Model
         return $this-> belongsTo(Kategori::class,'kode_kategori');
   }
 
-  public function satuan(){
-    return $this-> belongsTo(Satuan::class,'kode_satuan');
-}
+    public function satuan(){
+        return $this-> belongsTo(Satuan::class,'kode_satuan');
+    }
+
+    
 }

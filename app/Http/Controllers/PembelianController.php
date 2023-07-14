@@ -31,6 +31,7 @@ class PembelianController extends Controller
     {
         $pembelians = new Pembelian();
         $pembelians->kode_supplier = $id;
+        $pembelians->kode_pembelian = 'A03';
         $pembelians->total_item  = 0;
         $pembelians->total_harga = 0;
         $pembelians->diskon      = 0;
@@ -39,8 +40,9 @@ class PembelianController extends Controller
 
         session(['kode_pembelian' => $pembelians->kode_pembelian]);
         session(['kode_supplier' => $pembelians->kode_supplier]);
-
-        return redirect()->route('admin.dashboard.pembelian_detail.index');
+        if( $pembelians->save()){
+            return redirect('/pembelian_detail/'.$pembelians->kode_supplier);
+        }
     }
 
     public function data()
