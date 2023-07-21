@@ -231,8 +231,7 @@
         $('#modal-produk').modal('hide');
     }
 
-    function pilihProduk(id, kode) {
-        $('#id_produk').val(id);
+    function pilihProduk( kode) {
         $('#kode_produk').val(kode);
         hideProduk();
         tambahProduk();

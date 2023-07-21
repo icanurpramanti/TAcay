@@ -7,15 +7,6 @@
     </a>
   </li>
 
-
-  <li class="{{ Request::is('user') ? 'active' : ''}}">
-    <a href="/user">
-      <i class="nc-icon nc-single-02"></i>
-      <p>Kelola User</p>
-    </a>
-  </li>
-
-
   <li>
   <li class="{{ Request::is('kategori') ? 'active' : ''}}">
     <a href="/kategori">
@@ -65,28 +56,28 @@
   </li>
 
   <li>
-  <li class="{{ Request::is('penjualan') ? 'active' : ''}}">
-    <a href="/penjualan">
-      <i class="nc-icon nc-badge"></i>
-      <p>Penjualan</p>
+    <a href="{{ route('penjualan.index') }}">
+      <i class="fa fa-upload"></i> <span>Penjualan</span>
+    </a>
+  </li>
+  <li>
+    <a href="{{ route('transaksi.index') }}">
+      <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Lama</span>
+    </a>
+  </li>
+  <li>
+    <a href="{{ route('transaksi.baru') }}">
+      <i class="fa fa-cart-arrow-down"></i> <span>Transaksi Baru</span>
     </a>
   </li>
 
-  <li>
-  <li class="{{ Request::is('penjualan') ? 'active' : ''}}">
-    <a href="/transaksi.index">
-      <i class="nc-icon nc-badge"></i>
-      <p>Transaksi Lama</p>
+  <li class="{{ Request::is('user') ? 'active' : ''}}">
+    <a href="/user">
+      <i class="nc-icon nc-single-02"></i>
+      <p>Kelola User</p>
     </a>
   </li>
 
-  <li>
-  <li class="{{ Request::is('penjualan') ? 'active' : ''}}">
-    <a href="/transaksi.baru">
-      <i class="nc-icon nc-badge"></i>
-      <p>Transaksi Baru</p>
-    </a>
-  </li>
 
   <li>
   <li class="{{ Request::is('setting') ? 'active' : ''}}">

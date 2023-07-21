@@ -20,9 +20,9 @@
                             <td width="5%">{{ $key+1 }}</td>
                             <td><span class="label label-success">{{ $item->kode_produk }}</span></td>
                             <td>{{ $item->nama_produk}}</td>
-                            <td>{{ $item->harga_produk}}</td>
+                            <td>{{ $item->harga_beli}}</td>
                             <td>
-                                <a href="#" class="btn btn-primary btn-xs btn-flat" onclick="pilihProduk('{{ $item->kode_produk }}', '{{ $item->kode_produk }}')">
+                                <a href="#" class="btn btn-primary btn-xs btn-flat" onclick="pilihProduk('{{ $item->kode_produk }}')">
                                     <i class="fa fa-check-circle"></i>
                                     Pilih
                                 </a>

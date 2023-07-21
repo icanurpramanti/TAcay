@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('telepon');
             $table->tinyInteger('tipe_nota');
             $table->string('diskon');
-            $table->string('logo_toko');
             $table->timestamps();
         });
     }

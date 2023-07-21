@@ -1,4 +1,4 @@
-@extends ('admin.dashboard.layout2.template')
+@extends ('kasir.dashboard.layout2.template')
 @section('content')
 
 <!-- End Navbar -->
@@ -108,7 +108,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <!-- <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-body ">
                   <div class="row">
@@ -134,7 +134,7 @@
                   </div>
                 </div>
               </div>
-              
+               -->
             </div>
             <div class="row">
               <div class="col-md-12">

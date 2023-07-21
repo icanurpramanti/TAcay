@@ -10,19 +10,33 @@
     SRC Rani Cell
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-  
+  <!--Fonts and icons--> 
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
-  <link href="/../assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="/../assets/demo/demo.css" rel="stylesheet" />
+  <link href="../assets/demo/demo.css" rel="stylesheet" />
   <!-- datatable -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 
+  <!-- Import jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Import DataTables library -->
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // DataTables initialization
+      $('#tabel-data').DataTable();
+    });
+  </script>
+
+  @stack('css')
 </head>
+
 
 
 
@@ -46,7 +60,7 @@
 
       <div class="sidebar-wrapper">
         <!---MENU SIDEBAR-->
-        @include('admin.dashboard.layout.sidebar')
+        @include('kasir.dashboard.layout2.sidebar')
 
       </div>
 
@@ -54,15 +68,27 @@
     <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <a class="navbar-brand mx-4" href="javascript:;">MANAJEMEN ADMIN</a>
-          </div>
-          <div class="collapse navbar-collapse justify-content-end" id="navigation"> 
-            <li> <i class="nc-icon nc-single-02"></i> {{Auth()->user()->nama}} <a href="{{route('actionlogout')}}"></i> Log Out</a></li>
-          </div>
-        </div>
-      </nav>
+  <div class="container-fluid">
+    <div class="navbar-wrapper">
+      <a class="navbar-brand mx-4" href="javascript:;">MANAJEMEN KASIR</a>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="nc-icon nc-single-02"></i> {{Auth()->user()->level}}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('actionlogout')}}">
+            Log Out
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 
       <!-- End Navbar -->
 
@@ -95,50 +121,37 @@
     </div>
   </div>
 
-  <!--   Core JS Files   -->
-  <script src="/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/bootstrap/js/pooper.min.js"></script>
-  <script src="/../assets/js/core/jquery.min.js"></script>
-  <script src="/../assets/js/core/popper.min.js"></script>
-  <script src="/../assets/js/core/bootstrap.min.js"></script>
-  <script src="/../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="/../assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="/../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="/../assets/demo/demo.js"></script>
-  <script src="/../assets/js/core/jquery.min.js"></script>
-  <script src="/../assets/js/core/popper.min.js"></script>
-  <script src="/../assets/js/core/bootstrap.min.js"></script>
-  <script src="/../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="/../assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="/../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="/../assets/demo/demo.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
-    });
-  </script>
+<!-- Load jQuery before Bootstrap -->
+<script src="/../assets/js/core/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/../assets/js/core/popper.min.js"></script>
+<!-- ... (other scripts) ... -->
 
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      $('#tabel-data').DataTable();
-    });
-  </script>
+<!-- Load Chart.js -->
+<script src="/../assets/js/plugins/chartjs.min.js"></script>
+<!-- ... (other scripts) ... -->
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#tabel-data').DataTable();
+  });
+</script>
+
+<!-- ... (other scripts) ... -->
+
+<script src="/../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+<script src="/../assets/demo/demo.js"></script>
+<script>
+  $(document).ready(function() {
+    // Ensure Chart.js is loaded before calling initChartsPages()
+    demo.initChartsPages();
+  });
+</script>
+
+@stack('scripts')
 
 
 </body>
-
 </html>

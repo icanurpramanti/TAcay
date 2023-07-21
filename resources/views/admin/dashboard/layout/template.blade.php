@@ -5,6 +5,7 @@
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     SRC Rani Cell
@@ -14,19 +15,29 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
-  <link href="/../assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="/../assets/demo/demo.css" rel="stylesheet" />
+  <link href="../assets/demo/demo.css" rel="stylesheet" />
   <!-- datatable -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-  <!--css dan jaxascript-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Import jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Import DataTables library -->
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      // DataTables initialization
+      $('#tabel-data').DataTable();
+    });
+  </script>
 
   @stack('css')
-
 </head>
+
 
 
 
@@ -66,7 +77,7 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="#">
-            <i class="nc-icon nc-single-02"></i> {{Auth()->user()->nama}}
+            <i class="nc-icon nc-single-02"></i> {{Auth()->user()->level}}
           </a>
         </li>
         <li class="nav-item">
@@ -111,50 +122,37 @@
     </div>
   </div>
 
-  <!--   Core JS Files   -->
-  <script src="/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/bootstrap/js/pooper.min.js"></script>
-  <script src="/../assets/js/core/jquery.min.js"></script>
-  <script src="/../assets/js/core/popper.min.js"></script>
-  <script src="/../assets/js/core/bootstrap.min.js"></script>
-  <script src="/../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="/../assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="/../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="/../assets/demo/demo.js"></script>
-  <script src="/../assets/js/core/jquery.min.js"></script>
-  <script src="/../assets/js/core/popper.min.js"></script>
-  <script src="/../assets/js/core/bootstrap.min.js"></script>
-  <script src="/../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="/../assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="/../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="/../assets/demo/demo.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
-    });
-  </script>
+<!-- Load jQuery before Bootstrap -->
+<script src="/../assets/js/core/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/../assets/js/core/popper.min.js"></script>
+<!-- ... (other scripts) ... -->
 
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-  <script>
-    $(document).ready(function(){
-      $('#tabel-data').DataTable();
-    });
-  </script>
+<!-- Load Chart.js -->
+<script src="/../assets/js/plugins/chartjs.min.js"></script>
+<!-- ... (other scripts) ... -->
 
-  @stack('scripts')
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('#tabel-data').DataTable();
+  });
+</script>
+
+<!-- ... (other scripts) ... -->
+
+<script src="/../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+<script src="/../assets/demo/demo.js"></script>
+<script>
+  $(document).ready(function() {
+    // Ensure Chart.js is loaded before calling initChartsPages()
+    demo.initChartsPages();
+  });
+</script>
+
+@stack('scripts')
+
 
 </body>
 </html>

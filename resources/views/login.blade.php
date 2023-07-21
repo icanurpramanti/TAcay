@@ -18,44 +18,44 @@
         <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="../assets/demo/demo.css" rel="stylesheet" />
+        <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+
     </head>
 
-    <body class="main-login bg-gradient-primary">
+    <body>
+        <img class="wave" src="img/wave.png">
         <div class="container">
-            <div class="card o-hidden border-0 shadow-lg my-5 col-lg-5 mx-auto">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="col-lg">
-                            <div class="p-5">
-                             <h1 class="text-center mt-6"><b>SRC Rani Cell</b><br>Point Of Sale</h1>
-                             <hr>
-                             @if(session('error'))
-                             <div class="alert alert-danger">
-                                <b>Opps!</b> {{session('error')}}
-                            </div>
-                            @endif
-                            <form action="{{ route('actionlogin') }}" method="post">
-                                @csrf
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="text" name="email" class="form-control" placeholder="Email" required="">
-                                </div>
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Password" required="">
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary btn-block" >Log In</button>
-                                </div>
-                                    <!-- <p class="text-center">Belum punya akun? <a href="/register">Register</a> sekarang!</p> -->
-                                   </div>
-                               </form>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </body>
-   </html>
+            <div class="img">
+                <img src="img/shop.svg">
+            </div>
+            <div class="login-content">
+            <form action="{{ route('actionlogin') }}" method="post">
+            @csrf
+                    <img src="img/avatar.svg">
+                    <h2 class="title">Sistem Informasi Penjualan  Toko Sembako di SRC Rani Cell</h2>
+                    <div class="input-div one">
+                        <div class="i">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="div">
+                            <h5>Email</h5>
+                            <input type="text" name="email" class="form-control"  required="">
+                        </div>
+                    </div>
+                    <div class="input-div pass">
+                        <div class="i">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="div">
+                            <h5>Password</h5>
+                            <input type="password" name="password" class="form-control" required="">
+                        </div>
+                    </div>
+                    <button type="submit" class="tombol btn-primary btn-block" >Log In</button>
+                </form>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/app.js"></script>
+    </body>
+
+    </html>

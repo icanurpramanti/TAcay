@@ -67,7 +67,6 @@
                         <div class="col-lg-5">
                             <div class="input-group">
                                 <input type="hidden" name="kode_pembelian" id="kode_pembelian" value="{{ $kode_pembelian }}">
-                                <input type="hidden" name="kode_produk" id="kode_produk">
                                 <input type="text" class="form-control" name="kode_produk" id="kode_produk">
                                 <span class="input-group-btn">
                                     <button onclick="tampilProduk()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right"></i></button>
@@ -97,7 +96,7 @@
                         <div class="tampil-terbilang"></div>
                     </div>
                     <div class="col-lg-4">
-                        <form action="{{  route('pembelian_detail.store') }}" class="form-pembelian" method="post">
+                    <form action="{{ route('pembelian_detail.store') }}" class="form-pembelian" method="post">
                             @csrf
                             <input type="hidden" name="kode_pembelian" value="{{ $kode_pembelian }}">
                             <input type="hidden" name="total" id="total">
@@ -148,7 +147,7 @@
             serverSide: true,
             autoWidth: false,
             ajax: {
-                url: '{{ route("admin.dashboard.pembelian_detail.data", $kode_pembelian) }}',
+                url: '{{ route("pembelian_detail.data", $kode_pembelian) }}',
             },
             columns: [
                 { data: 'DT_RowIndex', searchable: false, sortable: false },
@@ -162,51 +161,52 @@
             dom: 'Brt',
             bSort: false,
             paginate: false
-        })
-        .on('draw.dt', function () {
-            loadForm($('#diskon').val());
+            
         });
-        
         table2 = $('.table-produk').DataTable();
+
         $(document).on('input', '.quantity', function () {
-            let id = $(this).data('id');
-            let jumlah = parseInt($(this).val());
+            let id=$(this).data('id');
+            let jumlah =parseInt($(this).val());
+            
             if (jumlah < 1) {
-                $(this).val(1);
-                alert('Jumlah tidak boleh kurang dari 1');
-                return;
-            }
-            if (jumlah > 10000) {
-                $(this).val(10000);
-                alert('Jumlah tidak boleh lebih dari 10000');
-                return;
-            }
-            $.post(`{{ url('/pembelian_detail') }}/${id}`, {
+                 $(this).val(1);
+                 alert('Jumlah tidak boleh kurang dari 1');
+                 return;
+             }
+             if (jumlah > 10000) {
+                 $(this).val(10000);
+                 alert('Jumlah tidak boleh lebih dari 10000');
+                 return;
+             }
+
+             $.post(`{{ url('/pembelian_detail') }}/${id}`, {
                     '_token': $('[name=csrf-token]').attr('content'),
                     '_method': 'put',
                     'jumlah': jumlah
                 })
                 .done(response => {
                     $(this).on('mouseout', function () {
-                        table.ajax.reload(() => loadForm($('#diskon').val()));
+                        table.ajax.reload();
                     });
                 })
                 .fail(errors => {
                     alert('Tidak dapat menyimpan data');
                     return;
                 });
-        });
-
-        $(document).on('input', '#diskon', function () {
-            if ($(this).val() == "") {
-                $(this).val(0).select();
-            }
-            loadForm($(this).val());
-        });
-        $('.btn-simpan').on('click', function () {
-            $('.form-pembelian').submit();
-        });
+            });
     });
+
+        // $(document).on('input', '#diskon', function () {
+        //     if ($(this).val() == "") {
+        //         $(this).val(0).select();
+        //     }
+        //     loadForm($(this).val());
+        // });
+        // $('.btn-simpan').on('click', function () {
+        //     $('.form-pembelian').submit();
+        // });
+   
 
     function tampilProduk() {
         $('#modal-produk').modal('show');
@@ -228,6 +228,7 @@
             })
             .fail(errors => {
                 alert('Tidak dapat menyimpan data');
+                console.log(errors);
             });
     }
 
@@ -238,7 +239,7 @@
                     '_method': 'delete'
                 })
                 .done((response) => {
-                    table.ajax.reload(() => loadForm($('#diskon').val()));
+                    table.ajax.reload() ;
                 })
                 .fail((errors) => {
                     alert('Tidak dapat menghapus data');

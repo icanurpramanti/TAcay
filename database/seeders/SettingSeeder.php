@@ -22,7 +22,7 @@ class SettingSeeder extends Seeder
             'telepon' => '081363437701',
             'tipe_nota' => 1, // kecil
             'diskon' => 5,
-            'logo_toko' => '/img/logo.png',
+            
            
         ]);
     }

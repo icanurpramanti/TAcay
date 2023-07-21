@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Produk;
 use App\Models\Supplier;
+use Yajra\DataTables\DataTables;
 use App\Models\Pembelian;
 use App\Models\PembelianDetail;
 use Illuminate\Http\Request;
@@ -14,47 +15,54 @@ class PembelianDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($kode_supplier)
     {
-        // return view('admin.dashboard.pembelian_detail.index');
         $kode_pembelian = session('kode_pembelian');
         $produks = Produk::orderBy('nama_produk')->get();
-        $suppliers = Supplier::find('kode_supplier');
+        $suppliers = Supplier::where('kode_supplier', $kode_supplier)->get();
         $diskon = Pembelian::find($kode_pembelian)->diskon ?? 0;
-        dd($suppliers,$produks,$kode_pembelian);
+        // dd($suppliers,$produks,$kode_pembelian,$diskon);
         if (!$suppliers) {
             echo "supplier ndk ado do";
         } else {
-            return view('admin.dashboard.pembelian_detail.index');
+            return view('admin.dashboard.pembelian_detail.index',[
+                'suppliers'=> $suppliers,
+                'kode_pembelian'=> $kode_pembelian,
+                'diskon' => $diskon,
+                'produks' => $produks
+            ]);
         }
-    
     }
 
-    public function data($kode_pembeliandetail)
-    {
-        $detail = PembelianDetail::with('produk')
-            ->where('kode_pembelian', $kode_pembeliandetail)
-            ->get();
-        $data = array();
-        $total = 0;
-        $total_item = 0;
 
-        foreach ($detail as $item) {
+    public function data($id)
+    {
+ 
+        // Menampilkan produk yang dipilih
+        $detail = PembelianDetail::with('produk')
+        ->where('kode_pembelian',$id)
+        ->get();
+         $data = array();
+         $total = 0;
+         $total_item = 0;
+
+         foreach ($detail as  $item){
             $row = array();
             $row['kode_produk'] = '<span class="label label-success">'. $item->produk['kode_produk'] .'</span';
-            $row['nama_produk'] = $item->produk['nama_produk'];
-            $row['harga_beli']  = 'Rp. '. format_uang($item->harga_beli);
-            $row['jumlah']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->kode_pembelian_detail .'" value="'. $item->jumlah .'">';
-            $row['subtotal']    = 'Rp. '. format_uang($item->subtotal);
-            $row['aksi']        = '<div class="btn-group">
-                                    <button onclick="deleteData(`'. route('admin.dashboard.pembelian_detail.destroy', $item->kode_pembelian_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
-                                </div>';
-            $data[] = $row;
+            $row['nama_produk'] =$item->produk['nama_produk'];
+            $row['harga_beli'] ='Rp. ' . $item->harga_beli;
+            $row['jumlah'] = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id .'" value="'. $item->jumlah .'">';
+            $row['subtotal'] =$item->subtotal;
+            $row['aksi'] = ' <div class="btn-group">
+                    <button onclick="deleteData(`'. route('pembelian_detail.destroy', $item->id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                </div>';
+            $data[]=$row;
 
-            $total += $item->harga_beli * $item->jumlah;
-            $total_item += $item->jumlah;
-        }
-        $data[] = [
+            $total +=$item->harga_beli * $item->jumlah;
+            $total_item+=$item->jumlah;
+         }
+
+          $data[] = [
             'kode_produk' => '
                 <div class="total hide">'. $total .'</div>
                 <div class="total_item hide">'. $total_item .'</div>',
@@ -66,10 +74,11 @@ class PembelianDetailController extends Controller
         ];
 
         return datatables()
-            ->of($data)
-            ->addIndexColumn()
-            ->rawColumns(['aksi', 'kode_produk', 'jumlah'])
-            ->make(true);
+        ->of($data)
+        ->addIndexColumn()
+        ->rawColumns(['aksi','kode_produk','jumlah'])
+        ->make(true);
+
     }
 
 
@@ -124,22 +133,22 @@ class PembelianDetailController extends Controller
      */
     public function show(PembelianDetail $pembelianDetail,$kode_supplier)
     {
-        // return view('admin.dashboard.pembelian_detail.index');
-        $kode_pembelian = session('kode_pembelian');
-        $produks = Produk::orderBy('nama_produk')->get();
-        $suppliers = Supplier::where('kode_supplier', $kode_supplier)->get();
-        $diskon = Pembelian::find($kode_pembelian)->diskon ?? 0;
-        // dd($suppliers,$produks,$kode_pembelian,$diskon);
-        if (!$suppliers) {
-            echo "supplier ndk ado do";
-        } else {
-            return view('admin.dashboard.pembelian_detail.index',[
-                'suppliers'=> $suppliers,
-                'kode_pembelian'=> $kode_pembelian,
-                'diskon' => $diskon,
-                'produks' => $produks
-            ]);
-        }
+        // // return view('admin.dashboard.pembelian_detail.index');
+        // $kode_pembelian = session('kode_pembelian');
+        // $produks = Produk::orderBy('nama_produk')->get();
+        // $suppliers = Supplier::where('kode_supplier', $kode_supplier)->get();
+        // $diskon = Pembelian::find($kode_pembelian)->diskon ?? 0;
+        // // dd($suppliers,$produks,$kode_pembelian,$diskon);
+        // if (!$suppliers) {
+        //     echo "supplier ndk ado do";
+        // } else {
+        //     return view('admin.dashboard.pembelian_detail.index',[
+        //         'suppliers'=> $suppliers,
+        //         'kode_pembelian'=> $kode_pembelian,
+        //         'diskon' => $diskon,
+        //         'produks' => $produks
+        //     ]);
+        // }
     }
 
     /**

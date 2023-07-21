@@ -15,10 +15,8 @@ return new class extends Migration
     {
         Schema::create('pembelian_details', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_pembeliandetail');
             $table->string('kode_pembelian',12);
             $table->string('kode_produk',12);
-            $table->string('kode_supplier',12);
             $table->integer('harga_beli');
             $table->integer('jumlah');
             $table->integer('subtotal');

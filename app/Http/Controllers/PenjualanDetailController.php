@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-
 use App\Models\Produk;
 use App\Models\Setting;
 use App\Models\PenjualanDetail;
@@ -18,15 +16,14 @@ class PenjualanDetailController extends Controller
     public function index()
     {
         $produks = Produk::orderBy('nama_produk')->get();
+        dd($produks);
+
         $diskon = Setting::first()->diskon ?? 0;
 
         // Cek apakah ada transaksi yang sedang berjalan
-        if ($kode_penjualans = session('kode_penjualans')) {
+        if ($kode_penjualan = session('kode_penjualan')) {
             $penjualans = Penjualan::find($kode_penjualan);
-        
-
             return view('admin.dashboard.penjualan_detail.index', compact('produks', 'diskon'));
-       
         } else {
             if (auth()->user()->level == 1) {
                 return redirect()->route('transaksi.baru');
@@ -39,7 +36,7 @@ class PenjualanDetailController extends Controller
 
     public function data($id)
     {
-        $detail = PenjualanDetail::with('produks')
+        $detail = PenjualanDetail::with('produk')
             ->where('kode_penjualan', $id)
             ->get();
 

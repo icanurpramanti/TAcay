@@ -36,7 +36,7 @@ Route::get('/', function () {
 });
 
 ///routes admin 
-Route::group(['middleware' => ['auth']], function () {
+Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/produk', ProdukController::class);
     Route::resource('/kategori', KategoriController::class);
     Route::resource('/supplier', SupplierController::class);
@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/bank', BankController::class);
     Route::resource('/user', UserController::class);
     Route::resource('/setting_toko', SettingTokoController::class);
+    Route::get('/home', [HomeController::class, 'index']);
     Route::resource('/register', RegisterController::class);
 
     ///pembelian
@@ -51,16 +52,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/pembelian', PembelianController::class)
         ->except('create');
     Route::get('/pembelian/data', [PembelianController::class, 'data'])->name('admin.dashboard.pembelian.data');
-    
+
 
 
     //pembelian detail
-    Route::get('/pembelian_detail/{kode_supplier}', [PembelianDetailController::class,'show']);
-    Route::post('/pembelian_detail/store',[PembelianDetailController::class,'store'])->name('pembelian_detail.store');
-    Route::get('/pembelian_detail/pilihProduk/{kode_produk}',[PembelianDetailController::class,'pilihProduk'])->name('pembelian_detail.pilihProduk');
-    Route::get('/pembelian_detail/{id}/data', [PembelianDetailController::class, 'data'])->name('admin.dashboard.pembelian_detail.data');
+    Route::get('/pembelian_detail/{kode_supplier}', [PembelianDetailController::class, 'index']);
+    Route::post('/pembelian_detail', [PembelianDetailController::class, 'store'])->name('pembelian_detail.store');
+    Route::delete('/pembelian_detail/{id}', [PembelianDetailController::class, 'destroy'])->name('pembelian_detail.destroy');
+    Route::put('/pembelian_detail/{id}', [PembelianDetailController::class, 'update'])->name('pembelian_detail.update');
+    Route::get('/pembelian_detail/pilihProduk/{kode_produk}', [PembelianDetailController::class, 'pilihProduk'])->name('pembelian_detail.pilihProduk');
+    Route::get('/pembelian_detail/{id}/data', [PembelianDetailController::class, 'data'])->name('pembelian_detail.data');
     Route::get('/pembelian_detail/loadform/{diskon}/{total}', [PembelianDetailController::class, 'loadForm'])->name('admin.dashboard.pembelian_detail.load_form');
-    // Route::get('/pembelian_detail', [PembelianDetailController::class, 'index']);
+    // Route::resource('/pembelian_detail', PembelianDetailController::class)
+    // ->except('create', 'show', 'edit');
 
 
     //penjualan
@@ -68,7 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
     Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
     Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
-    
+
     Route::get('/transaksi/baru', [PenjualanController::class, 'create'])->name('transaksi.baru');
     Route::post('/transaksi/simpan', [PenjualanController::class, 'store'])->name('transaksi.simpan');
     Route::get('/transaksi/selesai', [PenjualanController::class, 'selesai'])->name('transaksi.selesai');
@@ -80,10 +84,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadForm'])->name('transaksi.load_form');
     Route::resource('/transaksi', PenjualanDetailController::class)
         ->except('create', 'show', 'edit');
-
-
-    
-
     //setting    
     Route::get('/setting', [SettingController::class, 'index'])->name('admin.dashboard.setting.index');
     Route::get('/setting/first', [SettingController::class, 'show'])->name('admin.dashboard.setting.show');
@@ -98,9 +98,10 @@ Route::get('/satuan-detail/{id}', [SatuanController::class, 'detail'])->name("sa
 Route::get('/setting_toko-detail/{id}', [SettingTokoController::class, 'detail'])->name("setting_toko-detail");
 Route::get('/user-detail/{id}', [UserController::class, 'detail'])->name("user-detail");
 
-///routes kasir 
-Route::group(['middleware' => ['auth']], function () {
-    Route::resource('/transaksi', TransaksiController::class);
+//routes kasir 
+Route::middleware(['auth', 'CheckLevel:kasir'])->group(function () {
+    Route::get('/dashboardkasir', [HomeController::class, 'indexkasir']);
+    
 });
 
 
@@ -119,10 +120,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 ///routes login,register,logout
-Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::get ('/login', [LoginController::class,'login'])->name('login')->middleware('guest');
+// Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 
-Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
 
 // Route::get('register',[RegisterController::class,'register'])->name('register');

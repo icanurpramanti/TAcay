@@ -10,7 +10,7 @@ class PembelianDetail extends Model
     use HasFactory;
 
     protected $table='pembelian_details';
-    protected $primarykey='kode_pembeliandetail';
+    protected $primaryKey='id';
     protected $guarded=[];
   
 
@@ -21,7 +21,7 @@ class PembelianDetail extends Model
 
     public function supplier()
     {
-        return $this->hasMany(Supplier::class, 'kode_supplier', 'kode_supplier');
+        return $this->belongsTo(Supplier::class, 'kode_supplier', 'kode_supplier');
     }
   
 }
