@@ -231,8 +231,8 @@
 	width: 500px;
 }
 
-form{
-	width: 360px;
+.form-login{
+	width: 360px !important;
 }
 
 .login-content img{

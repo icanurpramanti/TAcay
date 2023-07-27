@@ -48,7 +48,7 @@
                         <label for="kode_produk" class="col-lg-2">Kode Produk</label>
                         <div class="col-lg-5">
                             <div class="input-group">
-                                <input type="hidden" name="kode_penjualan" id="kode_penjualan" value="{{ $kode_penjualan }}">
+                                <input type="hidden" name="id_penjualan" id="id_penjualan" value="{{ $id_penjualan }}">
                                 <input type="hidden" name="kode_produk" id="kode_produk">
                                 <input type="text" class="form-control" name="kode_produk" id="kode_produk">
                                 <span class="input-group-btn">
@@ -80,7 +80,7 @@
                     <div class="col-lg-4">
                         <form action="{{ route('transaksi.simpan') }}" class="form-penjualan" method="post">
                             @csrf
-                            <input type="hidden" name="kode_penjualan" value="{{ $kode_penjualan }}">
+                            <input type="hidden" name="id_penjualan" value="{{ $id_penjualan }}">
                             <input type="hidden" name="total" id="total">
                             <input type="hidden" name="total_item" id="total_item">
                             <input type="hidden" name="bayar" id="bayar">
@@ -145,7 +145,7 @@
             serverSide: true,
             autoWidth: false,
             ajax: {
-                url: '{{ route("transaksi.data", $kode_penjualan) }}',
+                url: '{{ route("transaksi.data", $id_penjualan) }}',
             },
             columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},

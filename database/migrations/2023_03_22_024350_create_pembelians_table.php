@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pembelians', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_pembelian');
+            $table->string('kode_pembelian')->nullable();
             $table->string('kode_supplier');
             $table->integer('total_item');
             $table->integer('total_harga');

@@ -60,13 +60,13 @@
     <div class="card-body">
         <div class="modal fade" id="kategoriModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content p-3">
                     <div class="card-header">
                         <h5 class="title text-center">Create Kategori</h5>
                     </div>
                     <form action="/kategori" method="post" enctype="multipart/form-data">
                         @csrf
-                        <div class="mb-3" style="margin-left: 15px; margin-right: 15px; margin-top: 15px">
+                        <div class="mb-3 mt-3" style="margin-left: 15px; margin-right: 15px; margin-top: 15px">
                             <label for="exampleFormControlInput1" class="form-label">Kode Kategori</label>
                             <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" value="{{ old('kode_kategori') }}" id="kode_kategori" name="kode_kategori">
                             @error('kode_kategori')
@@ -81,8 +81,8 @@
                             @enderror
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         </div>
                     </form>
                 </div>
@@ -94,7 +94,7 @@
     @foreach ($kategoris as $kategori)
     <div class="modal fade" id="kategoriEdit{{ $kategori->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content p-3">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit kategori</h5>
                 </div>
@@ -102,7 +102,7 @@
                     @method('put')
                     @csrf
                     <div class="modal-body">
-                        <div class="mb-3">
+                        <div class="mb-3 mt-3">
                             <label for="kode_kategori" class="form-label">Kode Kategori</label>
                             <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" id="kode_kategori" name="kode_kategori" value="{{ old('kode_kategori', $kategori->kode_kategori) }}">
                             @error('kode_kategori')
@@ -118,8 +118,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </div>
                 </form>
             </div>

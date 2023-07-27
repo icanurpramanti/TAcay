@@ -14,13 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('penjualan_details', function (Blueprint $table) {
-            $table->id();
-            $table->string('kode_penjualandetail');
-            $table->string('kode_penjualan',12);
-            $table->string('kode_produk',12);
+            $table->increments('id_penjualan_detail');
+            $table->integer('id_penjualan');
+            $table->integer('kode_produk');
             $table->integer('harga_jual');
             $table->integer('jumlah');
-            $table->tinyInteger('diskon');
+            $table->tinyInteger('diskon')->default(0);
             $table->integer('subtotal');
             $table->timestamps();
         });

@@ -3,7 +3,7 @@
 @section('content')
 @if (session()->has('pesan'))
 <div class="alert alert-success" role="alert">
-  {{ session('pesan') }}
+    {{ session('pesan') }}
 </div>
 @endif
 
@@ -14,13 +14,16 @@
         text-align: center;
         height: 100px;
     }
+
     .tampil-terbilang {
         padding: 10px;
         background: #f0f0f0;
     }
+
     .table-pembelian tbody tr:last-child {
         display: none;
     }
+
     @media (max-width: 768px) {
         .tampil-bayar {
             font-size: 3em;
@@ -32,8 +35,8 @@
 @endpush
 
 @section('breadcrumb')
-    @parent
-    <li class="active">Transaksi Pembelian</li>
+@parent
+<li class="active">Transaksi Pembelian</li>
 @endsection
 
 <div class="row">
@@ -96,13 +99,12 @@
                         <div class="tampil-terbilang"></div>
                     </div>
                     <div class="col-lg-4">
-                    <form action="{{ route('pembelian_detail.store') }}" class="form-pembelian" method="post">
+                        <form action="/pembelian" class="form-pembelian" method="post">
                             @csrf
-                            <input type="hidden" name="kode_pembelian" value="{{ $kode_pembelian }}">
+                            <input type="hidden" name="kode_supplier" value="">
                             <input type="hidden" name="total" id="total">
                             <input type="hidden" name="total_item" id="total_item">
                             <input type="hidden" name="bayar" id="bayar">
-
                             <div class="form-group row">
                                 <label for="totalrp" class="col-lg-2 control-label">Total</label>
                                 <div class="col-lg-8">
@@ -121,14 +123,14 @@
                                     <input type="text" id="bayarrp" class="form-control">
                                 </div>
                             </div>
+                            <div class="box-footer">
+                                <button type="submit" name="submit" class="btn btn-primary btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> Simpan Transaksi</button>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-
-            <div class="box-footer">
-                <button type="submit" class="btn btn-primary btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> Simpan Transaksi</button>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -139,54 +141,56 @@
 @push('scripts')
 <script>
     let table, table2;
-    $(function () {
+    $(function() {
         $('body').addClass('sidebar-collapse');
         table = $('.table-pembelian').DataTable({
-            responsive: true,
-            processing: true,
-            serverSide: true,
-            autoWidth: false,
-            ajax: {
-                url: '{{ route("pembelian_detail.data", $kode_pembelian) }}',
-            },
-            columns: [
-                { data: 'DT_RowIndex', searchable: false, sortable: false },
-                { data: 'kode_produk' },
-                { data: 'nama_produk' },
-                { data: 'harga_beli' },
-                { data: 'jumlah' },
-                { data: 'subtotal' },
-                { data: 'aksi', searchable: false, sortable: false },
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                autoWidth: false,
+                ajax: {
+                    url: '{{ route("pembelian_detail.data", $kode_pembelian) }}',
+                },
+                  columns: [
+                {data: 'DT_RowIndex', searchable: false, sortable: false},
+                {data: 'kode_produk'},
+                {data: 'nama_produk'},
+                {data: 'harga_beli'},
+                {data: 'jumlah'},
+                {data: 'subtotal'},
+                {data: 'aksi', searchable: false, sortable: false},
             ],
             dom: 'Brt',
             bSort: false,
             paginate: false
-            
-        });
+            })
+            .on('draw.dt', function() {
+                loadForm($('#diskon.val'));
+            });
         table2 = $('.table-produk').DataTable();
 
-        $(document).on('input', '.quantity', function () {
-            let id=$(this).data('id');
-            let jumlah =parseInt($(this).val());
-            
-            if (jumlah < 1) {
-                 $(this).val(1);
-                 alert('Jumlah tidak boleh kurang dari 1');
-                 return;
-             }
-             if (jumlah > 10000) {
-                 $(this).val(10000);
-                 alert('Jumlah tidak boleh lebih dari 10000');
-                 return;
-             }
+        $(document).on('input', '.quantity', function() {
+            let id = $(this).data('id');
+            let jumlah = parseInt($(this).val());
 
-             $.post(`{{ url('/pembelian_detail') }}/${id}`, {
+            if (jumlah < 1) {
+                $(this).val(1);
+                alert('Jumlah tidak boleh kurang dari 1');
+                return;
+            }
+            if (jumlah > 10000) {
+                $(this).val(10000);
+                alert('Jumlah tidak boleh lebih dari 10000');
+                return;
+            }
+
+            $.post(`{{ url('/pembelian_detail') }}/${id}`, {
                     '_token': $('[name=csrf-token]').attr('content'),
                     '_method': 'put',
                     'jumlah': jumlah
                 })
                 .done(response => {
-                    $(this).on('mouseout', function () {
+                    $(this).on('mouseout', function() {
                         table.ajax.reload();
                     });
                 })
@@ -194,31 +198,37 @@
                     alert('Tidak dapat menyimpan data');
                     return;
                 });
-            });
+        });
+
+
+        $(document).on('input', '#diskon', function() {
+            if ($(this).val() == "") {
+                $(this).val(0).select();
+            }
+            loadForm($(this).val());
+        });
     });
 
-        // $(document).on('input', '#diskon', function () {
-        //     if ($(this).val() == "") {
-        //         $(this).val(0).select();
-        //     }
-        //     loadForm($(this).val());
-        // });
-        // $('.btn-simpan').on('click', function () {
-        //     $('.form-pembelian').submit();
-        // });
-   
+    // $(document).on('click','.btn-simpan', function(){
+    //     console.log('data simpan')
+    // })
+
 
     function tampilProduk() {
         $('#modal-produk').modal('show');
     }
+
     function hideProduk() {
         $('#modal-produk').modal('hide');
     }
-    function pilihProduk(kode_produk) {
+
+    function pilihProduk(kode_produk)
+     {
         $('#kode_produk').val(kode_produk);
         hideProduk();
         tambahProduk();
     }
+
     function tambahProduk() {
         $.post('{{ route("pembelian_detail.store") }}', $('.form-produk').serialize())
             .done(response => {
@@ -239,13 +249,14 @@
                     '_method': 'delete'
                 })
                 .done((response) => {
-                    table.ajax.reload() ;
+                    table.ajax.reload();
                 })
                 .fail((errors) => {
                     alert('Tidak dapat menghapus data');
                 });
         }
     }
+
     function loadForm(diskon = 0) {
         $('#total').val($('.total').text());
         $('#total_item').val($('.total_item').text());

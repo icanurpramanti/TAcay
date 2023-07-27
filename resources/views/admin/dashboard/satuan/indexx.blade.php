@@ -61,14 +61,14 @@
     <div class="card-body">
         <div class="modal fade" id="satuanModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content p-3">
                     <div class="modal-header">
                         <h5 class="modal-title">Create Satuan</h5>
                     </div>
                     <form action="/satuan" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
-                            <div class="mb-3">
+                            <div class="mb-3 mt-3">
                                 <label for="kode_satuan" class="form-label">Kode Satuan</label>
                                 <input type="text" class="form-control @error('kode_satuan') is-invalid @enderror" value="{{ old('kode_satuan') }}" id="kode_satuan" name="kode_satuan">
                                 @error('kode_satuan')
@@ -84,8 +84,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         </div>
                     </form>
                 </div>
@@ -99,7 +99,7 @@
     <div class="card-body">
         <div class="modal fade" id="satuanEdit{{ $satuan->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content p-3">
                     <div class="modal-header">
                         <h5 class="modal-title">Update Satuan</h5>
                     </div>
@@ -108,7 +108,7 @@
                         @csrf
                         <div class="modal-body">
                             <input type="hidden" class="form-control" id="id" name="id" value="{{ $satuan->id }}">
-                            <div class="mb-3">
+                            <div class="mb-3 mt-3">
                                 <label for="kode_satuan" class="form-label">Kode Satuan</label>
                                 <input type="text" class="form-control" id="kode_satuan" name="kode_satuan" value="{{ old('kode_satuan', $satuan->kode_satuan) }}">
                                 @error('kode_satuan')
@@ -124,8 +124,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                         </div>
                     </form>
                 </div>

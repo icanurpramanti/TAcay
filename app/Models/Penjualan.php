@@ -10,7 +10,7 @@ class Penjualan extends Model
     use HasFactory;
 
     protected $table = 'penjualans';
-    protected $primaryKey = 'kode_penjualan';
+    protected $primaryKey = 'id';
     protected $guarded = [];
 
     public function user()

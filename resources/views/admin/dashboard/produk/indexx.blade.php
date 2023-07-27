@@ -74,14 +74,14 @@
     <div class="card-body">
         <div class="modal fade" id="produkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content p-3">
                     <div class="card-header">
                         <h5 class="title text-center">Create Produk</h5>
                     </div>
                     <form action="/produk" method="post" enctype="multipart/form-data">
 
                         @csrf
-                        <div class="mb-3" style="margin-left:15px; margin-right:15px; margin-top:15px">
+                        <div class="mb-3 mt-3" style="margin-left:15px; margin-right:15px; margin-top:15px">
                             <label for="exampleFormControlInput1" class="form-label">Kode Produk </label>
                             <input type="text" class="form-control @error ('kode_produk') is-invalid @enderror" value="{{old('kode_produk')}}" id="kode_produk" name="kode_produk">
                         </div>
@@ -155,8 +155,8 @@
 
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         </div>
                     </form>
                 </div>
@@ -170,7 +170,7 @@
     <div class="card-body">
         <div class="modal fade" id="produkEdit{{$produk->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content p-3">
                     <div class="card-header">
                         <h5 class="title text-center">Update Produk</h5>
                     </div>
@@ -180,7 +180,7 @@
 
                         <input type="hidden" class="form-control" id="id" name="id" value="{{$produk->id}}">
 
-                        <div class="mb-3" style="margin-left:15px; margin-right:15px; margin-top:15px">
+                        <div class="mb-3 mt-3" style="margin-left:15px; margin-right:15px; margin-top:15px">
                             <label class="form-label">Kode Produk</label>
                             <input type="text" class="form-control @error('kode_produk') is-invalid @enderror" id="kode_produk" name="kode_produk" value="{{ old('kode_produk', $produk->kode_produk) }}">
                             @error('kode_produk')
@@ -253,8 +253,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                         </div>
                     </form>
                 </div>

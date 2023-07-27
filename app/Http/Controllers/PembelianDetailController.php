@@ -50,9 +50,9 @@ class PembelianDetailController extends Controller
             $row = array();
             $row['kode_produk'] = '<span class="label label-success">'. $item->produk['kode_produk'] .'</span';
             $row['nama_produk'] =$item->produk['nama_produk'];
-            $row['harga_beli'] ='Rp. ' . $item->harga_beli;
+            $row['harga_beli'] ='Rp. ' .format_uang($item->harga_beli) ;
             $row['jumlah'] = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id .'" value="'. $item->jumlah .'">';
-            $row['subtotal'] =$item->subtotal;
+            $row['subtotal'] ='Rp. ' .format_uang($item->subtotal) ;
             $row['aksi'] = ' <div class="btn-group">
                     <button onclick="deleteData(`'. route('pembelian_detail.destroy', $item->id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>';
@@ -89,7 +89,7 @@ class PembelianDetailController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -116,6 +116,7 @@ class PembelianDetailController extends Controller
 
         return response()->json('Data berhasil disimpan', 200);
     }
+
 
     public function pilihProduk($kode_produk){
         $produks = Produk::where('kode_produk','=',$kode_produk)->get();

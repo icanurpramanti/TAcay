@@ -65,14 +65,14 @@
     <div class="card-body">
         <div class="modal fade" id="supplierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content p-3">
                     <div class="card-header">
                         <h5 class="title text-center">Create Supplier</h5>
                     </div>
                     <form action="/supplier" method="post" enctype="multipart/form-data">
 
                         @csrf
-                        <div class="mb-3" style="margin-left:15px; margin-right:15px; margin-top:15px">
+                        <div class="mb-3 mt-3" style="margin-left:15px; margin-right:15px; margin-top:15px">
                             <label for="exampleFormControlInput1" class="form-label">Kode Supplier </label>
                             <input type="text" class="form-control @error ('kode_supplier') is-invalid @enderror" value="{{old('kode_supplier')}}" id="kode_supplier" name="kode_supplier">
                         </div>
@@ -105,8 +105,8 @@
                         @enderror
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         </div>
                     </form>
                 </div>
@@ -119,7 +119,7 @@
     @foreach ($suppliers as $supplier)
     <div class="modal fade" id="supplierEdit{{$supplier->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content p-3">
                 <div class="card-header">
                     <h5 class="title text-center">Update Supplier</h5>
                 </div>
@@ -130,7 +130,7 @@
                     <input type="hidden" class="form-control" id="id" name="id" value="{{$supplier->id}}">
 
 
-                    <div class="mb-3" style="margin-left:15px; margin-right:15px; margin-top:15px">
+                    <div class="mb-3 mt-3" style="margin-left:15px; margin-right:15px; margin-top:15px">
                         <label class="form-label">Kode Supplier</label>
                         <input type="text" class="form-control" id="kode_supplier" name="kode_supplier" value="{{old('kode_supplier',$supplier->kode_supplier)}}">
                     </div>
@@ -163,8 +163,8 @@
                     @enderror
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </div>
                 </form>
             </div>

@@ -30,6 +30,25 @@
             <th>Total Bayar</th>
             <th width="15%"><i class="fa fa-cog"></i></th>
           </thead>
+          <tbody>
+            @foreach ($pembelians as $key => $item)
+            <tr>
+              <td width="5%">{{ $key+1 }}</td>
+              <td>{{ $item->created_at }}</td>
+              <td>{{ $item->kode_supplier }}</td>
+              <td>{{ $item->total_item }}</td>
+              <td>{{ $item->total_harga }}</td>
+              <td>{{ $item->diskon }}</td>
+              <td>{{ $item->bayar }}</td>
+              <td>
+                <a href="#" class="btn btn-primary btn-xs btn-flat">
+                  <i class="fa fa-check-circle"></i>
+                  Pilih
+                </a>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
         </table>
       </div>
     </div>
@@ -45,45 +64,45 @@
 <script>
   let table, table1;
 
-  $(function() {
-    table = $('.table-pembelian').DataTable({
-      responsive: true,
-      processing: true,
-      serverSide: true,
-      autoWidth: false,
-      ajax: {
-        url: '{{ route("admin.dashboard.pembelian.data") }}',
-      },
-      columns: [{
-          data: 'DT_RowIndex',
-          searchable: false,
-          sortable: false
-        },
-        {
-          data: 'tanggal'
-        },
-        {
-          data: 'supplier'
-        },
-        {
-          data: 'total_item'
-        },
-        {
-          data: 'total_harga'
-        },
-        {
-          data: 'diskon'
-        },
-        {
-          data: 'bayar'
-        },
-        {
-          data: 'aksi',
-          searchable: false,
-          sortable: false
-        },
-      ]
-    });
+  // $(function() {
+  //   table = $('.table-pembelian').DataTable({
+  //     responsive: true,
+  //     processing: true,
+  //     serverSide: true,
+  //     autoWidth: false,
+  //     ajax: {
+  //       url: '/pembelian/data',
+  //     },
+  //     columns: [{
+  //         data: 'DT_RowIndex',
+  //         searchable: false,
+  //         sortable: false
+  //       },
+  //       {
+  //         data: 'tanggal'
+  //       },
+  //       {
+  //         data: 'supplier'
+  //       },
+  //       {
+  //         data: 'total_item'
+  //       },
+  //       {
+  //         data: 'total_harga'
+  //       },
+  //       {
+  //         data: 'diskon'
+  //       },
+  //       {
+  //         data: 'bayar'
+  //       },
+  //       {
+  //         data: 'aksi',
+  //         searchable: false,
+  //         sortable: false
+  //       },
+  //     ]
+  //   });
 
     $('.table-supplier').DataTable();
     table1 = $('.table-detail').DataTable({
@@ -112,7 +131,7 @@
         },
       ]
     })
-  });
+  
 
 
   function addForm() {

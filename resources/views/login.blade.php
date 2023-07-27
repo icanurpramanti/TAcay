@@ -28,7 +28,7 @@
             <div class="img">
                 <img src="img/shop.svg">
             </div>
-            <div class="login-content">
+            <div class="login-content form-login">
             <form action="{{ route('actionlogin') }}" method="post">
             @csrf
                     <img src="img/avatar.svg">

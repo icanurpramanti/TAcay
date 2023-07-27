@@ -15,11 +15,11 @@ class PembelianController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $suppliers = Supplier::orderBy('nama_supplier')->get();
-
-        return view('admin.dashboard.pembelian.index', compact('suppliers'));
+        $pembelians= Pembelian::all();
+        return view('admin.dashboard.pembelian.index', compact('suppliers','pembelians'));
     }
 
     /**
@@ -27,11 +27,11 @@ class PembelianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create(Request $request,$id)
     {
         $pembelians = new Pembelian();
+        $pembelians->kode_pembelian = $pembelians->id;
         $pembelians->kode_supplier = $id;
-        $pembelians->kode_pembelian = 'A03';
         $pembelians->total_item  = 0;
         $pembelians->total_harga = 0;
         $pembelians->diskon      = 0;
@@ -91,21 +91,22 @@ class PembelianController extends Controller
      */
     public function store(Request $request)
     {
-        $pembelians = Pembelian::findOrFail($request->kode_pembelian);
+        $pembelians = Pembelian::where('kode_pembelian',$request->kode_supplier)->first();
         $pembelians->total_item = $request->total_item;
         $pembelians->total_harga = $request->total;
         $pembelians->diskon = $request->diskon;
         $pembelians->bayar = $request->bayar;
         $pembelians->update();
 
-        $detail = PembelianDetail::where('kode_pembelian', $pembelians->kode_pembelian)->get();
-        foreach ($detail as $item) {
-            $produks = Produk::find($item->kode_produk);
-            $produks->stok += $item->jumlah;
-            $produks->update();
-        }
+        // $detail = PembelianDetail::where('kode_pembelian', $pembelians->kode_pembelian)->first();
+        // // dd($detail);
+        // foreach ($detail as $item) {
+        //     $produks = Produk::find($item->kode_produk);
+        //     $produks->stok += $item->jumlah;
+        //     $produks->update();
+        // }
 
-        return redirect()->route('admin.dashboard.pembelian.index');
+        return redirect('/pembelian');
     }
 
     /**

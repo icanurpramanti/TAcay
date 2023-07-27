@@ -67,14 +67,14 @@
     <div class="card-body">
         <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content p-3">
                     <div class="card-header">
                         <h5 class="title text-center">Create User</h5>
                     </div>
                     <form action="/user" method="post" enctype="multipart/form-data">
 
                         @csrf
-                        <div class="mb-3" style="margin-left:15px; margin-right:15px; margin-top:15px">
+                        <div class="mb-3 mt-3" style="margin-left:15px; margin-right:15px; margin-top:15px">
                             <label for="exampleFormControlInput1" class="form-label">Nama </label>
                             <input type="text" class="form-control @error ('nama') is-invalid @enderror" value="{{old('nama')}}" id="nama" name="nama">
                         </div>
@@ -136,8 +136,8 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         </div>
                     </form>
                 </div>
@@ -149,7 +149,7 @@
     @foreach ($users as $user)
     <div class="modal fade" id="userEdit{{$user->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content p-3">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
                 </div>
@@ -157,7 +157,7 @@
                     @method('put')
                     @csrf
                     <div class="modal-body">
-                        <div class="mb-3">
+                        <div class="mb-3 mt-3">
                             <label for="nama" class="form-label">Nama</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama', $user->nama) }}">
                             @error('nama')
@@ -216,8 +216,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </div>
                 </form>
             </div>
