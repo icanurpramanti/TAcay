@@ -195,7 +195,7 @@
                     });
                 })
                 .fail(errors => {
-                    alert('Tidak dapat menyimpan data');
+                    // alert('Tidak dapat menyimpan data');
                     return;
                 });
         });
@@ -237,7 +237,7 @@
                 table.ajax.reload(() => loadForm($('#diskon').val()));
             })
             .fail(errors => {
-                alert('Tidak dapat menyimpan data');
+                // alert('Tidak dapat menyimpan data');
                 console.log(errors);
             });
     }
@@ -252,7 +252,7 @@
                     table.ajax.reload();
                 })
                 .fail((errors) => {
-                    alert('Tidak dapat menghapus data');
+                    // alert('Tidak dapat menghapus data');
                 });
         }
     }
@@ -269,7 +269,7 @@
                 $('.tampil-terbilang').text(response.terbilang);
             })
             .fail(errors => {
-                alert('Tidak dapat menampilkan data');
+                // alert('Tidak dapat menampilkan data');
             })
     }
 </script>

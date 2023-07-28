@@ -10,10 +10,10 @@ class PenjualanDetail extends Model
     use HasFactory;
 
     protected $table = 'penjualan_details';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_penjualan_detail';
     protected $guarded = [];
 
-    public function produks()
+    public function produk()
     {
         return $this->hasOne(Produk::class, 'kode_produk', 'kode_produk');
     }

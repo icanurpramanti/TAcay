@@ -31,7 +31,7 @@
             <div class="login-content form-login">
             <form action="{{ route('actionlogin') }}" method="post">
             @csrf
-                    <img src="img/avatar.svg">
+                    <img src="img/avatar1.svg">
                     <h2 class="title">Sistem Informasi Penjualan  Toko Sembako di SRC Rani Cell</h2>
                     <div class="input-div one">
                         <div class="i">
