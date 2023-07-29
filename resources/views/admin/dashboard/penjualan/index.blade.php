@@ -30,7 +30,7 @@
     </div>
 </div>
 
-@includeIf('penjualan.detail')
+@includeIf('admin.dashboard.penjualan.detail')
 @endsection
 
 @push('scripts')
