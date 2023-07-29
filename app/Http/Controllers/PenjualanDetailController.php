@@ -20,7 +20,6 @@ class PenjualanDetailController extends Controller
         $settings = Setting :: first();
         // dd($produks,$settings);
 
-        //  return view('admin.dashboard.penjualan_detail.index', compact('produks', 'settings'));
 
 
         // $diskon = Setting::first()->diskon ?? 0;
@@ -39,33 +38,34 @@ class PenjualanDetailController extends Controller
      }
 
 
-    public function data($id)
-    {
-        $detail = PenjualanDetail::with('produk')
-            ->where('id_penjualan', $id)
-            ->get();
-
-        $data = array();
-        $total = 0;
-        $total_item = 0;
-
-        foreach ($detail as $item) {
-            $row = array();
-            $row['kode_produk'] = '<span class="label label-success">'. $item->produk['kode_produk'] .'</span';
-            $row['nama_produk'] = $item->produk['nama_produk'];
-            $row['harga_jual']  = 'Rp. '. format_uang($item->harga_jual);
-            $row['jumlah']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->kode_penjualan_detail .'" value="'. $item->jumlah .'">';
-            $row['diskon']      = $item->diskon . '%';
-            $row['subtotal']    = 'Rp. '. format_uang($item->subtotal);
-            $row['aksi']        = '<div class="btn-group">
-                                    <button onclick="deleteData(`'. url('/transaksi', $item->kode_penjualan_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
-                                </div>';
-            $data[] = $row;
-
-            $total += $item->harga_jual * $item->jumlah - (($item->diskon * $item->jumlah) / 100 * $item->harga_jual);;
-            $total_item += $item->jumlah;
-        }
-        $data[] = [
+   
+     public function data($id)
+     {
+         $detail = PenjualanDetail::with('produk')
+             ->where('id_penjualan', $id)
+             ->get();
+ 
+         $data = array();
+         $total = 0;
+         $total_item = 0;
+ 
+         foreach ($detail as $item) {
+             $row = array();
+             $row['kode_produk'] = '<span class="label label-success">'. $item->produk['kode_produk'] .'</span';
+             $row['nama_produk'] = $item->produk['nama_produk'];
+             $row['harga_jual']  = 'Rp. '. format_uang($item->harga_jual);
+             $row['jumlah']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id_penjualan_detail .'" value="'. $item->jumlah .'">';
+             $row['diskon']      = $item->diskon . '%';
+             $row['subtotal']    = 'Rp. '. format_uang($item->subtotal);
+             $row['aksi']        = '<div class="btn-group">
+                                     <button onclick="deleteData(`'. route('transaksi.destroy', $item->id_penjualan_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                                 </div>';
+             $data[] = $row;
+ 
+             $total += $item->harga_jual * $item->jumlah - (($item->diskon * $item->jumlah) / 100 * $item->harga_jual);;
+             $total_item += $item->jumlah;
+         }
+         $data[] = [
             'kode_produk' => '
                 <div class="total hide">'. $total .'</div>
                 <div class="total_item hide">'. $total_item .'</div>',
@@ -76,14 +76,12 @@ class PenjualanDetailController extends Controller
             'subtotal'    => '',
             'aksi'        => '',
         ];
-
-        return datatables()
-            ->of($data)
-            ->addIndexColumn()
-            ->rawColumns(['aksi', 'kode_produk', 'jumlah'])
-            ->make(true);
-    }
-
+         return datatables()
+             ->of($data)
+             ->addIndexColumn()
+             ->rawColumns(['aksi', 'kode_produk', 'jumlah'])
+             ->make(true);
+     }
 
 
     /**
@@ -102,6 +100,7 @@ class PenjualanDetailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
      public function store(Request $request)
     {
 
@@ -124,16 +123,18 @@ class PenjualanDetailController extends Controller
      }
     
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PenjualanDetail  $penjualanDetail
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PenjualanDetail $penjualanDetail)
-    {
-        //
-    }
+    
+    
+    //  /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  \App\Models\PenjualanDetail  $penjualanDetail
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show(PenjualanDetail $penjualanDetail)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.

@@ -34,10 +34,7 @@
 </style>
 @endpush
 
-@section('breadcrumb')
-@parent
-<li class="active">Transaksi Pembelian</li>
-@endsection
+
 
 <div class="row">
     <div class="col-lg-12">

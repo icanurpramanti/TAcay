@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
 {
-    use HasFactory;
-    protected $guarded=[];
+    protected $table = 'produks';
+    protected $primaryKey = 'id';
+    protected $guarded = [];
+    
 
     
 

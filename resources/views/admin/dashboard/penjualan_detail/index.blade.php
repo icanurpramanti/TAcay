@@ -31,11 +31,6 @@
 </style>
 @endpush
 
-@section('breadcrumb')
-    @parent
-    <li class="active">Transaksi Penjualan</li>
-@endsection
-
 @section('content')
 <div class="row">
     <div class="col-lg-12">
@@ -78,13 +73,12 @@
                         <div class="tampil-terbilang"></div>
                     </div>
                     <div class="col-lg-4">
-                        <form action="{{ route('transaksi.simpan') }}" class="form-penjualan" method="post">
+                    <form action="{{ route('transaksi.simpan') }}" class="form-penjualan" method="post">
                             @csrf
                             <input type="hidden" name="id_penjualan" value="{{ $id_penjualan }}">
                             <input type="hidden" name="total" id="total">
                             <input type="hidden" name="total_item" id="total_item">
                             <input type="hidden" name="bayar" id="bayar">
-
                             <div class="form-group row">
                                 <label for="totalrp" class="col-lg-2 control-label">Total</label>
                                 <div class="col-lg-8">
@@ -148,7 +142,7 @@
                 url: '{{ route("transaksi.data", $id_penjualan) }}',
             },
             columns: [
-                {data: 'DT_RowIndex', searchable: false, sortable: false},
+               {data: 'DT_RowIndex', searchable: false, sortable: false},
                 {data: 'kode_produk'},
                 {data: 'nama_produk'},
                 {data: 'harga_jual'},
@@ -212,7 +206,6 @@
             if ($(this).val() == "") {
                 $(this).val(0).select();
             }
-
             loadForm($('#diskon').val(), $(this).val());
         }).focus(function () {
             $(this).select();

@@ -21,42 +21,42 @@ class PenjualanController extends Controller
         return view('admin.dashboard.penjualan.index');
     }
 
-    public function data()
-    {
-        $penjualans = Penjualan::orderBy('kode_penjualan', 'desc')->get();
+    // public function data()
+    // {
+    //     $penjualans = Penjualan::orderBy('kode_penjualan', 'desc')->get();
 
-        return datatables()
-            ->of($penjualans)
-            ->addIndexColumn()
-            ->addColumn('total_item', function ($penjualans) {
-                return format_uang($penjualans->total_item);
-            })
-            ->addColumn('total_harga', function ($penjualans) {
-                return 'Rp. '. format_uang($penjualans->total_harga);
-            })
-            ->addColumn('bayar', function ($penjualans) {
-                return 'Rp. '. format_uang($penjualans->bayar);
-            })
-            ->addColumn('tanggal', function ($penjualans) {
-                return tanggal_indonesia($penjualans->created_at, false);
-            })
-            ->editColumn('diskon', function ($penjualans) {
-                return $penjualans->diskon . '%';
-            })
-            ->editColumn('kasir', function ($penjualans) {
-                return $penjualans->user->name ?? '';
-            })
-            ->addColumn('aksi', function ($penjualans) {
-                return '
-                <div class="btn-group">
-                    <button onclick="showDetail(`'. route('penjualan.show', $penjualans->kode_penjualan) .'`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
-                    <button onclick="deleteData(`'. route('penjualan.destroy', $penjualans->kode_penjualan) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
-                </div>
-                ';
-            })
-            ->rawColumns(['aksi'])
-            ->make(true);
-    }
+    //     return datatables()
+    //         ->of($penjualans)
+    //         ->addIndexColumn()
+    //         ->addColumn('total_item', function ($penjualans) {
+    //             return format_uang($penjualans->total_item);
+    //         })
+    //         ->addColumn('total_harga', function ($penjualans) {
+    //             return 'Rp. '. format_uang($penjualans->total_harga);
+    //         })
+    //         ->addColumn('bayar', function ($penjualans) {
+    //             return 'Rp. '. format_uang($penjualans->bayar);
+    //         })
+    //         ->addColumn('tanggal', function ($penjualans) {
+    //             return tanggal_indonesia($penjualans->created_at, false);
+    //         })
+    //         ->editColumn('diskon', function ($penjualans) {
+    //             return $penjualans->diskon . '%';
+    //         })
+    //         ->editColumn('kasir', function ($penjualans) {
+    //             return $penjualans->user->name ?? '';
+    //         })
+    //         ->addColumn('aksi', function ($penjualans) {
+    //             return '
+    //             <div class="btn-group">
+    //                 <button onclick="showDetail(`'. route('penjualan.show', $penjualans->kode_penjualan) .'`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
+    //                 <button onclick="deleteData(`'. route('penjualan.destroy', $penjualans->kode_penjualan) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+    //             </div>
+    //             ';
+    //         })
+    //         ->rawColumns(['aksi'])
+    //         ->make(true);
+    // }
 
 
     /**
@@ -87,32 +87,31 @@ class PenjualanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+     {
        
-            $penjualan = Penjualan::where('id_penjualan',$request->id_penjualan)->first();
-            // dd($penjualan);
-            $penjualan->id_penjualan = $request->id_penjualan;
-            $penjualan->total_item = $request->total_item;
-            $penjualan->total_harga = $request->total_harga;
-            $penjualan->diskon = $request->diskon;
-            $penjualan->bayar = $request->bayar;
-            $penjualan->diterima = $request->diterima;
-            // $penjualan->id_user = $request->id_user;
-            $penjualan->update();
+        $penjualans = Penjualan::findOrFail($request->id_penjualan);
+                 //  dd($penjualans);
+            // $penjualan->id_penjualan = $request->id_penjualan;
+            $penjualans->total_item = $request->total_item;
+            $penjualans->total_harga = $request->total;
+            $penjualans->diskon = $request->diskon;
+            $penjualans->bayar = $request->bayar;
+            $penjualans->diterima = $request->diterima;
+            // $penjualans->id_user = $request->id_user;
+            $penjualans->update();
     
-            $detail = PenjualanDetail::where('kode_penjualan', $penjualan->kode_penjualan)->get();
+            $detail = PenjualanDetail::where('id_penjualan', $penjualans->id_penjualan)->get();
             foreach ($detail as $item) {
                 $item->diskon = $request->diskon;
                 $item->update();
     
-                $produks = Produk::find($item->kode_produk);
-                $produks->stok -= $item->jumlah;
+                $produks = Produk::where('kode_produk', $item->kode_produk)->first();                $produks->stok -= $item->jumlah;
                 $produks->update();
-            }
+            
     
-            return redirect()->route('transaksi.selesai');
+      return redirect()->route('transaksi.selesai');
         
-    }
+     }
 
     /**
      * Display the specified resource.
@@ -120,30 +119,30 @@ class PenjualanController extends Controller
      * @param  \App\Models\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-     public function show($id)
-    {
-        $detail = PenjualanDetail::with('produks')->where('kode_penjualan', $id)->get();
+    //  public function show($id)
+    // {
+    //     $detail = PenjualanDetail::with('produks')->where('kode_penjualan', $id)->get();
 
-        return datatables()
-            ->of($detail)
-            ->addIndexColumn()
-            ->addColumn('kode_produk', function ($detail) {
-                return '<span class="label label-success">'. $detail->produks->kode_produk .'</span>';
-            })
-            ->addColumn('nama_produk', function ($detail) {
-                return $detail->produks->nama_produk;
-            })
-            ->addColumn('harga_jual', function ($detail) {
-                return 'Rp. '. format_uang($detail->harga_jual);
-            })
-            ->addColumn('jumlah', function ($detail) {
-                return format_uang($detail->jumlah);
-            })
-            ->addColumn('subtotal', function ($detail) {
-                return 'Rp. '. format_uang($detail->subtotal);
-            })
-            ->rawColumns(['kode_produk'])
-            ->make(true);
+    //     return datatables()
+    //         ->of($detail)
+    //         ->addIndexColumn()
+    //         ->addColumn('kode_produk', function ($detail) {
+    //             return '<span class="label label-success">'. $detail->produks->kode_produk .'</span>';
+    //         })
+    //         ->addColumn('nama_produk', function ($detail) {
+    //             return $detail->produks->nama_produk;
+    //         })
+    //         ->addColumn('harga_jual', function ($detail) {
+    //             return 'Rp. '. format_uang($detail->harga_jual);
+    //         })
+    //         ->addColumn('jumlah', function ($detail) {
+    //             return format_uang($detail->jumlah);
+    //         })
+    //         ->addColumn('subtotal', function ($detail) {
+    //             return 'Rp. '. format_uang($detail->subtotal);
+    //         })
+    //         ->rawColumns(['kode_produk'])
+    //         ->make(true);
     }
 
     /**

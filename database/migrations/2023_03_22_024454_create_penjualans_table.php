@@ -20,7 +20,7 @@ return new class extends Migration
             $table->tinyInteger('diskon')->default(0);
             $table->integer('bayar')->default(0);
             $table->integer('diterima')->default(0);
-            $table->integer('id_user');
+            $table->string('id_user');
             $table->timestamps();
         });
     }
