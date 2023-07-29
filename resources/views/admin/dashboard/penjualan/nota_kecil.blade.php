@@ -63,17 +63,17 @@
     <br>
     <div>
         <p style="float: left;">{{ date('d-m-Y') }}</p>
-        <p style="float: right">{{ strtoupper(auth()->users()->nama) }}</p>
+        <p style="float: right">{{ strtoupper(auth()->user()->nama) }}</p>
     </div>
     <div class="clear-both" style="clear: both;"></div>
-    <p>No: {{ tambah_nol_didepan($penjualans->kode_penjualan, 10) }}</p>
+    <p>Id Penjualan  : {{ strtoupper($penjualans->id_penjualan) }}</p>
     <p class="text-center">===================================</p>
     
     <br>
     <table width="100%" style="border: 0;">
         @foreach ($detail as $item)
             <tr>
-                <td colspan="3">{{ $item->produks->nama_produk }}</td>
+                <td colspan="3">{{ $item->produk->nama_produk }}</td>
             </tr>
             <tr>
                 <td>{{ $item->jumlah }} x {{ format_uang($item->harga_jual) }}</td>

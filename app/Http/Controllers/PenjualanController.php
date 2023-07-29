@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
-use App\Models\User;
 use App\Models\Setting;
 use App\Models\PenjualanDetail;
 use App\Models\Penjualan;
@@ -33,10 +32,10 @@ class PenjualanController extends Controller
                 return format_uang($penjualans->total_item);
             })
             ->addColumn('total_harga', function ($penjualans) {
-                return 'Rp. '. format_uang($penjualans->total_harga);
+                return 'Rp. ' . format_uang($penjualans->total_harga);
             })
             ->addColumn('bayar', function ($penjualans) {
-                return 'Rp. '. format_uang($penjualans->bayar);
+                return 'Rp. ' . format_uang($penjualans->bayar);
             })
             ->addColumn('tanggal', function ($penjualans) {
                 return tanggal_indonesia($penjualans->created_at, false);
@@ -50,8 +49,8 @@ class PenjualanController extends Controller
             ->addColumn('aksi', function ($penjualans) {
                 return '
                 <div class="btn-group">
-                    <button onclick="showDetail(`'. route('penjualan.show', $penjualans->id_penjualan) .'`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
-                    <button onclick="deleteData(`'. route('penjualan.destroy', $penjualans->id_penjualan) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button onclick="showDetail(`' . route('penjualan.show', $penjualans->id_penjualan) . '`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
+                    <button onclick="deleteData(`' . route('penjualan.destroy', $penjualans->id_penjualan) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -78,7 +77,6 @@ class PenjualanController extends Controller
 
         session(['id_penjualan' => $penjualans->id_penjualan]);
         return redirect()->route('transaksi.index');
-
     }
 
     /**
@@ -88,33 +86,31 @@ class PenjualanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-     {
-       
-        $penjualans = Penjualan::findOrFail($request->id_penjualan);
-                 //  dd($penjualans);
-            // $penjualan->id_penjualan = $request->id_penjualan;
-            $penjualans->total_item = $request->total_item;
-            $penjualans->total_harga = $request->total;
-            $penjualans->diskon = $request->diskon;
-            $penjualans->bayar = $request->bayar;
-            $penjualans->diterima = $request->diterima;
-            // $penjualans->id_user = $request->id_user;
-            $penjualans->update();
-    
-            $detail = PenjualanDetail::where('id_penjualan', $penjualans->id_penjualan)->get();
-            foreach ($detail as $item) {
-                $item->diskon = $request->diskon;
-                $item->update();
-    
-                $produks = Produk::where('kode_produk', $item->kode_produk)->first();  
-                $produks->stok -= $item->jumlah;
-                $produks->update();
-            
-    
-      return redirect()->route('transaksi.selesai');
-        
-     }
+    {
 
+        $penjualans = Penjualan::findOrFail($request->id_penjualan);
+        //  dd($penjualans);
+        // $penjualan->id_penjualan = $request->id_penjualan;
+        $penjualans->total_item = $request->total_item;
+        $penjualans->total_harga = $request->total;
+        $penjualans->diskon = $request->diskon;
+        $penjualans->bayar = $request->bayar;
+        $penjualans->diterima = $request->diterima;
+        // $penjualans->id_user = $request->id_user;
+        $penjualans->update();
+
+        $detail = PenjualanDetail::where('id_penjualan', $penjualans->id_penjualan)->get();
+        foreach ($detail as $item) {
+            $item->diskon = $request->diskon;
+            $item->update();
+
+            $produks = Produk::where('kode_produk', $item->kode_produk)->first();
+            $produks->stok -= $item->jumlah;
+            $produks->update();
+
+
+            return redirect()->route('transaksi.selesai');
+        }
     }
     /**
      * Display the specified resource.
@@ -122,7 +118,7 @@ class PenjualanController extends Controller
      * @param  \App\Models\Penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-     public function show($id)
+    public function show($id)
     {
         $detail = PenjualanDetail::with('produk')->where('id_penjualan', $id)->get();
 
@@ -130,19 +126,19 @@ class PenjualanController extends Controller
             ->of($detail)
             ->addIndexColumn()
             ->addColumn('kode_produk', function ($detail) {
-                return '<span class="label label-success">'. $detail->produk->kode_produk .'</span>';
+                return '<span class="label label-success">' . $detail->produk->kode_produk . '</span>';
             })
             ->addColumn('nama_produk', function ($detail) {
                 return $detail->produk->nama_produk;
             })
             ->addColumn('harga_jual', function ($detail) {
-                return 'Rp. '. format_uang($detail->harga_jual);
+                return 'Rp. ' . format_uang($detail->harga_jual);
             })
             ->addColumn('jumlah', function ($detail) {
                 return format_uang($detail->jumlah);
             })
             ->addColumn('subtotal', function ($detail) {
-                return 'Rp. '. format_uang($detail->subtotal);
+                return 'Rp. ' . format_uang($detail->subtotal);
             })
             ->rawColumns(['kode_produk'])
             ->make(true);
@@ -184,9 +180,9 @@ class PenjualanController extends Controller
         $detail    = PenjualanDetail::where('id_penjualan', $penjualans->id_penjualan)->get();
         foreach ($detail as $item) {
             $produks = Produk::find($item->id_produk);
-            if ( $produks) {
-                 $produks->stok += $item->jumlah;
-                 $produks->update();
+            if ($produks) {
+                $produks->stok += $item->jumlah;
+                $produks->update();
             }
 
             $item->delete();
@@ -195,42 +191,28 @@ class PenjualanController extends Controller
         $penjualans->delete();
 
         return response(null, 204);
-     }
+    }
 
     public function selesai()
     {
-         $settings = Setting::first();
+        $settings = Setting::first();
 
         return view('admin.dashboard.penjualan.selesai');
     }
 
-    // public function notaKecil()
-    // {
-    //     $settings = Setting::first();
-    //     $penjualans = Penjualan::find(session('id_penjualan'));
-    //     if (! $penjualans) {
-    //         abort(404);
-    //     }
-    //     $detail = PenjualanDetail::with('produks')
-    //         ->where('kode_penjualan', session('kode_penjualan'))
-    //         ->get();
-        
-    //     return view('penjualan.nota_kecil', compact('settings', 'penjualans', 'detail'));
-    // }
+    public function notaKecil()
+    {
+        $settings = Setting::first();
+        $penjualans = Penjualan::find(session('id_penjualan'));
+        if (! $penjualans) {
+            abort(404);
+        }
+        $detail = PenjualanDetail::with('produk')
+            ->where('id_penjualan', session('id_penjualan'))
+            ->get();
 
-    // public function notaBesar()
-    // {
-    //     $settings = Setting::first();
-    //     $penjualans = Penjualan::find(session('kode_penjualan'));
-    //     if (! $penjualans) {
-    //         abort(404);
-    //     }
-    //     $detail = PenjualanDetail::with('produk')
-    //         ->where('kode_penjualan', session('kode_penjualan'))
-    //         ->get();
+        return view('admin.dashboard.penjualan.nota_kecil', compact('settings', 'penjualans', 'detail'));
+    }
 
-    //     $pdf = PDF::loadView('penjualan.nota_besar', compact('settings', 'penjualans', 'detail'));
-    //     $pdf->setPaper(0,0,609,440, 'potrait');
-    //     return $pdf->stream('Transaksi-'. date('Y-m-d-his') .'.pdf');
-    // }
+  
 }
