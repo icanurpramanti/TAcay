@@ -10,7 +10,7 @@ class Pembelian extends Model
     use HasFactory;
 
     protected $table='pembelians';
-    protected $primaryKey='kode_pembelian';
+    protected $primaryKey='id_pembelian';
     protected $guarded=[];
 
     public function supplier()

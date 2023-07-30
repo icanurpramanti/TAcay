@@ -4,7 +4,7 @@
 
 @if (session()->has('pesan'))
 <div class="alert alert-success" role="alert">
-  {{ session('pesan') }}
+    {{ session('pesan') }}
 </div>
 @endif
 
@@ -18,8 +18,9 @@
                     Data Transaksi telah selesai.
                 </div>
             </div>
-            <div class="box-footer">  
-            <button class="btn btn-warning btn-flat" onclick="notaKecil('{{ route('transaksi.nota_kecil') }}', 'Nota Kecil')">Cetak Ulang Nota</button>            <a href="{{ route('transaksi.baru') }}" class="btn btn-primary btn-flat">Transaksi Baru</a>
+            <div class="box-footer">
+                <button class="btn btn-warning btn-flat" onclick="notaKecil('{{ route('transaksi.nota_kecil') }}', 'Nota Kecil')">Cetak Ulang Nota</button>
+                <a href="{{ route('transaksi.baru') }}" class="btn btn-primary btn-flat">Transaksi Baru</a>
             </div>
         </div>
     </div>
@@ -30,7 +31,7 @@
 <script>
     // tambahkan untuk delete cookie innerHeight terlebih dahulu
     document.cookie = "innerHeight=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    
+
     function notaKecil(url, title) {
         popupCenter(url, title, 625, 500);
     }
@@ -40,17 +41,17 @@
     }
 
     function popupCenter(url, title, w, h) {
-        const dualScreenLeft = window.screenLeft !==  undefined ? window.screenLeft : window.screenX;
-        const dualScreenTop  = window.screenTop  !==  undefined ? window.screenTop  : window.screenY;
+        const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
+        const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
 
-        const width  = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+        const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
         const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
 
         const systemZoom = width / window.screen.availWidth;
-        const left       = (width - w) / 2 / systemZoom + dualScreenLeft
-        const top        = (height - h) / 2 / systemZoom + dualScreenTop
-        const newWindow  = window.open(url, title, 
-        `
+        const left = (width - w) / 2 / systemZoom + dualScreenLeft
+        const top = (height - h) / 2 / systemZoom + dualScreenTop
+        const newWindow = window.open(url, title,
+            `
             scrollbars=yes,
             width  = ${w / systemZoom}, 
             height = ${h / systemZoom}, 

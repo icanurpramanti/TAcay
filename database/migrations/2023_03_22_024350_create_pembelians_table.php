@@ -14,13 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pembelians', function (Blueprint $table) {
-            $table->id();
-            $table->string('kode_pembelian')->nullable();
-            $table->string('kode_supplier');
+            $table->increments('id_pembelian');
+            $table->integer('kode_supplier');
             $table->integer('total_item');
             $table->integer('total_harga');
-            $table->tinyInteger('diskon');
-            $table->integer('bayar');
+            $table->tinyInteger('diskon')->default(0);
+            $table->integer('bayar')->default(0);
             $table->timestamps();
         });
     }

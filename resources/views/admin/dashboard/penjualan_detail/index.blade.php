@@ -3,10 +3,11 @@
 
 @if (session()->has('pesan'))
 <div class="alert alert-success" role="alert">
-  {{session('pesan')}}
+  {{ session('pesan') }}
 </div>
 @endif
 
+<!-- Tambahkan 'css' jika diperlukan, jika tidak hapus bagian ini -->
 @push('css')
 <style>
     .tampil-bayar {
@@ -31,7 +32,6 @@
 </style>
 @endpush
 
-@section('content')
 <div class="row">
     <div class="col-lg-12">
         <div class="box">
@@ -44,7 +44,6 @@
                         <div class="col-lg-5">
                             <div class="input-group">
                                 <input type="hidden" name="id_penjualan" id="id_penjualan" value="{{ $id_penjualan }}">
-                                <!-- <input type="hidden" name="kode_produk" id="kode_produk"> -->
                                 <input type="text" class="form-control" name="kode_produk" id="kode_produk">
                                 <span class="input-group-btn">
                                     <button onclick="tampilProduk()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right"></i></button>
@@ -89,7 +88,7 @@
                                 <label for="diskon" class="col-lg-2 control-label">Diskon</label>
                                 <div class="col-lg-8">
                                     <input type="number" name="diskon" id="diskon" class="form-control" 
-                                        value="{{ $penjualans-> diskon ?? 0 }}" 
+                                        value="{{ $penjualans->diskon ?? 0 }}" 
                                         readonly>
                                 </div>
                             </div>
@@ -224,7 +223,7 @@
         $('#modal-produk').modal('hide');
     }
 
-    function pilihProduk( kode) {
+    function pilihProduk(kode) {
         $('#kode_produk').val(kode);
         hideProduk();
         tambahProduk();

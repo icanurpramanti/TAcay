@@ -18,8 +18,8 @@ class PembelianController extends Controller
     public function index(Request $request)
     {
         $suppliers = Supplier::orderBy('nama_supplier')->get();
-        $pembelians= Pembelian::all();
-        return view('admin.dashboard.pembelian.index', compact('suppliers','pembelians'));
+
+        return view('admin.dashboard.pembelian.index', compact('suppliers'));
     }
 
     /**
@@ -27,10 +27,10 @@ class PembelianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request,$id)
+
+    public function create($id)
     {
         $pembelians = new Pembelian();
-        $pembelians->kode_pembelian = $pembelians->id;
         $pembelians->kode_supplier = $id;
         $pembelians->total_item  = 0;
         $pembelians->total_harga = 0;
@@ -38,16 +38,14 @@ class PembelianController extends Controller
         $pembelians->bayar       = 0;
         $pembelians->save();
 
-        session(['kode_pembelian' => $pembelians->kode_pembelian]);
+        session(['id_pembelian' => $pembelians->id_pembelian]);
         session(['kode_supplier' => $pembelians->kode_supplier]);
-        if( $pembelians->save()){
-            return redirect('/pembelian_detail/'.$pembelians->kode_supplier);
-        }
-    }
 
+        return redirect()->route('pembelian_detail.index');
+    }
     public function data()
     {
-        $pembelians = Pembelian::orderBy('kode_pembelian', 'desc')->get();
+        $pembelians = Pembelian::orderBy('id_pembelian', 'desc')->get();
 
         return datatables()
             ->of($pembelians)
@@ -73,8 +71,8 @@ class PembelianController extends Controller
             ->addColumn('aksi', function ($pembelians) {
                 return '
                 <div class="btn-group">
-                    <button onclick="showDetail(`'. route('admin.dashboard.pembelian.show', $pembelians->kode_pembelian) .'`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
-                    <button onclick="deleteData(`'. route('admin.dashboard.pembelian.destroy', $pembelians->kode_pembelian) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                    <button onclick="showDetail(`'. route('pembelian.show', $pembelians->id_pembelian) .'`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
+                    <button onclick="deleteData(`'. route('pembelian.destroy', $pembelians->id_pembelian) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -91,22 +89,21 @@ class PembelianController extends Controller
      */
     public function store(Request $request)
     {
-        $pembelians = Pembelian::where('kode_pembelian',$request->kode_supplier)->first();
+        $pembelians = Pembelian::findOrFail($request->id_pembelian);
         $pembelians->total_item = $request->total_item;
         $pembelians->total_harga = $request->total;
         $pembelians->diskon = $request->diskon;
         $pembelians->bayar = $request->bayar;
         $pembelians->update();
 
-        // $detail = PembelianDetail::where('kode_pembelian', $pembelians->kode_pembelian)->first();
-        // // dd($detail);
+        // $detail = PembelianDetail::where('id_pembelian', $pembelians->id_pembelian)->get();
         // foreach ($detail as $item) {
         //     $produks = Produk::find($item->kode_produk);
         //     $produks->stok += $item->jumlah;
         //     $produks->update();
-        // }
+        //}
 
-        return redirect('/pembelian');
+        return redirect()->route('pembelian.index');
     }
 
     /**
@@ -117,7 +114,7 @@ class PembelianController extends Controller
      */
     public function show($id)
     {
-        $detail = PembelianDetail::with('produk')->where('kode_pembelian', $id)->get();
+        $detail = PembelianDetail::with('produk')->where('id_pembelian', $id)->get();
 
         return datatables()
             ->of($detail)
@@ -173,7 +170,7 @@ class PembelianController extends Controller
     public function destroy($id)
     {
         $pembelians = Pembelian::find($id);
-        $detail    = PembelianDetail::where('kode_pembelian', $pembelians->kode_pembelian)->get();
+        $detail    = PembelianDetail::where('id_pembelian', $pembelians->id_pembelian)->get();
         foreach ($detail as $item) {
             $produks = Produk::find($item->kode_produk);
             if ($produks) {
@@ -188,4 +185,3 @@ class PembelianController extends Controller
         return response(null, 204);
     }
 }
-

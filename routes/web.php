@@ -48,23 +48,31 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/register', RegisterController::class);
 
     ///pembelian
-    Route::get('/pembelian/{kode_pembelian}/create', [PembelianController::class, 'create'])->name('admin.dashboard.pembelian.create');
+    Route::get('/pembelian/data', [PembelianController::class, 'data'])->name('pembelian.data');
     Route::resource('/pembelian', PembelianController::class)
-        ->except('create');
-    Route::get('/pembelian/data', [PembelianController::class, 'data']);
-
+    ->except('create');
+    Route::get('/pembelian/{id}/create', [PembelianController::class, 'create'])->name('pembelian.create');
+    
 
 
     //pembelian detail
-    Route::get('/pembelian_detail/{kode_supplier}', [PembelianDetailController::class, 'index']);
-    Route::post('/pembelian_detail', [PembelianDetailController::class, 'store'])->name('pembelian_detail.store');
-    Route::delete('/pembelian_detail/{id}', [PembelianDetailController::class, 'destroy'])->name('pembelian_detail.destroy');
-    Route::put('/pembelian_detail/{id}', [PembelianDetailController::class, 'update'])->name('pembelian_detail.update');
-    Route::get('/pembelian_detail/pilihProduk/{kode_produk}', [PembelianDetailController::class, 'pilihProduk'])->name('pembelian_detail.pilihProduk');
     Route::get('/pembelian_detail/{id}/data', [PembelianDetailController::class, 'data'])->name('pembelian_detail.data');
-    Route::get('/pembelian_detail/loadform/{diskon}/{total}', [PembelianDetailController::class, 'loadForm'])->name('admin.dashboard.pembelian_detail.load_form');
-    // Route::resource('/pembelian_detail', PembelianDetailController::class)
-    // ->except('create', 'show', 'edit');
+     Route::get('/pembelian_detail/loadform/{diskon}/{total}', [PembelianDetailController::class, 'loadForm'])->name('pembelian_detail.load_form');
+    Route::resource('/pembelian_detail', PembelianDetailController::class)
+        ->except('create', 'show', 'edit');
+        
+
+
+    //pembelian detail
+    // Route::get('/pembelian_detail/{kode_supplier}', [PembelianDetailController::class, 'index']);
+    // Route::post('/pembelian_detail', [PembelianDetailController::class, 'store'])->name('pembelian_detail.store');
+    // Route::delete('/pembelian_detail/{id}', [PembelianDetailController::class, 'destroy'])->name('pembelian_detail.destroy');
+    // Route::put('/pembelian_detail/{id}', [PembelianDetailController::class, 'update'])->name('pembelian_detail.update');
+    // Route::get('/pembelian_detail/pilihProduk/{kode_produk}', [PembelianDetailController::class, 'pilihProduk'])->name('pembelian_detail.pilihProduk');
+    // Route::get('/pembelian_detail/{id}/data', [PembelianDetailController::class, 'data'])->name('pembelian_detail.data');
+    // Route::get('/pembelian_detail/loadform/{diskon}/{total}', [PembelianDetailController::class, 'loadForm'])->name('admin.dashboard.pembelian_detail.load_form');
+    // // Route::resource('/pembelian_detail', PembelianDetailController::class)
+    // // ->except('create', 'show', 'edit');
 
 
     //penjualan

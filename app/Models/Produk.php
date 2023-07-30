@@ -22,9 +22,6 @@ class Produk extends Model
         return $this-> belongsTo(Satuan::class,'kode_satuan');
     }
 
-//     public function pembelian_detail(){
-//         return $this-> belongsTo(PembelianDetail::class,'kode_pembelian');
-//   }
 
     
 }

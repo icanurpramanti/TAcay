@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pembelian_details', function (Blueprint $table) {
-            $table->id();
-            $table->string('kode_pembelian',12);
-            $table->string('kode_produk',12);
+            $table->increments('id_pembelian_detail');
+            $table->integer('id_pembelian');
+            $table->string('kode_produk');
             $table->integer('harga_beli');
             $table->integer('jumlah');
             $table->integer('subtotal');

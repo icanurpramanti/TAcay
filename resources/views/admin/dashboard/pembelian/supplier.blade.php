@@ -27,7 +27,7 @@
               <td>{{ $item->no_hp }}</td>
               <td>{{ $item->alamat_supplier }}</td>
               <td>
-                <a href="{{ route('admin.dashboard.pembelian.create', $item->kode_supplier) }}" class="btn btn-primary btn-xs btn-flat">
+                <a href="{{ route('pembelian.create', $item->kode_supplier) }}" class="btn btn-primary btn-xs btn-flat">
                   <i class="fa fa-check-circle"></i>
                   Pilih
                 </a>

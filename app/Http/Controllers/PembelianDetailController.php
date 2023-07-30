@@ -15,23 +15,18 @@ class PembelianDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($kode_supplier)
-    {
-        $kode_pembelian = session('kode_pembelian');
+     public function index()
+     {
+        $id_pembelian = session('id_pembelian');
         $produks = Produk::orderBy('nama_produk')->get();
-        $suppliers = Supplier::where('kode_supplier', $kode_supplier)->get();
-        $diskon = Pembelian::find($kode_pembelian)->diskon ?? 0;
-        // dd($suppliers,$produks,$kode_pembelian,$diskon);
-        if (!$suppliers) {
-            echo "supplier ndk ado do";
-        } else {
-            return view('admin.dashboard.pembelian_detail.index',[
-                'suppliers'=> $suppliers,
-                'kode_pembelian'=> $kode_pembelian,
-                'diskon' => $diskon,
-                'produks' => $produks
-            ]);
-        }
+        $suppliers = Supplier::find(session('kode_supplier'));
+        $diskon = Pembelian::find($id_pembelian)->diskon ?? 0;
+
+        // if (! $suppliers) {
+        //     abort(404);
+        // }
+
+        return view('admin.dashboard.pembelian_detail.index', compact('id_pembelian', 'produks', 'suppliers','diskon'));
     }
 
 
@@ -40,7 +35,7 @@ class PembelianDetailController extends Controller
  
         // Menampilkan produk yang dipilih
         $detail = PembelianDetail::with('produk')
-        ->where('kode_pembelian',$id)
+        ->where('id_pembelian',$id)
         ->get();
          $data = array();
          $total = 0;
@@ -51,11 +46,9 @@ class PembelianDetailController extends Controller
             $row['kode_produk'] = '<span class="label label-success">'. $item->produk['kode_produk'] .'</span';
             $row['nama_produk'] =$item->produk['nama_produk'];
             $row['harga_beli'] ='Rp. ' .format_uang($item->harga_beli) ;
-            $row['jumlah'] = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id .'" value="'. $item->jumlah .'">';
-            $row['subtotal'] ='Rp. ' .format_uang($item->subtotal) ;
+            $row['jumlah']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id_pembelian_detail .'" value="'. $item->jumlah .'">';            $row['subtotal'] ='Rp. ' .format_uang($item->subtotal) ;
             $row['aksi'] = ' <div class="btn-group">
-                    <button onclick="deleteData(`'. route('pembelian_detail.destroy', $item->id) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
-                </div>';
+            <button onclick="deleteData(`'. route('pembelian_detail.destroy', $item->id_pembelian_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>                </div>';
             $data[]=$row;
 
             $total +=$item->harga_beli * $item->jumlah;
@@ -101,13 +94,12 @@ class PembelianDetailController extends Controller
     public function store(Request $request)
     {
         $produks = Produk::where('kode_produk', $request->kode_produk)->first();
-        // dd($produks);
-        if (!$produks) {
+        if (! $produks) {
             return response()->json('Data gagal disimpan', 400);
         }
-        
+
         $detail = new PembelianDetail();
-        $detail->kode_pembelian = $request->kode_pembelian;
+        $detail->id_pembelian = $request->id_pembelian;
         $detail->kode_produk = $produks->kode_produk;
         $detail->harga_beli = $produks->harga_beli;
         $detail->jumlah = 1;
@@ -118,13 +110,8 @@ class PembelianDetailController extends Controller
     }
 
 
-    public function pilihProduk($kode_produk){
-        $produks = Produk::where('kode_produk','=',$kode_produk)->get();
-        // dd($produks);
-        return view('admin.dashboard.pembelian_detail.produk',[
-            'produks' => $produks
-        ]);
-    }
+
+   
 
     /**
      * Display the specified resource.
@@ -132,26 +119,7 @@ class PembelianDetailController extends Controller
      * @param  \App\Models\PembelianDetail  $pembelianDetail
      * @return \Illuminate\Http\Response
      */
-    public function show(PembelianDetail $pembelianDetail,$kode_supplier)
-    {
-        // // return view('admin.dashboard.pembelian_detail.index');
-        // $kode_pembelian = session('kode_pembelian');
-        // $produks = Produk::orderBy('nama_produk')->get();
-        // $suppliers = Supplier::where('kode_supplier', $kode_supplier)->get();
-        // $diskon = Pembelian::find($kode_pembelian)->diskon ?? 0;
-        // // dd($suppliers,$produks,$kode_pembelian,$diskon);
-        // if (!$suppliers) {
-        //     echo "supplier ndk ado do";
-        // } else {
-        //     return view('admin.dashboard.pembelian_detail.index',[
-        //         'suppliers'=> $suppliers,
-        //         'kode_pembelian'=> $kode_pembelian,
-        //         'diskon' => $diskon,
-        //         'produks' => $produks
-        //     ]);
-        // }
-    }
-
+   
     /**
      * Show the form for editing the specified resource.
      *

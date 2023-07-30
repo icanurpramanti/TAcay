@@ -60,13 +60,14 @@
                 </table>
             </div>
             <div class="box-body">
-                <form class="form-produk">
+            <form class="form-produk">
                     @csrf
                     <div class="form-group row">
                         <label for="kode_produk" class="col-lg-2">Kode Produk</label>
                         <div class="col-lg-5">
                             <div class="input-group">
-                                <input type="hidden" name="kode_pembelian" id="kode_pembelian" value="{{ $kode_pembelian }}">
+                                <input type="hidden" name="id_pembelian" id="id_pembelian" value="{{ $id_pembelian }}">
+                                <input type="hidden" name="id_produk" id="id_produk">
                                 <input type="text" class="form-control" name="kode_produk" id="kode_produk">
                                 <span class="input-group-btn">
                                     <button onclick="tampilProduk()" class="btn btn-info btn-flat" type="button"><i class="fa fa-arrow-right"></i></button>
@@ -96,12 +97,13 @@
                         <div class="tampil-terbilang"></div>
                     </div>
                     <div class="col-lg-4">
-                        <form action="/pembelian" class="form-pembelian" method="post">
+                    <form action="{{ route('pembelian.store') }}" class="form-pembelian" method="post">
                             @csrf
-                            <input type="hidden" name="kode_supplier" value="">
+                            <input type="hidden" name="id_pembelian" value="{{ $id_pembelian }}">
                             <input type="hidden" name="total" id="total">
                             <input type="hidden" name="total_item" id="total_item">
                             <input type="hidden" name="bayar" id="bayar">
+
                             <div class="form-group row">
                                 <label for="totalrp" class="col-lg-2 control-label">Total</label>
                                 <div class="col-lg-8">
@@ -120,14 +122,13 @@
                                     <input type="text" id="bayarrp" class="form-control">
                                 </div>
                             </div>
-                            <div class="box-footer">
-                                <button type="submit" name="submit" class="btn btn-primary btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> Simpan Transaksi</button>
-                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-            
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary btn-sm btn-flat pull-right btn-simpan"><i class="fa fa-floppy-o"></i> Simpan Transaksi</button>
+            </div>
         </div>
     </div>
 </div>
@@ -146,7 +147,7 @@
                 serverSide: true,
                 autoWidth: false,
                 ajax: {
-                    url: '{{ route("pembelian_detail.data", $kode_pembelian) }}',
+                    url: '{{ route("pembelian_detail.data", $id_pembelian) }}',
                 },
                   columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},
@@ -204,11 +205,15 @@
             }
             loadForm($(this).val());
         });
+
+        $('.btn-simpan').on('click', function () {
+            $('.form-pembelian').submit();
+        });
     });
 
-    // $(document).on('click','.btn-simpan', function(){
-    //     console.log('data simpan')
-    // })
+    $(document).on('click','.btn-simpan', function(){
+        console.log('data simpan')
+    })
 
 
     function tampilProduk() {
@@ -249,7 +254,7 @@
                     table.ajax.reload();
                 })
                 .fail((errors) => {
-                    // alert('Tidak dapat menghapus data');
+                     alert('Tidak dapat menghapus data');
                 });
         }
     }
@@ -257,16 +262,18 @@
     function loadForm(diskon = 0) {
         $('#total').val($('.total').text());
         $('#total_item').val($('.total_item').text());
+
         $.get(`{{ url('/pembelian_detail/loadform') }}/${diskon}/${$('.total').text()}`)
             .done(response => {
-                $('#totalrp').val('Rp. ' + response.totalrp);
-                $('#bayarrp').val('Rp. ' + response.bayarrp);
+                $('#totalrp').val('Rp. '+ response.totalrp);
+                $('#bayarrp').val('Rp. '+ response.bayarrp);
                 $('#bayar').val(response.bayar);
-                $('.tampil-bayar').text('Rp. ' + response.bayarrp);
+                $('.tampil-bayar').text('Rp. '+ response.bayarrp);
                 $('.tampil-terbilang').text(response.terbilang);
             })
             .fail(errors => {
                 // alert('Tidak dapat menampilkan data');
+                return;
             })
     }
 </script>
