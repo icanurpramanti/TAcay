@@ -1,4 +1,4 @@
-@extends('admin.dashboard.layout.template')
+@extends('kasir.dashboard.layout2.template')
 
 @section('content')
 
