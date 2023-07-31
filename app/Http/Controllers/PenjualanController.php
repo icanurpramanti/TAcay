@@ -43,9 +43,6 @@ class PenjualanController extends Controller
             ->editColumn('diskon', function ($penjualans) {
                 return $penjualans->diskon . '%';
             })
-            ->editColumn('kasir', function ($penjualans) {
-                return $penjualans->user->nama ?? '';
-            })
             ->addColumn('aksi', function ($penjualans) {
                 return '
                 <div class="btn-group">
@@ -72,7 +69,6 @@ class PenjualanController extends Controller
         $penjualans->diskon = 0;
         $penjualans->bayar = 0;
         $penjualans->diterima = 0;
-        $penjualans->id_user = auth()->id();
         $penjualans->save();
 
         session(['id_penjualan' => $penjualans->id_penjualan]);
@@ -96,7 +92,6 @@ class PenjualanController extends Controller
         $penjualans->diskon = $request->diskon;
         $penjualans->bayar = $request->bayar;
         $penjualans->diterima = $request->diterima;
-        // $penjualans->id_user = $request->id_user;
         $penjualans->update();
 
         $detail = PenjualanDetail::where('id_penjualan', $penjualans->id_penjualan)->get();

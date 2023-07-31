@@ -19,7 +19,7 @@ class ProdukController extends Controller
         $satuans = Satuan::all();
         $produks = Produk::latest()->paginate(7);
     
-        return view('admin.dashboard.produk.indexx', compact('kategoris', 'produks','satuans'));
+        return view('admin.dashboard.produk.index', compact('kategoris', 'produks','satuans'));
     }
 
     /**

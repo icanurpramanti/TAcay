@@ -14,7 +14,7 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.kategori.indexx',[
+        return view('admin.dashboard.kategori.index',[
             'kategoris' =>  Kategori::latest()->paginate(7)
         ]);
     }

@@ -16,25 +16,15 @@ class PenjualanDetailController extends Controller
      */
     public function index()
     {
+        $id_penjualan = session('id_penjualan');
         $produks = Produk::orderBy('nama_produk')->get();
         $settings = Setting :: first();
-        // dd($produks,$settings);
-
-
-
+        
+    
         // $diskon = Setting::first()->diskon ?? 0;
 
-      // Cek apakah ada transaksi yang sedang berjalan
-        if ($id_penjualan = session('id_penjualan')) {
-            $penjualans = Penjualan::find($id_penjualan);
-            return view('admin.dashboard.penjualan_detail.index', compact('produks', 'settings','id_penjualan'));
-        } else {
-            if (auth()->user()->level == 'admin') {
-                return redirect()->route('transaksi.baru');
-            } else {
-                return redirect()->route('home');
-            }
-        }
+        return view('admin.dashboard.penjualan_detail.index', compact('id_penjualan', 'produks', 'settings'));
+
      }
 
 
@@ -65,7 +55,7 @@ class PenjualanDetailController extends Controller
              $total += $item->harga_jual * $item->jumlah - (($item->diskon * $item->jumlah) / 100 * $item->harga_jual);;
              $total_item += $item->jumlah;
          }
-         $data[] = [
+         $data[] = [       
             'kode_produk' => '
                 <div class="total hide">'. $total .'</div>
                 <div class="total_item hide">'. $total_item .'</div>',
@@ -122,19 +112,16 @@ class PenjualanDetailController extends Controller
         return response()->json('Data berhasil disimpan', 200);
      }
     
-
-    
-    
     //  /**
     //  * Display the specified resource.
     //  *
     //  * @param  \App\Models\PenjualanDetail  $penjualanDetail
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function show(PenjualanDetail $penjualanDetail)
-    // {
-    //     //
-    // }
+    public function show(PenjualanDetail $penjualanDetail)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
