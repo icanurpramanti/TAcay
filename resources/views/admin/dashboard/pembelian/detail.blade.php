@@ -12,7 +12,7 @@
                         <th width="5%">No</th>
                         <th>Kode</th>
                         <th>Nama</th>
-                        <th>Harga</th>
+                        <th>Harga Beli</th>
                         <th>Jumlah</th>
                         <th>Subtotal</th>
                     </thead>

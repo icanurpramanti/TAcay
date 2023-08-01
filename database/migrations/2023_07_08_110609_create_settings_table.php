@@ -17,9 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_toko');
             $table->text('alamat')->nullable();
-            $table->string('telepon');
-            $table->tinyInteger('tipe_nota');
-            $table->string('diskon');
+            $table->string('no_hp');
             $table->timestamps();
         });
     }

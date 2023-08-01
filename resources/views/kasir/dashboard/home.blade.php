@@ -1,5 +1,5 @@
 @extends ('kasir.dashboard.layout2.template')
-@section('content')
+@section('contentkasir')
 
 <!-- End Navbar -->
 <div class="content">

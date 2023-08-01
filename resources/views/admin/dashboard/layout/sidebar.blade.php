@@ -10,7 +10,7 @@
   <li>
   <li class="{{ Request::is('kategori') ? 'active' : ''}}">
     <a href="/kategori">
-      <i class="nc-icon nc-paper"></i>
+      <i class="nc-icon nc-single-copy-04"></i>
       <p>Data Kategori</p>
     </a>
   </li>
@@ -18,7 +18,7 @@
   <li>
   <li class="{{ Request::is('satuan') ? 'active' : ''}}">
     <a href="/satuan">
-      <i class="nc-icon nc-badge"></i>
+      <i class="nc-icon nc-app"></i>
       <p>Data Satuan </p>
     </a>
   </li>
@@ -50,35 +50,35 @@
   <li>
   <li class="{{ Request::is('pembelian') ? 'active' : ''}}">
     <a href="/pembelian">
-      <i class="nc-icon nc-bank"></i>
+      <i class="nc-icon nc-bag-16"></i>
       <p>Pembelian</p>
     </a>
   </li>
 
   <li>
     <a href="{{ route('penjualan.index') }}">
-      <i class="fa fa-upload"></i>
-       <span>Penjualan</span>
+      <i class="nc-icon nc-money-coins"></i>
+      <span>Penjualan</span>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('transaksi.baru') }}">
+      <i class="nc-icon nc-cart-simple"></i>
+      <span>Transaksi Baru</span>
     </a>
   </li>
 
   <li>
     <a href="{{ route('transaksi.index') }}">
       <i class="fa fa-cart-arrow-down"></i>
-       <span>Transaksi Aktif </span>
-    </a>
-  </li>
-
-  <li>
-    <a href="{{ route('transaksi.baru') }}">
-      <i class="fa fa-cart-arrow-down"></i> 
-      <span>Transaksi Baru</span>
+      <span>Transaksi Aktif </span>
     </a>
   </li>
 
   <li>
     <a href="{{ route('laporan.index') }}">
-      <i class="fa fa-cart-arrow-down"></i> 
+      <i class="nc-icon nc-paper"></i>
       <span>Laporan Pendapatan</span>
     </a>
   </li>
