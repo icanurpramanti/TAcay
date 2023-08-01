@@ -13,10 +13,10 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PembelianDetailController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PenjualanDetailController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
-
 
 
 /*
@@ -75,10 +75,17 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/transaksi', PenjualanDetailController::class)
         ->except('show');
 
+     //laporan
+     Route::get('/laporan',[LaporanController::class,'index'])->name('laporan.index');
+     Route::get('/laporan/data/{awal}/{akhir}', [LaporanController::class, 'data'])->name('laporan.data');
+     Route::get('/laporan/pdf/{awal}/{akhir}', [LaporanController::class, 'exportPDF'])->name('laporan.export_pdf');
+
+
     //setting    
     Route::get('/setting', [SettingController::class, 'index'])->name('admin.dashboard.setting.index');
     Route::get('/setting/first', [SettingController::class, 'show'])->name('admin.dashboard.setting.show');
     Route::post('/setting', [SettingController::class, 'update'])->name('admin.dashboard.setting.update');
+    
      ///route detail
      Route::get('/produk-detail/{id}', [ProdukController::class, 'detail'])->name("produk-detail");
      Route::get('/supplier-detail/{id}', [SupplierController::class, 'detail'])->name("supplier-detail");

@@ -68,10 +68,18 @@
        <span>Transaksi Aktif </span>
     </a>
   </li>
+
   <li>
     <a href="{{ route('transaksi.baru') }}">
       <i class="fa fa-cart-arrow-down"></i> 
       <span>Transaksi Baru</span>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('laporan.index') }}">
+      <i class="fa fa-cart-arrow-down"></i> 
+      <span>Laporan Pendapatan</span>
     </a>
   </li>
 
