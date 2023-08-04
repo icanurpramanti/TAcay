@@ -19,9 +19,8 @@ class SettingSeeder extends Seeder
             'id' => 1,
             'nama_toko' => 'SRC Rani Cell',
             'alamat' => 'Jl. Gurun Laweh',
-            'telepon' => '081363437701',
-            'tipe_nota' => 1, // kecil
-            'diskon' => 5,
+            'no_hp' => '081363437701',
+        
             
            
         ]);

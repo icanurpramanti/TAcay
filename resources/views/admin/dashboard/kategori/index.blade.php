@@ -52,6 +52,7 @@
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
@@ -63,56 +64,61 @@
                 <div class="modal-content p-3">
                     <div class="modal-header">
                         <h5 class="title text-center">CREATE KATEGORI</h5>
-                    </div <form action="/kategori" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="mb-3 mt-3">
-                            <label for="exampleFormControlInput1" class="form-label">Kode Kategori</label>
-                            <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" value="{{ old('kode_kategori') }}" id="kode_kategori" name="kode_kategori">
-                            @error('kode_kategori')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Nama Kategori</label>
-                            <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror" value="{{ old('nama_kategori') }}" id="nama_kategori" name="nama_kategori">
-                            @error('nama_kategori')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                    </div>
+                    <form action="/kategori" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-3 mt-3">
+                                <label for="kode_kategori" class="form-label">Kode kategori</label>
+                                <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" value="{{ old('kode_kategori') }}" id="kode_kategori" name="kode_kategori">
+                                @error('kode_kategori')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="nama_kategori" class="form-label">Nama kategori</label>
+                                <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror" value="{{ old('nama_kategori') }}" id="nama_kategori" name="nama_kategori">
+                                @error('nama_kategori')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Simpan</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                         </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Editkategori -->
-    @foreach ($kategoris as $kategori)
+
+<!-- Editkategori -->
+@foreach ($kategoris as $kategori)
+<div class="card-body">
     <div class="modal fade" id="kategoriEdit{{ $kategori->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content p-3">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">EDIT KATEGORI</h5>
+                    <h5 class="modal-title">EDIT kategori</h5>
                 </div>
                 <form action="/kategori/{{ $kategori->id }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="modal-body">
+                        <input type="hidden" class="form-control" id="id" name="id" value="{{ $kategori->id }}">
                         <div class="mb-3 mt-3">
-                            <label for="kode_kategori" class="form-label">Kode Kategori</label>
-                            <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" id="kode_kategori" name="kode_kategori" value="{{ old('kode_kategori', $kategori->kode_kategori) }}">
+                            <label for="kode_kategori" class="form-label">Kode kategori</label>
+                            <input type="text" class="form-control" id="kode_kategori" name="kode_kategori" value="{{ old('kode_kategori', $kategori->kode_kategori) }}">
                             @error('kode_kategori')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="mb-3 ">
-                            <label for="nama_kategori" class="form-label">Nama Kategori</label>
-                            <input type="text" class="form-control @error('nama_kategori') is-invalid @enderror" id="nama_kategori" name="nama_kategori" value="{{ old('nama_kategori', $kategori->nama_kategori) }}">
+                        <div class="mb-3">
+                            <label for="nama_kategori" class="form-label">Nama kategori</label>
+                            <input type="text" class="form-control" id="nama_kategori" name="nama_kategori" value="{{ old('nama_kategori', $kategori->nama_kategori) }}">
                             @error('nama_kategori')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -126,6 +132,8 @@
             </div>
         </div>
     </div>
-    @endforeach
+</div>
+@endforeach
+
 </div>
 @endsection

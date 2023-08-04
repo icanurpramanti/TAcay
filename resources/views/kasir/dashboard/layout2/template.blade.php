@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="icon" type="image/png" href="../assets/img/logoca.jpg">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     SRC Rani Cell
@@ -44,13 +45,13 @@
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="#" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="../assets/img/logo-small.png">
+            <img src="../assets/img/logoca.jpg">
           </div>
           <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+        <a href="#" class="simple-text logo-normal">
           SRC Rani CELL
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
@@ -70,7 +71,7 @@
       <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
   <div class="container-fluid">
     <div class="navbar-wrapper">
-      <a class="navbar-brand mx-4" href="javascript:;">MANAJEMEN KASIR</a>
+      <a class="navbar-brand mx-4" href="javascript:;">MANAJEMEN ADMIN</a>
     </div>
     <div class="collapse navbar-collapse justify-content-end" id="navigation">
       <ul class="navbar-nav">
@@ -94,7 +95,7 @@
 
       <!-- CONTENT -->
       <div class="content">
-        @yield('contentkasir')
+        @yield('content')
       </div>
       <!-- END CONTENT -->
 

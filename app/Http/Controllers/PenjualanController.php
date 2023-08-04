@@ -47,7 +47,6 @@ class PenjualanController extends Controller
                 return '
                 <div class="btn-group">
                     <button onclick="showDetail(`' . route('penjualan.show', $penjualans->id_penjualan) . '`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
-                    <button onclick="deleteData(`' . route('penjualan.destroy', $penjualans->id_penjualan) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -95,17 +94,23 @@ class PenjualanController extends Controller
         $penjualans->update();
 
         $detail = PenjualanDetail::where('id_penjualan', $penjualans->id_penjualan)->get();
+        $kodeproduk = [];
+
         foreach ($detail as $item) {
+            $kodeproduk[] = $item->kode_produk;
             $item->diskon = $request->diskon;
             $item->update();
 
-            $produks = Produk::where('kode_produk', $item->kode_produk)->first();
-            $produks->stok -= $item->jumlah;
-            $produks->update();
+            // Ambil produk berdasarkan kode_produk
+            $produk = Produk::where('kode_produk', $item->kode_produk)->first();
 
-
-            return redirect()->route('transaksi.selesai');
+            $updateStock = $produk->stok - $item->jumlah;
+            $produk->update([
+                'stok' => $updateStock
+            ]);
         }
+
+        return redirect()->route('transaksi.selesai');
     }
     /**
      * Display the specified resource.
@@ -171,21 +176,6 @@ class PenjualanController extends Controller
      */
     public function destroy($id)
     {
-        $penjualans = Penjualan::find($id);
-        $detail    = PenjualanDetail::where('id_penjualan', $penjualans->id_penjualan)->get();
-        foreach ($detail as $item) {
-            $produks = Produk::find($item->id_produk);
-            if ($produks) {
-                $produks->stok += $item->jumlah;
-                $produks->update();
-            }
-
-            $item->delete();
-        }
-
-        $penjualans->delete();
-
-        return response(null, 204);
     }
 
     public function selesai()
@@ -199,7 +189,7 @@ class PenjualanController extends Controller
     {
         $settings = Setting::first();
         $penjualans = Penjualan::find(session('id_penjualan'));
-        if (! $penjualans) {
+        if (!$penjualans) {
             abort(404);
         }
         $detail = PenjualanDetail::with('produk')
@@ -208,6 +198,4 @@ class PenjualanController extends Controller
 
         return view('admin.dashboard.penjualan.nota_kecil', compact('settings', 'penjualans', 'detail'));
     }
-
-  
 }

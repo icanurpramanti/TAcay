@@ -72,7 +72,6 @@ class PembelianController extends Controller
                 return '
                 <div class="btn-group">
                     <button onclick="showDetail(`'. route('pembelian.show', $pembelians->id_pembelian) .'`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
-                    <button onclick="deleteData(`'. route('pembelian.destroy', $pembelians->id_pembelian) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -96,12 +95,23 @@ class PembelianController extends Controller
         $pembelians->bayar = $request->bayar;
         $pembelians->update();
 
-        // $detail = PembelianDetail::where('id_pembelian', $pembelians->id_pembelian)->get();
-        // foreach ($detail as $item) {
-        //     $produks = Produk::find($item->kode_produk);
-        //     $produks->stok += $item->jumlah;
-        //     $produks->update();
-        //}
+        $detail = PembelianDetail::where('id_pembelian', $pembelians->id_pembelian)->get();
+        $kodeproduk = [];
+
+        foreach ($detail as $item) {
+            $kodeproduk[] = $item->kode_produk;
+            $item->update();
+
+            // Ambil produk berdasarkan kode_produk
+            $produk = Produk::where('kode_produk', $item->kode_produk)->first();
+
+            $updateStock = $produk->stok + $item->jumlah;
+            $produk->update([
+                'stok' => $updateStock
+            ]);
+        }
+
+
 
         return redirect()->route('pembelian.index');
     }
@@ -169,19 +179,5 @@ class PembelianController extends Controller
      */
     public function destroy($id)
     {
-        $pembelians = Pembelian::find($id);
-        $detail    = PembelianDetail::where('id_pembelian', $pembelians->id_pembelian)->get();
-        foreach ($detail as $item) {
-            $produks = Produk::find($item->kode_produk);
-            if ($produks) {
-                $produks->stok -= $item->jumlah;
-                $produks->update();
-            }
-            $item->delete();
-        }
-
-        $pembelians->delete();
-
-        return response(null, 204);
     }
 }

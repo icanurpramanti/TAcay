@@ -40,6 +40,8 @@ class HomeController extends Controller
                 'produks' => $produks,
                 'suppliers' => $suppliers,
                 'users' => $users,
+                'data_tanggal' => $data_tanggal,
+                'data_pendapatan' => $data_pendapatan,
             ]);
             
     }
