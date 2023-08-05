@@ -8,7 +8,7 @@
 
 
   <li>
-    <a href="{{ route('penjualan.index') }}">
+    <a href="{{ route('penjualan.indexkasir') }}">
       <i class="nc-icon nc-money-coins"></i>
       <span>Penjualan</span>
     </a>

@@ -106,6 +106,8 @@ class PembelianDetailController extends Controller
         $detail->subtotal = $produks->harga_beli;
         $detail->save();
 
+        
+
         return response()->json('Data berhasil disimpan', 200);
     }
 

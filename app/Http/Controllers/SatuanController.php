@@ -38,12 +38,14 @@ class SatuanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'kode_satuan' => 'required|unique:satuans|',
             'nama_satuan' => 'required',
-
         ]);
+
+        $validatedData['kode_satuan'] = Satuan::generateKode();
+
         Satuan::create($validatedData);
-        return redirect('/satuan')->with('pesan','Data Berhasil Di Tambah');
+
+        return redirect('/satuan')->with('pesan', 'Data Berhasil Di Tambah');
     }
 
     /**

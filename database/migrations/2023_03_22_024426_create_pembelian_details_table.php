@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pembelian_details', function (Blueprint $table) {
             $table->increments('id_pembelian_detail');
-            $table->integer('id_pembelian');
+            $table->string('id_pembelian');
             $table->string('kode_produk');
             $table->integer('harga_beli');
             $table->integer('jumlah');

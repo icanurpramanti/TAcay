@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pembelian;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 
 class LaporanController extends Controller
@@ -55,7 +56,7 @@ class LaporanController extends Controller
             'tanggal' => '',
             'penjualan' => '',
             'pembelian' => 'Total Pendapatan',
-            'pendapatan' => 'Rp. ' .format_uang($pendapatan),
+            'pendapatan' => 'Rp. ' .format_uang($total_pendapatan),
         ];
 
         return $data;

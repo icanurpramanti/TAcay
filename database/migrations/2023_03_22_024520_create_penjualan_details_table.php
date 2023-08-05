@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('penjualan_details', function (Blueprint $table) {
             $table->increments('id_penjualan_detail');
-            $table->integer('id_penjualan');
-            $table->integer('kode_produk');
+            $table->string('id_penjualan');
+            $table->string('kode_produk');
             $table->integer('harga_jual');
             $table->integer('jumlah');
             $table->tinyInteger('diskon')->default(0);

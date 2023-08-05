@@ -46,7 +46,6 @@ class ProdukController extends Controller
     {
          // dd($request->all());
          $validatedData = $request->validate([
-            'kode_produk' => 'required|unique:produks|size:3',
             'nama_produk' => 'required',
             'kode_kategori' => 'required',
             'kode_satuan' => 'required',
@@ -56,6 +55,9 @@ class ProdukController extends Controller
             'stok' => 'required',
 
         ]);
+
+           $validatedData['kode_produk'] = Produk::generateKode();
+
         Produk::create($validatedData);
         return redirect('/produk')->with('pesan','Data Berhasil Di Tambah');
     }

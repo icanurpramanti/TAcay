@@ -104,7 +104,7 @@ Route::middleware(['auth', 'CheckLevel:kasir'])->group(function () {
 
     //penjualan
     Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
-    Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+    Route::get('/penjualan/kasir', [PenjualanController::class, 'indexkasir'])->name('penjualan.indexkasir');
     Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
     Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
 

@@ -70,7 +70,7 @@
                         <div class="modal-body">
                             <div class="mb-3 mt-3">
                                 <label for="kode_satuan" class="form-label">Kode Satuan</label>
-                                <input type="text" class="form-control @error('kode_satuan') is-invalid @enderror" value="{{ old('kode_satuan') }}" id="kode_satuan" name="kode_satuan">
+                                <input type="text" class="form-control @error('kode_satuan') is-invalid @enderror" value="{{ \App\Models\Satuan::generateKode() }}" id="kode_satuan" name="kode_satuan" readonly">
                                 @error('kode_satuan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

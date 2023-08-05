@@ -84,7 +84,7 @@
                         <div class="modal-body">
                             <div class="mb-3 mt-3">
                                 <label for="exampleFormControlInput1" class="form-label">Kode Produk </label>
-                                <input type="text" class="form-control @error ('kode_produk') is-invalid @enderror" value="{{old('kode_produk')}}" id="kode_produk" name="kode_produk">
+                                <input type="text" class="form-control @error ('kode_produk') is-invalid @enderror" value="{{ \App\Models\Produk::generateKode() }}" id="kode_produk" name="kode_produk" readonly>
                             </div>
                             @error('kode_produk')
                             {{ $message }}

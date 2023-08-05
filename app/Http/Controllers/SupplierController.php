@@ -38,12 +38,13 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'kode_supplier' => 'required',
             'nama_supplier' => 'required',
             'no_hp' => 'required',
             'alamat_supplier' => 'required',
 
         ]);
+
+        $validatedData['kode_supplier'] = Supplier::generateKode();
         Supplier::create($validatedData);
         return redirect('/supplier')->with('pesan','Data Berhasil Di Tambah');
     }

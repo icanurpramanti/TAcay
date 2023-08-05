@@ -14,7 +14,7 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.kategori.index',[
+        return view('admin.dashboard.kategori.index', [
             'kategoris' =>  Kategori::latest()->paginate(7)
         ]);
     }
@@ -38,12 +38,14 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'kode_kategori' => 'required|unique:kategoris|',
             'nama_kategori' => 'required',
-
         ]);
+
+        $validatedData['kode_kategori'] = Kategori::generateKode();
+
         Kategori::create($validatedData);
-        return redirect('/kategori')->with('pesan','Data Berhasil Di Tambah');
+
+        return redirect('/kategori')->with('pesan', 'Data Berhasil Di Tambah');
     }
 
     /**
@@ -52,17 +54,17 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-      public function show(Kategori $id)
+    public function show(Kategori $id)
     {
         // $kategori= Kategori::findOrfail($id);
-        return view('admin.dashboard.kategori.detail',[
-            'kategoris'=>Kategori::findOrFail($id)
+        return view('admin.dashboard.kategori.detail', [
+            'kategoris' => Kategori::findOrFail($id)
         ]);
     }
 
     public function detail($id)
     {
-        return view('admin.dashboard.kategori.detail',[
+        return view('admin.dashboard.kategori.detail', [
             'kategori' => Kategori::findOrFail($id)
         ]);
     }
@@ -74,10 +76,10 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.dashboard.kategori.edit',[
-            'kategoris' =>Kategori::find($id)
-    
-       ]);
+        return view('admin.dashboard.kategori.edit', [
+            'kategoris' => Kategori::find($id)
+
+        ]);
     }
 
     /**
@@ -93,9 +95,9 @@ class KategoriController extends Controller
             'kode_kategori' => 'required',
             'nama_kategori' => 'required',
         ]);
-        Kategori::where('id',$id)
+        Kategori::where('id', $id)
             ->update($validatedData);
-        return redirect('/kategori')->with('pesan','Data Berhasil Di Ubah');
+        return redirect('/kategori')->with('pesan', 'Data Berhasil Di Ubah');
     }
 
     /**
@@ -107,7 +109,7 @@ class KategoriController extends Controller
     public function destroy($id)
     {
         Kategori::destroy($id);
-        return redirect('/kategori')-> with('pesan','Data Berhasil Di hapus');
+        return redirect('/kategori')->with('pesan', 'Data Berhasil Di hapus');
     }
 
     public function searchkategori(Request $request)
@@ -116,5 +118,4 @@ class KategoriController extends Controller
         $kategoris = Kategori::where('nama_kategori', 'like', "%" . $keyword . "%")->paginate(5);
         return view('admin.dashboard.kategori.index', compact('kategoris'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
-
 }

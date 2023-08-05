@@ -70,7 +70,7 @@
                         <div class="modal-body">
                             <div class="mb-3 mt-3">
                                 <label for="kode_kategori" class="form-label">Kode kategori</label>
-                                <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" value="{{ old('kode_kategori') }}" id="kode_kategori" name="kode_kategori">
+                                <input type="text" class="form-control @error('kode_kategori') is-invalid @enderror" value="{{ \App\Models\Kategori::generateKode() }}" id="kode_kategori" name="kode_kategori" readonly>
                                 @error('kode_kategori')
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

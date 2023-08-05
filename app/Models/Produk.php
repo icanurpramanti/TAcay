@@ -12,6 +12,21 @@ class Produk extends Model
     protected $guarded = [];
     
 
+    public static function generateKode()
+    {
+        $latestProduk = static::orderBy('id', 'desc')->first();
+
+        if ($latestProduk) {
+            $lastCode = $latestProduk->kode_produk;
+            $lastNumber = (int)substr($lastCode, 2);
+            $newNumber = $lastNumber + 1;
+            $newCode = 'P-' . sprintf("%03s", $newNumber);
+        } else {
+            $newCode = 'P-001';
+        }
+
+        return $newCode;
+    }
     
 
     public function kategori(){

@@ -62,7 +62,7 @@ class UserController extends Controller
             'level' => $request->level,
             'email' => $request->email,
             'foto_user' => $filename,
-            'password' =>\Hash::make($request->password),
+            'password' =>Hash::make($request->password),
             'alamat_user' => $request->alamat_user,
             'no_hp' => $request->no_hp,
             ]

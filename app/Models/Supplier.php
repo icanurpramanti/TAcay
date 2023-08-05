@@ -11,6 +11,23 @@ class Supplier extends Model
     protected $primaryKey = 'id';
     protected $guarded = [];
 
+
+    public static function generateKode()
+    {
+        $latestSupplier = static::orderBy('id', 'desc')->first();
+
+        if ($latestSupplier) {
+            $lastCode = $latestSupplier->kode_supplier;
+            $lastNumber = (int)substr($lastCode, 2);
+            $newNumber = $lastNumber + 1;
+            $newCode = 'SP-' . sprintf("%03s", $newNumber);
+        } else {
+            $newCode = 'SP-001';
+        }
+
+        return $newCode;
+    }
+
     public function pembelianDetail(){
         return $this->belongsTo(PembelianDetail::class,'kode_supplier','kode_supplier');
     }
