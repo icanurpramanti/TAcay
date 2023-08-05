@@ -126,7 +126,7 @@
           <p class="card-category">24 Hours performance</p>
         </div>
         <div class="card-body ">
-          <canvas id=chartHours width="400" height="100"></canvas>
+        <canvas id=salesChart width="400" height="100"></canvas>
         </div>
         <div class="card-footer ">
           <hr>
@@ -140,3 +140,55 @@
 </div>
 
 @endsection
+@push('scripts')
+<!-- ChartJS -->
+<script src="../assets/js/plugins/Chart.js"></script>
+<script>
+    $(function() {
+        // Get context with jQuery - using jQuery's .get() method.
+        var salesChartCanvas = $('#salesChart').get(0).getContext('2d');
+        // This will get the first returned node in the jQuery collection.
+        var salesChart = new Chart(salesChartCanvas, {
+            type: 'line',
+            data: {
+                labels: <?= json_encode($data_tanggal) ?>,
+                datasets: [
+                  {
+                    label: 'Pendapatan',
+                    backgroundColor: 'rgba(173, 216, 230, 0.9)', 
+                    borderColor: 'rgba(173, 216, 230, 0.8)', 
+                    pointBackgroundColor: '#3b8bba', 
+                    pointBorderColor: 'rgba(60, 141, 188, 1)', 
+                    pointHoverBackgroundColor: '#fff', 
+                    pointHoverBorderColor: 'rgba(60, 141, 188, 1)', 
+                    data: <?= json_encode($data_pendapatan) ?>
+                }
+                ]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Tanggal'
+                        }
+                    },
+                    y: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Pendapatan'
+                        }
+                    }
+                }
+            }
+        });
+    });
+    </script>
+@endpush

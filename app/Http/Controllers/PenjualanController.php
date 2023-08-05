@@ -21,11 +21,7 @@ class PenjualanController extends Controller
         return view('admin.dashboard.penjualan.index');
     }
 
-    public function indexkasir()
-    {
-        return view('kasir.dashboard.penjualan.indexkasir');
-    }
-
+    
     public function data()
     {
         $penjualans = Penjualan::orderBy('id_penjualan', 'desc')->get();

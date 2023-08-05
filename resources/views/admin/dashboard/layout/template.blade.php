@@ -35,6 +35,22 @@
     });
   </script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Memuat Moment.js sebelum Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<!-- Memuat Chart.js setelah Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+<!-- Kode JavaScript Anda -->
+<script>
+$(document).ready(function() {
+    // Kode JavaScript Anda di sini
+});
+</script>
+  
+
   @stack('css')
 </head>
 
@@ -150,6 +166,8 @@
     demo.initChartsPages();
   });
 </script>
+
+
 
 @stack('scripts')
 
