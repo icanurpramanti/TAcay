@@ -72,7 +72,7 @@
                         <div class="tampil-terbilang"></div>
                     </div>
                     <div class="col-lg-4">
-                    <form action="{{ route('transaksi.simpan') }}" class="form-penjualan" method="post">
+                    <form action="/transaksi/simpaan" class="form-penjualan" method="post">
                             @csrf
                             <input type="hidden" name="id_penjualan" value="{{ $id_penjualan }}">
                             <input type="hidden" name="total" id="total">

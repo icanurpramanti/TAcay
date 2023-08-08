@@ -11,7 +11,7 @@
 @push('css')
 <style>
     .tampil-bayar {
-        font-size: 5em;
+        font-size: 4em;
         text-align: center;
         height: 100px;
     }
@@ -176,6 +176,7 @@
                 alert('Jumlah tidak boleh lebih dari 10000');
                 return;
             }
+
 
             $.post(`{{ url('/transaksi') }}/${id}`, {
                     '_token': $('[name=csrf-token]').attr('content'),

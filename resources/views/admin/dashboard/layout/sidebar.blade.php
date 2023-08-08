@@ -56,7 +56,7 @@
   </li>
 
   <li>
-    <a href="{{ route('penjualan.index') }}">
+    <a href="/penjualan">
       <i class="nc-icon nc-money-coins"></i>
       <span>Penjualan</span>
     </a>
@@ -85,27 +85,4 @@
   </li>
 
 
-  <li>
-  <li class="{{ Request::is('setting') ? 'active' : ''}}">
-    <a href="/setting">
-      <i class="nc-icon nc-badge"></i>
-      <p>Setting</p>
-    </a>
-  </li>
 
-  <li>
-  <li class="{{ Request::is('setting_toko') ? 'active' : ''}}">
-    <a href="/setting_toko">
-      <i class="nc-icon nc-bank"></i>
-      <p>Setting Toko</p>
-    </a>
-  </li>
-
-  <!-- <li>
-   <li class="{{ Request::is('laporanstokproduk') ? 'active' : ''}}">
-    <a href="/laporanstok">
-      <i class="nc-icon nc-caps-small"></i>
-      <p>LaporanStokProduk </p>
-    </a>
-  </li>
-</ul> -->

@@ -61,11 +61,11 @@
     <div class="card-body">
         <div class="modal fade" id="satuanModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content p-3">
+                <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="title text-center">CREATE SATUAN</h5>
+                        <h5 class="modal-title text-center">CREATE SATUAN</h5>
                     </div>
-                    <form action="/satuan" method="post" enctype="multipart/form-data">
+                    <form action="/satuan" class="p-3" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="mb-3 mt-3">
@@ -100,11 +100,11 @@
 <div class="card-body">
     <div class="modal fade" id="satuanEdit{{ $satuan->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content p-3">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">EDIT SATUAN</h5>
                 </div>
-                <form action="/satuan/{{ $satuan->id }}" method="post" enctype="multipart/form-data">
+                <form action="/satuan/{{ $satuan->id }}" class="p-3" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="modal-body">

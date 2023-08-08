@@ -65,11 +65,11 @@
     <div class="card-body">
         <div class="modal fade" id="supplierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content p-3">
+                <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="title text-center">CREATE SUPPLIER</h5>
+                        <h5 class="modal-title text-center">CREATE SUPPLIER</h5>
                     </div>
-                    <form action="/supplier" method="post" enctype="multipart/form-data">
+                    <form action="/supplier" method="post" class="p-3" enctype="multipart/form-data">
 
                         @csrf
                         <div class="modal-body">
@@ -122,11 +122,11 @@
 @foreach ($suppliers as $supplier)
 <div class="modal fade" id="supplierEdit{{$supplier->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content p-3">
+        <div class="modal-content ">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">EDIT SUPPLIER</h5>
             </div>
-            <form action="/supplier/{{ $supplier->id}}" method="post" enctype="multipart/form-data">
+            <form action="/supplier/{{ $supplier->id}}" class="p-3" method="post" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <div class="modal-body">

@@ -123,7 +123,7 @@
       <div class="card ">
         <div class="card-header ">
           <h5 class="card-title">Grafik Pendapatan</h5>
-          <p class="card-category">24 Hours performance</p>
+          <p class="card-category">SRC Rani Cell</p>
         </div>
         <div class="card-body ">
         <canvas id=salesChart width="400" height="100"></canvas>

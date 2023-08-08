@@ -29,6 +29,7 @@
                             <th>Harga Beli</th>
                             <th>Diskon</th>
                             <th>Harga Jual</th>
+                            <th>Barcode</th>
                             <th>Stok</th>
                             <th> Aksi</th>
                         </thead>
@@ -45,6 +46,10 @@
                                 <td>{{$produk->harga_beli}}</td>
                                 <td>{{$produk->diskon}}</td>
                                 <td>{{$produk->harga_jual}}</td>
+                                <td>
+                                    {!! DNS1D::getBarcodeHTML($produk->barcode, 'UPCA', 2, 50) !!}
+                                    P-{{ $produk->barcode }}
+                                </td>
                                 <td>{{$produk->stok}}</td>
                                 <td>
                                     <a href="{{route('produk-detail',$produk->id)}}" class="btn  btn-primary"><i class="fa fa-eye "></i></a>
@@ -74,11 +79,11 @@
     <div class="card-body">
         <div class="modal fade" id="produkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content p-3">
+                <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="title text-center">CREATE PRODUK</h5>
+                        <h5 class="modal-title text-center">CREATE PRODUK</h5>
                     </div>
-                    <form action="/produk" method="post" enctype="multipart/form-data">
+                    <form action="/produk" class="p-3" method="post" enctype="multipart/form-data">
 
                         @csrf
                         <div class="modal-body">
@@ -148,11 +153,12 @@
 
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Stok</label>
-                                <input type="text" class="form-control @error ('stok') is-invalid @enderror" value="{{old('stok')}}" id="stok" name="stok">
+                                <input type="text" class="form-control @error ('stok') is-invalid @enderror" value="0" id="stok" name="stok" readonly>
+                                @error('stok')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-                            @error('stok')
-                            {{ $message }}
-                            @enderror
+
 
 
                             <div class="modal-footer">
@@ -172,11 +178,11 @@
 <div class="card-body">
     <div class="modal fade" id="produkEdit{{$produk->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content p-3">
+            <div class="modal-content ">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">EDIT PRODUK</h5>
                 </div>
-                <form action="/produk/{{ $produk->id}}" method="post" enctype="multipart/form-data">
+                <form action="/produk/{{ $produk->id}}" class="p-3" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="modal-body">
@@ -248,7 +254,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Stok</label>
-                            <input type="text" class="form-control @error('stok') is-invalid @enderror" id="stok" name="stok" value="{{ old('stok', $produk->stok) }}">
+                            <input type="text" class="form-control @error('stok') is-invalid @enderror" id="stok" name="stok" value="0" readonly>
                             @error('stok')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

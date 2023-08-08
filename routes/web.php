@@ -4,18 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SatuanController;
-use App\Http\Controllers\BankController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\SettingTokoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PembelianDetailController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PenjualanDetailController;
 use App\Http\Controllers\LaporanController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\HomeController;
 
 
@@ -40,11 +36,9 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/kategori', KategoriController::class);
     Route::resource('/supplier', SupplierController::class);
     Route::resource('/satuan', SatuanController::class);
-    Route::resource('/bank', BankController::class);
     Route::resource('/user', UserController::class);
-    Route::resource('/setting_toko', SettingTokoController::class);
     Route::get('/home', [HomeController::class, 'index']);
-    Route::resource('/register', RegisterController::class);
+
 
     ///pembelian
     Route::get('/pembelian/data', [PembelianController::class, 'data'])->name('pembelian.data');
@@ -81,10 +75,6 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
      Route::get('/laporan/pdf/{awal}/{akhir}', [LaporanController::class, 'exportPDF'])->name('laporan.export_pdf');
 
 
-    //setting    
-    Route::get('/setting', [SettingController::class, 'index'])->name('admin.dashboard.setting.index');
-    Route::get('/setting/first', [SettingController::class, 'show'])->name('admin.dashboard.setting.show');
-    Route::post('/setting', [SettingController::class, 'update'])->name('admin.dashboard.setting.update');
     
      ///route detail
      Route::get('/produk-detail/{id}', [ProdukController::class, 'detail'])->name("produk-detail");
@@ -100,17 +90,18 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
 
 //routes kasir 
 Route::middleware(['auth', 'CheckLevel:kasir'])->group(function () {
-    Route::get('/dashboardkasir', [HomeController::class, 'indexkasir']);
+    Route::get('/homee', [HomeController::class, 'indexkasir']);
 
     //penjualan
     Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
-    Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+    Route::get('/penjualaan', [PenjualanController::class, 'indexkasir'])->name('penjualaan.index');
     Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
     Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
 
-    Route::get('/transaksi/baru', [PenjualanController::class, 'create'])->name('transaksi.baru');
-    Route::post('/transaksi/simpan', [PenjualanController::class, 'store'])->name('transaksi.simpan');
-    Route::get('/transaksi/selesai', [PenjualanController::class, 'selesai'])->name('transaksi.selesai');
+    Route::get('/transaksi/baruu', [PenjualanController::class, 'createKasir']);
+    Route::post('/transaksi/simpaan', [PenjualanController::class, 'storeKasir']);
+    Route::get('/transaksi/selesaii', [PenjualanController::class, 'selesai'])->name('transaksi.selesai');
+    Route::get('/transaksi/selesaii', [PenjualanController::class, 'selesaiKasir'])->name('transaksi.selesaii');
     Route::get('/transaksi/nota-kecil', [PenjualanController::class, 'notaKecil'])->name('transaksi.nota_kecil');
 
     //penjualandetail
@@ -118,12 +109,12 @@ Route::middleware(['auth', 'CheckLevel:kasir'])->group(function () {
     Route::get('/transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadForm'])->name('transaksi.load_form');
     Route::resource('/transaksi', PenjualanDetailController::class)
         ->except('show');
+    Route::get('/transaksii', [PenjualanDetailController::class,'indexKasir']);
+
 });
 
-///routes login,register,logout
+///routes login,logout
 Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
 Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
 
-// Route::get('register',[RegisterController::class,'register'])->name('register');
-// Route::post('register/action',[RegisterController::class, 'actionregister'])->name('actionregister');

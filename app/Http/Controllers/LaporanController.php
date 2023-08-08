@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pembelian;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade as PDF;
+use PDF;
 
 
 
@@ -54,8 +54,8 @@ class LaporanController extends Controller
         $data[] = [
             'DT_RowIndex' => '',
             'tanggal' => '',
-            'penjualan' => '',
-            'pembelian' => 'Total Pendapatan',
+            'penjualan' => 'Rp. ' .format_uang($total_penjualan),
+            'pembelian' => 'Rp. ' .format_uang($total_pembelian),
             'pendapatan' => 'Rp. ' .format_uang($total_pendapatan),
         ];
 

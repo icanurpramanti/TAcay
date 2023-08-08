@@ -183,6 +183,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Milon\Barcode\BarcodeServiceProvider::class,
         
 
         /*
@@ -217,6 +218,7 @@ return [
     ])->toArray(),
     'PDF' => Barryvdh\DomPDF\Facade::class,
     'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-    
+    'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
+    'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
 
 ];

@@ -20,9 +20,9 @@ class Supplier extends Model
             $lastCode = $latestSupplier->kode_supplier;
             $lastNumber = (int)substr($lastCode, 2);
             $newNumber = $lastNumber + 1;
-            $newCode = 'SP-' . sprintf("%03s", $newNumber);
+            $newCode = 'R-' . sprintf("%03s", $newNumber);
         } else {
-            $newCode = 'SP-001';
+            $newCode = 'R-001';
         }
 
         return $newCode;

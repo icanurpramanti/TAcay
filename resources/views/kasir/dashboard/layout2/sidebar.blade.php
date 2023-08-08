@@ -1,6 +1,6 @@
 <ul class="nav">
-  <li class="{{ Request::is('home') ? 'active' : ''}}">
-    <a href="/home">
+  <li class="{{ Request::is('homee') ? 'active' : ''}}">
+    <a href="/homee">
       <i class="nc-icon nc-shop"></i>
       <p>Dashboard</p>
     </a>
@@ -8,23 +8,16 @@
 
 
   <li>
-    <a href="{{ route('penjualan.index') }}">
+    <a href="/penjualaan">
       <i class="nc-icon nc-money-coins"></i>
       <span>Penjualan</span>
     </a>
   </li>
 
   <li>
-    <a href="{{ route('transaksi.baru') }}">
+    <a href="/transaksii">
       <i class="nc-icon nc-cart-simple"></i>
       <span>Transaksi Baru</span>
-    </a>
-  </li>
-
-  <li>
-    <a href="{{ route('transaksi.index') }}">
-      <i class="fa fa-cart-arrow-down"></i>
-      <span>Transaksi Aktif </span>
     </a>
   </li>
 

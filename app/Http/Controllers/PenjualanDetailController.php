@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Models\Produk;
-use App\Models\Setting;
 use App\Models\PenjualanDetail;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
@@ -14,21 +13,29 @@ class PenjualanDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
         $id_penjualan = session('id_penjualan');
         $produks = Produk::orderBy('nama_produk')->get();
-        $settings = Setting :: first();
         
     
         // $diskon = Setting::first()->diskon ?? 0;
 
-        return view('admin.dashboard.penjualan_detail.index', compact('id_penjualan', 'produks', 'settings'));
+        return view('admin.dashboard.penjualan_detail.index', compact('id_penjualan', 'produks'));
 
      }
+    public function indexKasir()
+    {
+        $id_penjualan = session('id_penjualan');
+        $produks = Produk::orderBy('nama_produk')->get();
+        
+    
+        // $diskon = Setting::first()->diskon ?? 0;
 
+        return view('kasir.dashboard.penjualan_detail.index', compact('id_penjualan', 'produks'));
 
-   
+     }
      public function data($id)
      {
          $detail = PenjualanDetail::with('produk')

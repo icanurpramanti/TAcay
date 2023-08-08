@@ -67,11 +67,11 @@
     <div class="card-body">
         <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content p-3">
+                <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="title text-center">CREATE USER</h5>
+                        <h5 class="modal-title text-center">CREATE USER</h5>
                     </div>
-                    <form action="/user" method="post" enctype="multipart/form-data">
+                    <form action="/user" method="post" class="p-3" enctype="multipart/form-data">
 
                         @csrf
                         <div class="modal-body">
@@ -148,11 +148,11 @@
 @foreach ($users as $user)
 <div class="modal fade" id="userEdit{{$user->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content p-3">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">EDIT USER</h5>
             </div>
-            <form action="/user/{{$user->id}}" method="post" enctype="multipart/form-data">
+            <form action="/user/{{$user->id}}" method="post"  class="p-3" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <div class="modal-body">

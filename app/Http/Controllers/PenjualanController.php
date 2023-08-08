@@ -21,6 +21,12 @@ class PenjualanController extends Controller
         return view('admin.dashboard.penjualan.index');
     }
 
+    public function indexkasir()
+    {
+        return view('kasir.dashboard.penjualan.index');
+    }
+
+    
     
     public function data()
     {
@@ -74,6 +80,19 @@ class PenjualanController extends Controller
         session(['id_penjualan' => $penjualans->id_penjualan]);
         return redirect()->route('transaksi.index');
     }
+    public function createKasir()
+    {
+        $penjualans = new Penjualan();
+        $penjualans->total_item = 0;
+        $penjualans->total_harga = 0;
+        $penjualans->diskon = 0;
+        $penjualans->bayar = 0;
+        $penjualans->diterima = 0;
+        $penjualans->save();
+
+        session(['id_penjualan' => $penjualans->id_penjualan]);
+        return view('kasir.dashboard.penjualan.index');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -113,6 +132,43 @@ class PenjualanController extends Controller
 
         return redirect()->route('transaksi.selesai');
     }
+    public function storeKasir(Request $request)
+    {
+
+        $penjualans = Penjualan::findOrFail($request->id_penjualan);
+        //  dd($penjualans);
+        // $penjualan->id_penjualan = $request->id_penjualan;
+        $penjualans->total_item = $request->total_item;
+        $penjualans->total_harga = $request->total;
+        $penjualans->diskon = $request->diskon;
+        $penjualans->bayar = $request->bayar;
+        $penjualans->diterima = $request->diterima;
+        $penjualans->update();
+
+        $detail = PenjualanDetail::where('id_penjualan', $penjualans->id_penjualan)->get();
+        $kodeproduk = [];
+
+        foreach ($detail as $item) {
+            $kodeproduk[] = $item->kode_produk;
+            $item->diskon = $request->diskon;
+            $item->update();
+
+            // Ambil produk berdasarkan kode_produk
+            $produk = Produk::where('kode_produk', $item->kode_produk)->first();
+
+            $updateStock = $produk->stok - $item->jumlah;
+            $produk->update([
+                'stok' => $updateStock
+            ]);
+        }
+
+        return redirect()->route('transaksi.selesaii');
+    }
+
+
+    
+
+
     /**
      * Display the specified resource.
      *
@@ -181,14 +237,20 @@ class PenjualanController extends Controller
 
     public function selesai()
     {
-        $settings = Setting::first();
+
 
         return view('admin.dashboard.penjualan.selesai');
+    }
+    public function selesaiKasir()
+    {
+
+
+        return view('kasir.dashboard.penjualan.selesai');
     }
 
     public function notaKecil()
     {
-        $settings = Setting::first();
+
         $penjualans = Penjualan::find(session('id_penjualan'));
         if (!$penjualans) {
             abort(404);
@@ -197,6 +259,6 @@ class PenjualanController extends Controller
             ->where('id_penjualan', session('id_penjualan'))
             ->get();
 
-        return view('admin.dashboard.penjualan.nota_kecil', compact('settings', 'penjualans', 'detail'));
+        return view('admin.dashboard.penjualan.nota_kecil', compact( 'penjualans', 'detail'));
     }
 }
