@@ -29,7 +29,6 @@
                             <th>Harga Beli</th>
                             <th>Diskon</th>
                             <th>Harga Jual</th>
-                            <th>Barcode</th>
                             <th>Stok</th>
                             <th> Aksi</th>
                         </thead>
@@ -46,10 +45,6 @@
                                 <td>{{$produk->harga_beli}}</td>
                                 <td>{{$produk->diskon}}</td>
                                 <td>{{$produk->harga_jual}}</td>
-                                <td>
-                                    {!! DNS1D::getBarcodeHTML($produk->barcode, 'UPCA', 2, 50) !!}
-                                    P-{{ $produk->barcode }}
-                                </td>
                                 <td>{{$produk->stok}}</td>
                                 <td>
                                     <a href="{{route('produk-detail',$produk->id)}}" class="btn  btn-primary"><i class="fa fa-eye "></i></a>

@@ -11,7 +11,6 @@
                         <th>Kode Produk</th>
                         <th>Nama Produk</th>
                         <th>Harga Beli</th>
-                        <th>Barcode</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
                     <tbody>
@@ -21,10 +20,6 @@
                             <td><span class="label label-success">{{ $item->kode_produk }}</span></td>
                             <td>{{ $item->nama_produk}}</td>
                             <td>{{ $item->harga_beli}}</td>
-                            <td>
-                                    {!! DNS1D::getBarcodeHTML($item->barcode, 'UPCA', 2, 50) !!}
-                                    P-{{ $item->barcode }}
-                                </td>
                             <td>
                                 <a href="#" class="btn btn-primary btn-xs btn-flat" onclick="pilihProduk('{{ $item->kode_produk }}')">
                                     <i class="fa fa-check-circle"></i>

@@ -9,17 +9,7 @@ class Produk extends Model
 {
     protected $table = 'produks';
     protected $primaryKey = 'id';
-    protected $fillable = [
-        'kode_produk',
-        'nama_produk',
-        'kode_kategori',
-        'kode_satuan',
-        'harga_beli',
-        'diskon',
-        'harga_jual',
-        'barcode',
-        'stok',
-    ];
+    protected $guarded=[];
     
 
     public static function generateKode()

@@ -22,7 +22,6 @@ return new class extends Migration
             $table->integer('harga_beli'); 
             $table->tinyInteger('diskon');
             $table->integer('harga_jual');
-            $table->string('barcode'); 
             $table->integer('stok')->default(0);  
             $table->timestamps();
             

@@ -45,13 +45,6 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        $number = mt_rand(1000000000, 9999999999);
-
-        $request['barcode'] = $number;
-        while ($this->barcodeExists($number)) {
-            $number = mt_rand(1000000000, 9999999999);
-            $request['barcode'] = $number;
-        }
 
         $validatedData = $request->validate([
             'nama_produk' => 'required',
@@ -60,7 +53,6 @@ class ProdukController extends Controller
             'harga_beli' => 'required',
             'diskon' => 'required',
             'harga_jual' => 'required',
-            'barcode' => 'required',
             'stok' => 'required',
         ]);
 
@@ -70,10 +62,7 @@ class ProdukController extends Controller
         return redirect('/produk')->with('pesan', 'Data Berhasil Di Tambah');
     }
 
-    public function barcodeExists($number)
-    {
-        return Produk::wherebarcode($number)->exists();
-    }
+    
 
     /**
      * Display the specified resource.
@@ -132,18 +121,6 @@ class ProdukController extends Controller
             'stok' => 'required',
         ]);
 
-        $barcode = $request->input('barcode');
-
-        // Memeriksa apakah barcode yang diupdate sudah ada atau tidak
-        if ($barcode != Produk::find($id)->barcode && $this->barcodeExists($barcode)) {
-            // Jika barcode sudah ada, lakukan hal yang diperlukan, misalnya:
-            // Menghasilkan barcode yang unik
-            $newBarcode = mt_rand(1000000000, 9999999999);
-            while ($this->barcodeExists($newBarcode)) {
-                $newBarcode = mt_rand(1000000000, 9999999999);
-            }
-            $validatedData['barcode'] = $newBarcode;
-        }
 
         Produk::where('id', $id)->update($validatedData);
         return redirect('/produk')->with('pesan', 'Data Berhasil Di Ubah');

@@ -83,7 +83,7 @@
                             <th width="5%">No</th>
                             <th>Kode Produk</th>
                             <th>Nama Produk</th>
-                            <th>Harga</th>
+                            <th>Harga Beli</th>
                             <th width="15%">Jumlah</th>
                             <th>Subtotal</th>
                             <th width="15%"><i class="fa fa-cog"></i></th>

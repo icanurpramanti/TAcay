@@ -56,9 +56,9 @@
                 <table class="table table-stiped table-bordered table-penjualan">
                     <thead>
                         <th width="5%">No</th>
-                        <th>Kode</th>
-                        <th>Nama</th>
-                        <th>Harga</th>
+                        <th>Kode Produk</th>
+                        <th>Nama Produk</th>
+                        <th>Harga Jual</th>
                         <th width="15%">Jumlah</th>
                         <th>Diskon</th>
                         <th>Subtotal</th>

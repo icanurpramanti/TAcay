@@ -31,7 +31,7 @@ class LoginController extends Controller
                 return redirect('/home');
             }
             if(Auth::user()->level=='kasir'){
-                return redirect('/dashboardkasir');
+                return redirect('/homee');
             }
         }
         

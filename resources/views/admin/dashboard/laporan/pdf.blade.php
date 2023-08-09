@@ -55,7 +55,7 @@
 
 <body>
     <div class="container">
-        <div class="laporan-title">Laporan Pendapatan</div>
+        <div class="laporan-title">Laporan Pendapatan SRC Rani Cell</div>
         <div class="laporan-date">
             Tanggal {{ tanggal_indonesia($awal, false) }} s/d Tanggal {{ tanggal_indonesia($akhir, false) }}
         </div>

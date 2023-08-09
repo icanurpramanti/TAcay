@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
 use App\Models\Penjualan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -13,54 +14,66 @@ class LaporanController extends Controller
 {
     public function index(Request $request)
     {
-       $tanggalAwal = date('Y-m-d',mktime(0,0,0,date('m'),1,date('Y')));
-       $tanggalAkhir = date('Y-m-d');
+        $tanggalAwal = date('Y-m-d', mktime(0, 0, 0, date('m'), 1, date('Y')));
+        $tanggalAkhir = date('Y-m-d');
 
-       if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
-        $tanggalAwal = $request->tanggal_awal;
-        $tanggalAkhir = $request->tanggal_akhir;
-    }
+        if ($request->has('tanggal_awal') && $request->tanggal_awal != "" && $request->has('tanggal_akhir') && $request->tanggal_akhir) {
+            $tanggalAwal = $request->tanggal_awal;
+            $tanggalAkhir = $request->tanggal_akhir;
+        }
 
-       return view('admin.dashboard.laporan.index', compact('tanggalAwal','tanggalAkhir'));
+        return view('admin.dashboard.laporan.index', compact('tanggalAwal', 'tanggalAkhir'));
     }
 
     public function getData($awal, $akhir)
     {
-        $no = 1;
-        $data = array();
-        $pendapatan = 0;
+        $awalDate = Carbon::parse($awal);
+        $akhirDate = Carbon::parse($akhir);
+        $tanggalRange = $awalDate->copy();
+
+        $data = [];
+        $total_penjualan = 0;
+        $total_pembelian = 0;
         $total_pendapatan = 0;
 
-        while (strtotime($awal) <= strtotime($akhir)) {
-            $tanggal = $awal;
-            $awal = date('Y-m-d', strtotime("+1 day", strtotime($awal)));
+        while ($tanggalRange->lte($akhirDate)) {
+            $tanggal = $tanggalRange->format('Y-m-d');
 
-            $total_penjualan = Penjualan::where('created_at', 'LIKE', "%$tanggal%")->sum('bayar');
-            $total_pembelian = Pembelian::where('created_at', 'LIKE', "%$tanggal%")->sum('bayar');
+            $total_penjualan_per_tanggal = Penjualan::whereDate('created_at', $tanggal)->sum('bayar');
+            $total_pembelian_per_tanggal = Pembelian::whereDate('created_at', $tanggal)->sum('bayar');
 
-            $pendapatan = $total_penjualan - $total_pembelian;
+            $pendapatan = $total_penjualan_per_tanggal - $total_pembelian_per_tanggal;
             $total_pendapatan += $pendapatan;
 
-            $row = array();
-            $row['DT_RowIndex'] = $no++;
-            $row['tanggal'] = tanggal_indonesia($tanggal, false);
-            $row['penjualan'] = 'Rp. ' .format_uang($total_penjualan) ;
-            $row['pembelian'] = 'Rp. ' .format_uang($total_pembelian) ;
-            $row['pendapatan'] = 'Rp. ' .format_uang($pendapatan) ;
+            $row = [
+                'DT_RowIndex' => count($data) + 1,
+                'tanggal' => tanggal_indonesia($tanggal, false),
+                'penjualan' => 'Rp. ' . format_uang($total_penjualan_per_tanggal),
+                'pembelian' => 'Rp. ' . format_uang($total_pembelian_per_tanggal),
+                'pendapatan' => 'Rp. ' . format_uang($pendapatan),
+            ];
 
             $data[] = $row;
+
+            $total_penjualan += $total_penjualan_per_tanggal;
+            $total_pembelian += $total_pembelian_per_tanggal;
+
+            $tanggalRange->addDay(); // Tambah 1 hari ke tanggal range
         }
 
-        $data[] = [
+        $total_row = [
             'DT_RowIndex' => '',
-            'tanggal' => '',
-            'penjualan' => 'Rp. ' .format_uang($total_penjualan),
-            'pembelian' => 'Rp. ' .format_uang($total_pembelian),
-            'pendapatan' => 'Rp. ' .format_uang($total_pendapatan),
+            'tanggal' => 'Total Keseluruhan :',
+            'penjualan' => 'Rp. ' . format_uang($total_penjualan),
+            'pembelian' => 'Rp. ' . format_uang($total_pembelian),
+            'pendapatan' => 'Rp. ' . format_uang($total_pendapatan),
         ];
+
+        $data[] = $total_row;
 
         return $data;
     }
+
 
     public function data($awal, $akhir)
     {
@@ -76,7 +89,7 @@ class LaporanController extends Controller
         $data = $this->getData($awal, $akhir);
         $pdf  = PDF::loadView('admin.dashboard.laporan.pdf', compact('awal', 'akhir', 'data'));
         $pdf->setPaper('a4', 'potrait');
-        
-        return $pdf->stream('Laporan-pendapatan-'. date('Y-m-d-his') .'.pdf');
+
+        return $pdf->stream('Laporan-pendapatan-' . date('Y-m-d-his') . '.pdf');
     }
 }
