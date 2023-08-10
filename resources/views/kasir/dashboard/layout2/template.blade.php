@@ -95,7 +95,7 @@
 
       <!-- CONTENT -->
       <div class="content">
-        @yield('content')
+        @yield('contentkasir')
       </div>
       <!-- END CONTENT -->
 

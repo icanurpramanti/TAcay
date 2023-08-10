@@ -42,7 +42,7 @@
             serverSide: true,
             autoWidth: false,
             ajax: {
-                url: '{{ route("penjualan.data") }}',
+                url: '{{ route("penjualankasir.data") }}',
             },
             columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},

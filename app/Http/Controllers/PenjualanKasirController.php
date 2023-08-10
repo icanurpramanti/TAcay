@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Produk;
 use App\Models\Setting;
 use App\Models\PenjualanDetail;
@@ -9,16 +8,11 @@ use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use PDF;
 
-class PenjualanController extends Controller
+class PenjualanKasirController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('admin.dashboard.penjualan.index');
+        return view('kasir.dashboard.penjualan.index');
     }
 
     public function data()
@@ -46,7 +40,7 @@ class PenjualanController extends Controller
             ->addColumn('aksi', function ($penjualans) {
                 return '
                 <div class="btn-group">
-                    <button onclick="showDetail(`' . route('penjualan.show', $penjualans->id_penjualan) . '`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
+                    <button onclick="showDetail(`' . route('penjualankasir.show', $penjualans->id_penjualan) . '`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
                 </div>
                 ';
             })
@@ -54,12 +48,6 @@ class PenjualanController extends Controller
             ->make(true);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $penjualans = new Penjualan();
@@ -71,16 +59,9 @@ class PenjualanController extends Controller
         $penjualans->save();
 
         session(['id_penjualan' => $penjualans->id_penjualan]);
-        return redirect()->route('transaksi.index');
+        return redirect()->route('transaksikasir.index');
     }
     
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -111,16 +92,9 @@ class PenjualanController extends Controller
             ]);
         }
 
-        return redirect()->route('transaksi.selesai');
+        return redirect()->route('transaksikasir.selesai');
     }
- 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Penjualan  $penjualan
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $detail = PenjualanDetail::with('produk')->where('id_penjualan', $id)->get();
@@ -147,45 +121,10 @@ class PenjualanController extends Controller
             ->make(true);
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Penjualan  $penjualan
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Penjualan $penjualan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Penjualan  $penjualan
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Penjualan $penjualan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Penjualan  $penjualan
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-    }
-
     public function selesai()
     {
-        return view('admin.dashboard.penjualan.selesai');
+        return view('kasir.dashboard.penjualan.selesai');
     }
-   
 
     public function notaKecil()
     {
@@ -198,6 +137,8 @@ class PenjualanController extends Controller
             ->where('id_penjualan', session('id_penjualan'))
             ->get();
 
-        return view('admin.dashboard.penjualan.nota_kecil', compact( 'penjualans', 'detail'));
+        return view('kasir.dashboard.penjualan.nota_kecil', compact( 'penjualans', 'detail'));
     }
+   
+
 }

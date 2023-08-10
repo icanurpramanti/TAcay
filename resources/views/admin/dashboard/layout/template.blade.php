@@ -49,6 +49,9 @@ $(document).ready(function() {
     // Kode JavaScript Anda di sini
 });
 </script>
+
+
+
   
 
   @stack('css')
@@ -144,9 +147,7 @@ $(document).ready(function() {
 <script src="/../assets/js/core/popper.min.js"></script>
 <!-- ... (other scripts) ... -->
 
-<!-- Load Chart.js -->
-<script src="/../assets/js/plugins/chartjs.min.js"></script>
-<!-- ... (other scripts) ... -->
+
 
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script>
@@ -156,7 +157,7 @@ $(document).ready(function() {
 </script>
 
 <!-- ... (other scripts) ... -->
-
+<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 <script src="/../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="/../assets/demo/demo.js"></script>
@@ -167,6 +168,7 @@ $(document).ready(function() {
   });
 </script>
 
+<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 
 
 @stack('scripts')

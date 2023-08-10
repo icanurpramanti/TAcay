@@ -1,210 +1,104 @@
-@extends ('kasir.dashboard.layout2.template')
-@section('contentkasir')
+@extends('kasir.dashboard.layout2.template')
 
-<!-- End Navbar -->
+@section('contentkasir')
 <div class="content">
   <div class="row">
-    <div class="col-lg-3 col-md-6 col-sm-6">
-      <div class="card card-stats">
-        <div class="card-body ">
-          <div class="row">
-            <div class="col-5 col-md-4">
-              <div class="icon-big text-center icon-warning">
-                <i class="nc-icon nc-globe text-warning"></i>
-              </div>
-            </div>
-            <div class="col-7 col-md-8">
-              <div class="numbers">
-                <p class="card-category">Data Pesanan</p>
-                <p class="card-title">150GB<p>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Selamat Datang di Halaman Kasir</h5>
+        </div>
+        <div class="card-body">
+          <div class="welcome-message">
+            <h3>Transaksikan dengan Gaya!</h3>
+            <p>Di halaman ini, Anda dapat dengan gaya yang unik melakukan transaksi penjualan dan mengelola pesanan dari pelanggan.</p>
+            <p>Gunakan fitur-fitur canggih kami untuk memberikan pengalaman berbelanja yang tak terlupakan.</p>
+          </div>
+          <div class="row feature-card">
+            <div class="col-md-4">
+              <div class="card card-primary">
+                <div class="card-body">
+                  <i class="fa fa-money"></i>
+                  <h4>Transaksi Kilat</h4>
+                  <p>Lakukan transaksi dengan kilatan mata menggunakan antarmuka yang elegan dan efisien.</p>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="card-footer ">
-            <hr>
-            <div class="stats">
-              <i class="fa fa-refresh"></i>
-              Update Now
+            <div class="col-md-4">
+              <div class="card card-primary">
+                <div class="card-body">
+                  <i class="fa fa-list"></i>
+                  <h4>Kelola Pesanan Lebih Baik</h4>
+                  <p>Manajemen pesanan yang canggih memungkinkan Anda mengendalikan pesanan dengan mudah.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-primary">
+                <div class="card-body">
+                  <i class="fa fa-chart-bar"></i>
+                  <h4>Laporan Lengkap</h4>
+                  <p>Dapatkan wawasan bisnis yang memukau dengan laporan penjualan dan analisis data yang komprehensif.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-6 col-sm-6">
-        <div class="card card-stats">
-          <div class="card-body ">
-            <div class="row">
-              <div class="col-5 col-md-4">
-                <div class="icon-big text-center icon-warning">
-                  <i class="nc-icon nc-money-coins text-success"></i>
-                </div>
-              </div>
-              <div class="col-7 col-md-8">
-                <div class="numbers">
-                  <p class="card-category">Data User</p>
-                  <p class="card-title">$ 1,345<p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer ">
-              <hr>
-              <div class="stats">
-                <i class="fa fa-calendar-o"></i>
-                Last day
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-body ">
-              <div class="row">
-                <div class="col-5 col-md-4">
-                  <div class="icon-big text-center icon-warning">
-                    <i class="nc-icon nc-vector text-danger"></i>
-                  </div>
-                </div>
-                <div class="col-7 col-md-8">
-                  <div class="numbers">
-                    <p class="card-category">Data Produk</p>
-                    <p class="card-title">23<p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer ">
-                <hr>
-                <div class="stats">
-                  <i class="fa fa-clock-o"></i>
-                  In the last hour
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="card card-stats">
-              <div class="card-body ">
-                <div class="row">
-                  <div class="col-5 col-md-4">
-                    <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-vector text-danger"></i>
-                    </div>
-                  </div>
-                  <div class="col-7 col-md-8">
-                    <div class="numbers">
-                      <p class="card-category">Data Customer</p>
-                      <p class="card-title">23<p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-footer ">
-                  <hr>
-                  <div class="stats">
-                    <i class="fa fa-clock-o"></i>
-                    Customer
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-body ">
-                  <div class="row">
-                    <div class="col-5 col-md-4">
-                      <div class="icon-big text-center icon-warning">
-                        <i class="nc-icon nc-vector text-danger"></i>
-                      </div>
-                    </div>
-                    <div class="col-7 col-md-8">
-                      <div class="numbers">
-                        <p class="card-category">Hubungi Kami</p>
-                        <p class="card-title">23<p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-footer ">
-                    <hr>
-                    <div class="stats">
-                      <i class="fa fa-clock-o"></i>
-                      Hubungi Kami
-                    </div>
-                  </div>
-                </div>
-              </div>
-               -->
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="card ">
-                  <div class="card-header ">
-                    <h5 class="card-title">Users Behavior</h5>
-                    <p class="card-category">24 Hours performance</p>
-                  </div>
-                  <div class="card-body ">
-                    <canvas id=chartHours width="400" height="100"></canvas>
-                  </div>
-                  <div class="card-footer ">
-                    <hr>
-                    <div class="stats">
-                      <i class="fa fa-history"></i> Updated 3 minutes ago
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="card ">
-                  <div class="card-header ">
-                    <h5 class="card-title">Email Statistics</h5>
-                    <p class="card-category">Last Campaign Performance</p>
-                  </div>
-                  <div class="card-body ">
-                    <canvas id="chartEmail"></canvas>
-                  </div>
-                  <div class="card-footer ">
-                    <div class="legend">
-                      <i class="fa fa-circle text-primary"></i> Opened
-                      <i class="fa fa-circle text-warning"></i> Read
-                      <i class="fa fa-circle text-danger"></i> Deleted
-                      <i class="fa fa-circle text-gray"></i> Unopened
-                    </div>
-                    <hr>
-                    <div class="stats">
-                      <i class="fa fa-calendar"></i> Number of emails sent
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-8">
-                <div class="card card-chart">
-                  <div class="card-header">
-                    <h5 class="card-title">NASDAQ: AAPL</h5>
-                    <p class="card-category">Line Chart with Points</p>
-                  </div>
-                  <div class="card-body">
-                    <canvas id="speedChart" width="400" height="100"></canvas>
-                  </div>
-                  <div class="card-footer">
-                    <div class="chart-legend">
-                      <i class="fa fa-circle text-info"></i> Tesla Model S
-                      <i class="fa fa-circle text-warning"></i> BMW 5 Series
-                    </div>
-                    <hr />
-                    <div class="card-stats">
-                      <i class="fa fa-check"></i> Data information certified
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </p>
-      </p>
     </div>
   </div>
 </div>
 @endsection
+
+<style>
+  .welcome-message {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .welcome-message h3 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #007bff;
+  }
+
+  .feature-card {
+    margin-top: 20px;
+  }
+
+  .card {
+    border: none;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .card-primary {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .card-body {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .card i {
+    font-size: 48px;
+    margin-bottom: 15px;
+  }
+
+  .card h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: white;
+  }
+
+  .card p {
+    font-size: 16px;
+  }
+</style>

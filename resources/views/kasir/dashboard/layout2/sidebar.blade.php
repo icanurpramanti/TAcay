@@ -6,20 +6,18 @@
     </a>
   </li>
 
-
   <li>
-    <a href="/penjualaan">
+    <a href="/penjualankasir">
       <i class="nc-icon nc-money-coins"></i>
       <span>Penjualan</span>
     </a>
   </li>
 
   <li>
-    <a href="/transaksii">
+    <a href="{{ route('transaksikasir.baru') }}">
       <i class="nc-icon nc-cart-simple"></i>
       <span>Transaksi Baru</span>
     </a>
   </li>
-
 
 </ul>

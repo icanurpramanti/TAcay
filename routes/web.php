@@ -10,7 +10,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PembelianDetailController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\PenjualanKasirController;
 use App\Http\Controllers\PenjualanDetailController;
+use App\Http\Controllers\PenjualanDetailKasirController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\HomeController;
 
@@ -93,24 +95,22 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
 Route::middleware(['auth', 'CheckLevel:kasir'])->group(function () {
     Route::get('/homee', [HomeController::class, 'indexkasir']);
 
-    //penjualan
-    Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
-    Route::get('/penjualaan', [PenjualanController::class, 'indexkasir'])->name('penjualaan.index');
-    Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
-    Route::delete('/penjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
+  //penjualan
+  Route::get('/penjualankasir/data', [PenjualanKasirController::class, 'data'])->name('penjualankasir.data');
+  Route::get('/penjualankasir', [PenjualanKasirController::class, 'index'])->name('penjualankasir.index');
+  Route::get('/penjualankasir/{id}', [PenjualanKasirController::class, 'show'])->name('penjualankasir.show');
+  Route::delete('/penjualankasir/{id}', [PenjualanKasirController::class, 'destroy'])->name('penjualankasir.destroy');
 
-    Route::get('/transaksi/baruu', [PenjualanController::class, 'createKasir']);
-    Route::post('/transaksi/simpaan', [PenjualanController::class, 'storeKasir']);
-    Route::get('/transaksi/selesaii', [PenjualanController::class, 'selesai'])->name('transaksi.selesai');
-    Route::get('/transaksi/selesaii', [PenjualanController::class, 'selesaiKasir'])->name('transaksi.selesaii');
-    Route::get('/transaksi/nota-kecil', [PenjualanController::class, 'notaKecil'])->name('transaksi.nota_kecil');
+  Route::get('/transaksikasir/baru', [PenjualanKasirController::class, 'create'])->name('transaksikasir.baru');
+  Route::post('/transaksikasir/simpan', [PenjualanKasirController::class, 'store'])->name('transaksikasir.simpan');
+  Route::get('/transaksikasir/selesai', [PenjualanKasirController::class, 'selesai'])->name('transaksikasir.selesai');
+  Route::get('/transaksikasir/nota-kecil', [PenjualanKasirController::class, 'notaKecil'])->name('transaksikasir.nota_kecil');
 
-    //penjualandetail
-    Route::get('/transaksi/{id}/data', [PenjualanDetailController::class, 'data'])->name('transaksi.data');
-    Route::get('/transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadForm'])->name('transaksi.load_form');
-    Route::resource('/transaksi', PenjualanDetailController::class)
-        ->except('show');
-    Route::get('/transaksii', [PenjualanDetailController::class,'indexKasir']);
+  //penjualandetail
+  Route::get('/transaksikasir/{id}/data', [PenjualanDetailKasirController::class, 'data'])->name('transaksikasir.data');
+  Route::get('/transaksikasir/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailKasirController::class, 'loadForm'])->name('transaksikasir.load_form');
+  Route::resource('/transaksikasir', PenjualanDetailKasirController::class)
+      ->except('show');
 
 });
 

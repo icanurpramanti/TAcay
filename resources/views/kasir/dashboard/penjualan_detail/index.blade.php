@@ -72,7 +72,7 @@
                         <div class="tampil-terbilang"></div>
                     </div>
                     <div class="col-lg-4">
-                    <form action="/transaksi/simpaan" class="form-penjualan" method="post">
+                    <form action="/transaksikasir/simpan" class="form-penjualan" method="post">
                             @csrf
                             <input type="hidden" name="id_penjualan" value="{{ $id_penjualan }}">
                             <input type="hidden" name="total" id="total">
@@ -138,7 +138,7 @@
             serverSide: true,
             autoWidth: false,
             ajax: {
-                url: '{{ route("transaksi.data", $id_penjualan) }}',
+                url: '{{ route("transaksikasir.data", $id_penjualan) }}',
             },
             columns: [
                {data: 'DT_RowIndex', searchable: false, sortable: false},
@@ -177,7 +177,7 @@
                 return;
             }
 
-            $.post(`{{ url('/transaksi') }}/${id}`, {
+            $.post(`{{ url('/transaksikasir') }}/${id}`, {
                     '_token': $('[name=csrf-token]').attr('content'),
                     '_method': 'put',
                     'jumlah': jumlah
@@ -230,7 +230,7 @@
     }
 
     function tambahProduk() {
-        $.post('{{ route("transaksi.store") }}', $('.form-produk').serialize())
+        $.post('{{ route("transaksikasir.store") }}', $('.form-produk').serialize())
             .done(response => {
                 $('#kode_produk').focus();
                 table.ajax.reload(() => loadForm($('#diskon').val()));
@@ -262,7 +262,7 @@
         $('#total').val($('.total').text());
         $('#total_item').val($('.total_item').text());
 
-        $.get(`{{ url('/transaksi/loadform') }}/${diskon}/${$('.total').text()}/${diterima}`)
+        $.get(`{{ url('/transaksikasir/loadform') }}/${diskon}/${$('.total').text()}/${diterima}`)
             .done(response => {
                 $('#totalrp').val('Rp. '+ response.totalrp);
                 $('#bayarrp').val('Rp. '+ response.bayarrp);

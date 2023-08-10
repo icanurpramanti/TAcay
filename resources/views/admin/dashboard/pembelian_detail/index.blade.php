@@ -41,7 +41,7 @@
                 @if($suppliers)
                 <table>
                     <tr>
-                        <td>Supplier</td>
+                        <td>Nama Supplier</td>
                         <td>: {{ $suppliers->nama_supplier }}</td>
                     </tr>
                     <tr>

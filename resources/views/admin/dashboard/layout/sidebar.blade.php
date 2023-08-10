@@ -39,13 +39,7 @@
     </a>
   </li>
 
-  <!-- <li>
-   <li class="{{ Request::is('bank') ? 'active' : ''}}">
-    <a href="/bank">
-      <i class="nc-icon nc-tile-56"></i>
-      <p>Data Rekening</p>
-    </a>
-  </li> -->
+
 
   <li>
   <li class="{{ Request::is('pembelian') ? 'active' : ''}}">

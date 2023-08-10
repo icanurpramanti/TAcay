@@ -19,8 +19,8 @@
                 </div>
             </div>
             <div class="box-footer">
-                <button class="btn btn-warning btn-flat" onclick="notaKecil('{{ route('transaksi.nota_kecil') }}','Nota Kecil')">Cetak Ulang Nota</button>
-                <a href="/transaksi/baruu" class="btn btn-primary btn-flat">Transaksi Baru</a>
+                <button class="btn btn-warning btn-flat" onclick="notaKecil('{{ route('transaksikasir.nota_kecil') }}','Nota Kecil')">Cetak Ulang Nota</button>
+                <a href="{{ route('transaksikasir.baru') }}" class="btn btn-primary btn-flat">Transaksi Baru</a>
             </div>
         </div>
     </div>
