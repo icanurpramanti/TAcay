@@ -19,12 +19,14 @@ class PembelianDetailController extends Controller
      {
         $id_pembelian = session('id_pembelian');
         $produks = Produk::orderBy('nama_produk')->get();
-        $suppliers = Supplier::find(session('kode_supplier'));
+        $kode_supplier = session('kode_supplier');
+        $suppliers = Supplier::where('kode_supplier', $kode_supplier)->first();        
         $diskon = Pembelian::find($id_pembelian)->diskon ?? 0;
+    
 
-        // if (! $suppliers) {
-        //     abort(404);
-        // }
+        if (! $suppliers) {
+            abort(404);
+        }
 
         return view('admin.dashboard.pembelian_detail.index', compact('id_pembelian', 'produks', 'suppliers','diskon'));
     }

@@ -34,33 +34,32 @@
 </style>
 @endpush
 
-
-
 <div class="row">
     <div class="col-lg-12">
         <div class="box">
             <div class="box-header with-border">
+                @if($suppliers)
                 <table>
-                    @if(!empty($suppliers))
-                    @foreach($suppliers as $item)
                     <tr>
                         <td>Supplier</td>
-                        <td>: {{ $item->nama_supplier }}</td>
+                        <td>: {{ $suppliers->nama_supplier }}</td>
                     </tr>
                     <tr>
                         <td>Telepon</td>
-                        <td>: {{ $item->no_hp }}</td>
+                        <td>: {{ $suppliers->no_hp }}</td>
                     </tr>
                     <tr>
                         <td>Alamat</td>
-                        <td>: {{ $item->alamat_supplier }}</td>
+                        <td>: {{ $suppliers->alamat_supplier }}</td>
                     </tr>
-                    @endforeach
-                    @endif
                 </table>
+                @else
+                <p>Informasi supplier tidak tersedia.</p>
+                @endif
             </div>
+
             <div class="box-body">
-            <form class="form-produk">
+                <form class="form-produk">
                     @csrf
                     <div class="form-group row">
                         <label for="kode_produk" class="col-lg-2">Kode Produk</label>
@@ -97,7 +96,7 @@
                         <div class="tampil-terbilang"></div>
                     </div>
                     <div class="col-lg-4">
-                    <form action="{{ route('pembelian.store') }}" class="form-pembelian" method="post">
+                        <form action="{{ route('pembelian.store') }}" class="form-pembelian" method="post">
                             @csrf
                             <input type="hidden" name="id_pembelian" value="{{ $id_pembelian }}">
                             <input type="hidden" name="total" id="total">
@@ -149,18 +148,35 @@
                 ajax: {
                     url: '{{ route("pembelian_detail.data", $id_pembelian) }}',
                 },
-                  columns: [
-                {data: 'DT_RowIndex', searchable: false, sortable: false},
-                {data: 'kode_produk'},
-                {data: 'nama_produk'},
-                {data: 'harga_beli'},
-                {data: 'jumlah'},
-                {data: 'subtotal'},
-                {data: 'aksi', searchable: false, sortable: false},
-            ],
-            dom: 'Brt',
-            bSort: false,
-            paginate: false
+                columns: [{
+                        data: 'DT_RowIndex',
+                        searchable: false,
+                        sortable: false
+                    },
+                    {
+                        data: 'kode_produk'
+                    },
+                    {
+                        data: 'nama_produk'
+                    },
+                    {
+                        data: 'harga_beli'
+                    },
+                    {
+                        data: 'jumlah'
+                    },
+                    {
+                        data: 'subtotal'
+                    },
+                    {
+                        data: 'aksi',
+                        searchable: false,
+                        sortable: false
+                    },
+                ],
+                dom: 'Brt',
+                bSort: false,
+                paginate: false
             })
             .on('draw.dt', function() {
                 loadForm($('#diskon.val'));
@@ -206,12 +222,12 @@
             loadForm($(this).val());
         });
 
-        $('.btn-simpan').on('click', function () {
+        $('.btn-simpan').on('click', function() {
             $('.form-pembelian').submit();
         });
     });
 
-    $(document).on('click','.btn-simpan', function(){
+    $(document).on('click', '.btn-simpan', function() {
         console.log('data simpan')
     })
 
@@ -224,8 +240,7 @@
         $('#modal-produk').modal('hide');
     }
 
-    function pilihProduk(kode_produk)
-     {
+    function pilihProduk(kode_produk) {
         $('#kode_produk').val(kode_produk);
         hideProduk();
         tambahProduk();
@@ -254,7 +269,7 @@
                     table.ajax.reload();
                 })
                 .fail((errors) => {
-                     alert('Tidak dapat menghapus data');
+                    alert('Tidak dapat menghapus data');
                 });
         }
     }
@@ -265,10 +280,10 @@
 
         $.get(`{{ url('/pembelian_detail/loadform') }}/${diskon}/${$('.total').text()}`)
             .done(response => {
-                $('#totalrp').val('Rp. '+ response.totalrp);
-                $('#bayarrp').val('Rp. '+ response.bayarrp);
+                $('#totalrp').val('Rp. ' + response.totalrp);
+                $('#bayarrp').val('Rp. ' + response.bayarrp);
                 $('#bayar').val(response.bayar);
-                $('.tampil-bayar').text('Rp. '+ response.bayarrp);
+                $('.tampil-bayar').text('Rp. ' + response.bayarrp);
                 $('.tampil-terbilang').text(response.terbilang);
             })
             .fail(errors => {

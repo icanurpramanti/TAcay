@@ -52,6 +52,7 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     Route::resource('/pembelian_detail', PembelianDetailController::class)
         ->except('create', 'show', 'edit');
 
+
     //penjualan
     Route::get('/penjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
     Route::get('/penjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
