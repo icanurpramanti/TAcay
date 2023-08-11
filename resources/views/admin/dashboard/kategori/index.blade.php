@@ -134,6 +134,7 @@
     </div>
 </div>
 @endforeach
+@endsection
 
-</div>
+@section('footer')
 @endsection

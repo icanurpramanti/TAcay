@@ -3,8 +3,6 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/logoca.jpg">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>SRC Rani Cell</title>
@@ -15,25 +13,6 @@
   <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <link href="../assets/demo/demo.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/perfect-scrollbar@1.5.2/dist/perfect-scrollbar.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-
-  <script>
-    $(document).ready(function() {
-      // DataTables initialization
-      $('#tabel-data').DataTable();
-    });
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Kode JavaScript Anda di sini
-    });
-  </script>
   @stack('css')
 </head>
 
@@ -84,35 +63,29 @@
         @yield('content')
       </div>
       <!-- END CONTENT -->
-      <footer class="footer footer-black  footer-white ">
+      <footer class="footer footer-white  footer-teal" style="background-color: white; text-align: center; padding: 20px;">
         <div class="container-fluid">
           <div class="row">
-            <nav class="footer-nav">
-              <ul>
-                <li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
-                <li><a href="https://www.creative-tim.com/blog" target="_blank">Blog</a></li>
-                <li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
-              </ul>
-            </nav>
-            <div class="credits ml-auto">
-              <span class="copyright">
+            <div class="credits mx-auto" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+              <span class="copyright" style="font-size: 12px; color: teal;">
                 © <script>
                   document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
+                </script>, dibuat dengan <i class="fa fa-heart heart"></i> oleh SRC Rani Cell 2023
               </span>
             </div>
           </div>
         </div>
+        @yield('footer') <!-- Tambahkan baris ini di sini -->
       </footer>
     </div>
   </div>
   <!-- Load jQuery before Bootstrap -->
-  <script src="/../assets/js/core/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/bootstrap/js/bootstrap.min.js"></script>
   <script src="/../assets/js/core/popper.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
   <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
       $('#tabel-data').DataTable();
     });
   </script>
@@ -126,7 +99,6 @@
       demo.initChartsPages();
     });
   </script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   @stack('scripts')
 </body>
 

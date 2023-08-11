@@ -6,43 +6,27 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <h5 class="card-title">Selamat Datang di Halaman Kasir</h5>
+          <h5 class="card-title1">Selamat Datang di Halaman Kasir</h5>
         </div>
         <div class="card-body">
-          <div class="welcome-message">
-            <h3>Transaksikan dengan Gaya!</h3>
-            <p>Di halaman ini, Anda dapat dengan gaya yang unik melakukan transaksi penjualan dan mengelola pesanan dari pelanggan.</p>
-            <p>Gunakan fitur-fitur canggih kami untuk memberikan pengalaman berbelanja yang tak terlupakan.</p>
-          </div>
-          <div class="row feature-card">
-            <div class="col-md-4">
-              <div class="card card-primary">
-                <div class="card-body">
-                  <i class="fa fa-money"></i>
-                  <h4>Transaksi Kilat</h4>
-                  <p>Lakukan transaksi dengan kilatan mata menggunakan antarmuka yang elegan dan efisien.</p>
-                </div>
+          <img src="../assets/img/c.jpg" alt="SRC Rani Cell" style="width: 100%; max-height: 300px; object-fit: cover;">
+          <div class="feature-card row">
+            <div class="col-md-6">
+              <div class="feature-card-box bg-light">
+              <i class="fa fa-shopping-cart"></i>
+                <h4 class="text-primary">Belanja Mudah</h4>
+                <p class="text-muted">Pilih produk favorit Anda dengan banyak pilihan yang beragam.</p>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="card card-primary">
-                <div class="card-body">
-                  <i class="fa fa-list"></i>
-                  <h4>Kelola Pesanan Lebih Baik</h4>
-                  <p>Manajemen pesanan yang canggih memungkinkan Anda mengendalikan pesanan dengan mudah.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card card-primary">
-                <div class="card-body">
-                  <i class="fa fa-chart-bar"></i>
-                  <h4>Laporan Lengkap</h4>
-                  <p>Dapatkan wawasan bisnis yang memukau dengan laporan penjualan dan analisis data yang komprehensif.</p>
-                </div>
+            <div class="col-md-6">
+              <div class="feature-card-box bg-light">
+                <i class="fa fa-money"></i>
+                <h4 class="text-success">Pembayaran Aman</h4>
+                <p class="text-muted">Kami menyediakan pembayaran yang aman dan terpercaya.</p>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -51,6 +35,21 @@
 @endsection
 
 <style>
+  .card-title1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: teal;
+    text-align: center;
+    font-size: 30px;
+  }
+
+
+  .feature-card-box {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: teal;
+    text-align: center;
+    font-size: 30px;
+  }
+
   .welcome-message {
     text-align: center;
     margin-bottom: 20px;
@@ -62,43 +61,47 @@
     color: #007bff;
   }
 
-  .feature-card {
-    margin-top: 20px;
-  }
-
-  .card {
-    border: none;
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+  .feature-card-box {
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
     transition: transform 0.3s, box-shadow 0.3s;
   }
 
-  .card-primary {
-    background-color: #007bff;
-    color: white;
-  }
-
-  .card-body {
-    text-align: center;
-    padding: 20px;
-  }
-
-  .card:hover {
+  .feature-card-box:hover {
     transform: translateY(-5px);
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+
   }
 
-  .card i {
+  .feature-card-box i {
     font-size: 48px;
     margin-bottom: 15px;
+    color: #007bff;
   }
 
-  .card h4 {
+  .feature-card-box h4 {
     font-size: 20px;
     margin-bottom: 10px;
-    color: white;
   }
 
-  .card p {
+  .feature-card-box p {
     font-size: 16px;
+    margin-bottom: 15px;
+    color: #555;
+  }
+
+  .btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
   }
 </style>

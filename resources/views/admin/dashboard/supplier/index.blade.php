@@ -104,11 +104,11 @@
                             @error('alamat_supplier')
                             {{ $message }}
                             @enderror
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -162,17 +162,17 @@
                     @error('alamat_supplier')
                     {{ $message }}
                     @enderror
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
             </form>
         </div>
     </div>
 </div>
 
 @endforeach
-</div>
-
+@endsection
+@section('footer')
 @endsection

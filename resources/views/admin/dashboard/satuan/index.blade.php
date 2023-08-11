@@ -51,8 +51,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-
+                </div>            
             </div>
         </div>
     </div>
@@ -134,6 +133,7 @@
     </div>
 </div>
 @endforeach
+@endsection
 
-</div>
+@section('footer')
 @endsection

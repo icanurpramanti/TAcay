@@ -17,8 +17,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-
-
         $filename = time() . '.jpg';
         $gambar_profil = 'produk_image/' . $filename;
 

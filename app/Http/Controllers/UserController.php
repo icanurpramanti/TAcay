@@ -119,46 +119,48 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(Request $request, $id)
+     public function update(Request $request, $id)
     {
-        // Validasi data pengguna
         $validatedData = $request->validate([
             'nama' => 'required|unique:users,nama,' . $id . ',id',
             'level' => 'required',
             'email' => 'required',
+            'password' => 'required',
             'alamat_user' => 'required',
             'no_hp' => 'required',
         ]);
 
-        // Ambil data pengguna berdasarkan ID
-        $user = User::findOrFail($id);
+        if ($request->file('foto_user') == NULL) {
+            $update = User::where('id', $id)->update([
+                'nama' => $request->nama,
+                'level' => $request->level,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'alamat_user' => $request->alamat_user,
+                'no_hp' => $request->no_hp,
+            ]);
 
-        // Cek apakah ada pengisian ulang foto pengguna
-        if ($request->hasFile('foto_user')) {
-            // Hapus foto lama jika ada
-            $oldFilename = $user->foto_user;
-            if ($oldFilename && File::exists('produk_image/' . $oldFilename)) {
-                File::delete('produk_image/' . $oldFilename);
-            }
+            return redirect()->route('user.index')->with('success', 'Data Berhasil Diubah!!!');
+        } else {
+            File::delete('produk_image/' . $request->foto_user_lama);
 
-            // Pindahkan foto baru ke direktori dan simpan namanya
             $filename = time() . "." . $request->foto_user->getClientOriginalExtension();
             $request->file('foto_user')->move('produk_image', $filename);
-            $user->foto_user = $filename;
+
+            $update = User::where('id', $id)->update([
+                'nama' => $request->nama,
+                'level' => $request->level,
+                'email' => $request->email,
+                'foto_user' => $filename,
+                'password' => Hash::make($request->password),
+                'alamat_user' => $request->alamat_user,
+                'no_hp' => $request->no_hp,
+            ]);
         }
 
-        // Update data pengguna
-        $user->nama = $request->nama;
-        $user->level = $request->level;
-        $user->email = $request->email;
-        $user->alamat_user = $request->alamat_user;
-        $user->no_hp = $request->no_hp;
-
-        // Simpan perubahan
-        $user->save();
-
-        return redirect()->route('user.index')->with('success', 'Data Berhasil Diubah!!!');
+        return redirect('/user')->with('pesan', 'Data Berhasil Di Ubah');
     }
+     
 
 
     /**

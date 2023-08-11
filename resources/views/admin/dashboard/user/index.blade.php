@@ -124,7 +124,7 @@
                             @enderror
 
                             <div class="mb-3" ">
-                                <label for="foto_user" class="form-label">Foto User</label>
+                                <label for=" foto_user" class="form-label">Foto User</label>
                                 <input type="file" class="form-control @error('foto_user') is-invalid @enderror" id="foto_user" name="foto_user">
                                 @error('foto_user')
                                 <div class="invalid-feedback">
@@ -132,7 +132,7 @@
                                 </div>
                                 @enderror
                             </div>
-
+                        </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -152,7 +152,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">EDIT USER</h5>
             </div>
-            <form action="/user/{{$user->id}}" method="post"  class="p-3" enctype="multipart/form-data">
+            <form action="/user/{{$user->id}}" method="post" class="p-3" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <div class="modal-body">
@@ -223,7 +223,5 @@
     </div>
 </div>
 @endforeach
-
-</div>
-
 @endsection
+

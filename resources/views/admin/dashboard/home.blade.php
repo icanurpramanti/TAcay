@@ -138,8 +138,8 @@
     </div>
   </div>
 </div>
-
 @endsection
+
 @push('scripts')
 <!-- ChartJS -->
 <script src="../assets/js/plugins/Chart.js"></script>
