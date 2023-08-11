@@ -90,7 +90,7 @@ $(document).ready(function() {
       <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
   <div class="container-fluid">
     <div class="navbar-wrapper">
-      <a class="navbar-brand mx-4" href="javascript:;">MANAJEMEN kasir</a>
+      <a class="navbar-brand mx-4" href="javascript:;">MANAJEMEN KASIR</a>
     </div>
     <div class="collapse navbar-collapse justify-content-end" id="navigation">
       <ul class="navbar-nav">

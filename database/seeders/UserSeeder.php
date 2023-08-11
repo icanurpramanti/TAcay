@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
         // Menggunakan insert() untuk memasukkan data ke dalam tabel 'users'
         DB::table('users')->insert([
             'nama' => 'Ica Nur Pramanti',
-            'level' => 'kasir',
+            'level' => 'admin',
             'foto_user' => $filename,
             'email' => 'ica@gmail.com',
             'password' => Hash::make('password'),

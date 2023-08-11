@@ -1,6 +1,6 @@
 @extends('kasir.dashboard.layout2.template')
 
-@section('contentkasir')
+@section('content')
 <div class="content">
   <div class="row">
     <div class="col-md-12">
