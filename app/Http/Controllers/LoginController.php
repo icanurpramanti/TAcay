@@ -26,24 +26,15 @@ class LoginController extends Controller
         ]);
 
 
-        if(Auth::attempt($credentials)){
-            if(Auth::user()->level=='admin'){
+        if (Auth::attempt($credentials)) {
+            if (Auth::user()->level == 'admin') {
                 return redirect('/home');
-            }
-            if(Auth::user()->level=='kasir'){
+            } elseif (Auth::user()->level == 'kasir') {
                 return redirect('/homee');
             }
+        } else {
+            return redirect('/login')->with('error', 'Email atau Password Salah');
         }
-        
-
-        // if(auth::attempt($request->only('email','password'))){
-        //     // return 'sukses';
-        //     return redirect ('home');
-        // }else {
-        //     // return 'gagal';
-        //     Session::flash('error','Email atau Password Salah');
-        //         return redirect('/login');
-        // }
 
     }
 

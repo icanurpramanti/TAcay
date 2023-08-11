@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.user.index',[
+        return view('admin.dashboard.user.index', [
             'users' =>  User::all()
         ]);
     }
@@ -54,23 +54,23 @@ class UserController extends Controller
         $filename = time() . "." . $request->foto_user->getClientOriginalExtension();
         $request->file('foto_user')->move('produk_image', $filename);
 
-         // Jika validasi tidak ada, maka lakukan simpan data
+        // Jika validasi tidak ada, maka lakukan simpan data
 
-         $save = User::create(
+        $save = User::create(
             [
-            'nama' => $request->nama,
-            'level' => $request->level,
-            'email' => $request->email,
-            'foto_user' => $filename,
-            'password' =>Hash::make($request->password),
-            'alamat_user' => $request->alamat_user,
-            'no_hp' => $request->no_hp,
+                'nama' => $request->nama,
+                'level' => $request->level,
+                'email' => $request->email,
+                'foto_user' => $filename,
+                'password' => Hash::make($request->password),
+                'alamat_user' => $request->alamat_user,
+                'no_hp' => $request->no_hp,
             ]
         );
 
-        
-    
-        return redirect('/user')->with('pesan','Data Berhasil Di Tambah');
+
+
+        return redirect('/user')->with('pesan', 'Data Berhasil Di Tambah');
     }
 
 
@@ -84,14 +84,14 @@ class UserController extends Controller
     public function show(User $id)
     {
         // $user= User::findOrfail($id);
-        return view('admin.dashboard.user.detail',[
-            'users'=>User::findOrFail($id)
+        return view('admin.dashboard.user.detail', [
+            'users' => User::findOrFail($id)
         ]);
     }
 
     public function detail($id)
     {
-        return view('admin.dashboard.user.detail',[
+        return view('admin.dashboard.user.detail', [
             'user' => User::findOrFail($id)
         ]);
     }
@@ -118,49 +118,49 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-   
-     public function update(Request $request, $id)
-     {
-         $validatedData = $request->validate([
-             'nama' => 'required|unique:users,nama,' . $id . ',id',
-             'level' => 'required',
-             'email' => 'required',
-             'password' => 'required',
-             'alamat_user' => 'required',
-             'no_hp' => 'required',
-         ]);
- 
-         if ($request->file('foto_user') == NULL) {
-             $update = User::where('id', $id)->update([
-                 'nama' => $request->nama,
-                 'level' => $request->level,
-                 'email' => $request->email,
-                 'password' => Hash::make($request->password),
-                 'alamat_user' => $request->alamat_user,
-                 'no_hp' => $request->no_hp,
-             ]);
- 
-             return redirect()->route('user.index')->with('success', 'Data Berhasil Diubah!!!');
-         } else {
-             File::delete('produk_image/' . $request->foto_user_lama);
- 
-             $filename = time() . "." . $request->foto_user->getClientOriginalExtension();
-             $request->file('foto_user')->move('produk_image', $filename);
- 
-             $update = User::where('id', $id)->update([
-                 'nama' => $request->nama,
-                 'level' => $request->level,
-                 'email' => $request->email,
-                 'foto_user' => $filename,
-                 'password' => Hash::make($request->password),
-                 'alamat_user' => $request->alamat_user,
-                 'no_hp' => $request->no_hp,
-             ]);
-         }
- 
-         return redirect('/user')->with('pesan', 'Data Berhasil Di Ubah');
-     }
- 
+
+    public function update(Request $request, $id)
+    {
+        // Validasi data pengguna
+        $validatedData = $request->validate([
+            'nama' => 'required|unique:users,nama,' . $id . ',id',
+            'level' => 'required',
+            'email' => 'required',
+            'alamat_user' => 'required',
+            'no_hp' => 'required',
+        ]);
+
+        // Ambil data pengguna berdasarkan ID
+        $user = User::findOrFail($id);
+
+        // Cek apakah ada pengisian ulang foto pengguna
+        if ($request->hasFile('foto_user')) {
+            // Hapus foto lama jika ada
+            $oldFilename = $user->foto_user;
+            if ($oldFilename && File::exists('produk_image/' . $oldFilename)) {
+                File::delete('produk_image/' . $oldFilename);
+            }
+
+            // Pindahkan foto baru ke direktori dan simpan namanya
+            $filename = time() . "." . $request->foto_user->getClientOriginalExtension();
+            $request->file('foto_user')->move('produk_image', $filename);
+            $user->foto_user = $filename;
+        }
+
+        // Update data pengguna
+        $user->nama = $request->nama;
+        $user->level = $request->level;
+        $user->email = $request->email;
+        $user->alamat_user = $request->alamat_user;
+        $user->no_hp = $request->no_hp;
+
+        // Simpan perubahan
+        $user->save();
+
+        return redirect()->route('user.index')->with('success', 'Data Berhasil Diubah!!!');
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -170,7 +170,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
-        return redirect('/user')-> with('pesan','Data Berhasil Di hapus');
+        return redirect('/user')->with('pesan', 'Data Berhasil Di hapus');
     }
 
     public function search(Request $request)

@@ -139,11 +139,14 @@ class PenjualanDetailController extends Controller
      * @return \Illuminate\Http\Response
      */
  
+
      public function update(Request $request, $id)
      {
-         
+         $detail = PenjualanDetail::find($id);
+         $detail->jumlah = $request->jumlah;
+         $detail->subtotal = $detail->harga_jual * $request->jumlah - (($detail->diskon * $request->jumlah) / 100 * $detail->harga_jual);;
+         $detail->update();
      }
-
     /**
      * Remove the specified resource from storage.
      *

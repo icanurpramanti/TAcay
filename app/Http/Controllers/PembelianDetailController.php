@@ -144,7 +144,12 @@ class PembelianDetailController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
+    
+        $detail = PembelianDetail::find($id);
+        $detail->jumlah = $request->jumlah;
+        $detail->subtotal = $detail->harga_beli * $request->jumlah;
+        $detail->update();
+    
     }
 
 
