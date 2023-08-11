@@ -11,7 +11,7 @@
     SRC Rani Cell
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--Fonts and icons--> 
+  <!--Fonts and icons-->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <!-- CSS Files -->
@@ -24,7 +24,7 @@
 
   <!-- Import jQuery library -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  
+
   <!-- Import DataTables library -->
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
@@ -34,6 +34,25 @@
       $('#tabel-data').DataTable();
     });
   </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Memuat Moment.js sebelum Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<!-- Memuat Chart.js setelah Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+<!-- Kode JavaScript Anda -->
+<script>
+$(document).ready(function() {
+    // Kode JavaScript Anda di sini
+});
+</script>
+
+
+
+
 
   @stack('css')
 </head>
@@ -71,7 +90,7 @@
       <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
   <div class="container-fluid">
     <div class="navbar-wrapper">
-      <a class="navbar-brand mx-4" href="javascript:;">MANAJEMEN ADMIN</a>
+      <a class="navbar-brand mx-4" href="javascript:;">MANAJEMEN kasir</a>
     </div>
     <div class="collapse navbar-collapse justify-content-end" id="navigation">
       <ul class="navbar-nav">
@@ -95,7 +114,7 @@
 
       <!-- CONTENT -->
       <div class="content">
-        @yield('contentkasir')
+        @yield('content')
       </div>
       <!-- END CONTENT -->
 
@@ -128,9 +147,7 @@
 <script src="/../assets/js/core/popper.min.js"></script>
 <!-- ... (other scripts) ... -->
 
-<!-- Load Chart.js -->
-<script src="/../assets/js/plugins/chartjs.min.js"></script>
-<!-- ... (other scripts) ... -->
+
 
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script>
@@ -140,7 +157,7 @@
 </script>
 
 <!-- ... (other scripts) ... -->
-
+<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
 <script src="/../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
 <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 <script src="/../assets/demo/demo.js"></script>
@@ -150,6 +167,9 @@
     demo.initChartsPages();
   });
 </script>
+
+<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
 
 @stack('scripts')
 

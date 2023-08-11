@@ -28,7 +28,7 @@
     </div>
 </div>
 
-@includeIf('kasir.dashboard.penjualan.detail')
+@includeIf('admin.dashboard.penjualan.detail')
 @endsection
 
 @push('scripts')
@@ -42,7 +42,7 @@
             serverSide: true,
             autoWidth: false,
             ajax: {
-                url: '{{ route("penjualankasir.data") }}',
+                url: '{{ route("penjualan.data") }}',
             },
             columns: [
                 {data: 'DT_RowIndex', searchable: false, sortable: false},
