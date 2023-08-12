@@ -119,7 +119,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'nama' => 'required|unique:users,nama,' . $id . ',id',
@@ -139,8 +139,6 @@ class UserController extends Controller
                 'alamat_user' => $request->alamat_user,
                 'no_hp' => $request->no_hp,
             ]);
-
-            return redirect()->route('user.index')->with('success', 'Data Berhasil Diubah!!!');
         } else {
             File::delete('produk_image/' . $request->foto_user_lama);
 
@@ -160,7 +158,6 @@ class UserController extends Controller
 
         return redirect('/user')->with('pesan', 'Data Berhasil Di Ubah');
     }
-     
 
 
     /**

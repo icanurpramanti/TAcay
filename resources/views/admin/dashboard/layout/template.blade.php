@@ -13,9 +13,11 @@
   <link href="../assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
   <link href="../assets/demo/demo.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/perfect-scrollbar@1.5.2/dist/perfect-scrollbar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   @stack('css')
 </head>
-
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
@@ -93,12 +95,7 @@
   <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script>
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="/../assets/demo/demo.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Ensure Chart.js is loaded before calling initChartsPages()
-      demo.initChartsPages();
-    });
-  </script>
+  
   @stack('scripts')
 </body>
 

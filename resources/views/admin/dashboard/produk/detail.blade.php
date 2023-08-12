@@ -43,13 +43,6 @@
                     <td class="text-left"> {{$produk->harga_jual}}</td>
                   </tr>
                   <tr>
-                    <th class="text-right" style="width: 30%">Barcode</th>
-                    <td>
-                      {!! DNS1D::getBarcodeHTML($produk->barcode, 'UPCA', 2, 50) !!}
-                      P-{{ $produk->barcode }}
-                    </td>
-                  </tr>
-                  <tr>
                     <th class="text-right" style="width: 30%">Stok</th>
                     <td class="text-left"> {{$produk->stok}}</td>
                   </tr>

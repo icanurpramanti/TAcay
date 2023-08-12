@@ -15,9 +15,10 @@ class KategoriController extends Controller
     public function index()
     {
         return view('admin.dashboard.kategori.index', [
-            'kategoris' =>  Kategori::latest()->paginate(7)
+            'kategoris' => Kategori::orderBy('kode_kategori')->paginate(7)
         ]);
     }
+        
 
     /**
      * Show the form for creating a new resource.

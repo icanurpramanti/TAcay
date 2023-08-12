@@ -52,6 +52,8 @@ class PenjualanDetailController extends Controller
              $total += $item->harga_jual * $item->jumlah - (($item->diskon * $item->jumlah) / 100 * $item->harga_jual);;
              $total_item += $item->jumlah;
          }
+
+         
          $data[] = [       
             'kode_produk' => '
                 <div class="total hide" hidden>'. $total .'</div>

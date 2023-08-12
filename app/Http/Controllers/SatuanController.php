@@ -15,7 +15,7 @@ class SatuanController extends Controller
     public function index()
     {
         return view('admin.dashboard.satuan.index',[
-            'satuans' =>  Satuan::latest()->paginate(7)
+            'satuans' => Satuan::orderBy('kode_satuan')->paginate(7)
         ]);
     }
 
