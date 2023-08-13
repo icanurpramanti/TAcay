@@ -60,7 +60,6 @@
                         <th>Nama Produk</th>
                         <th>Harga Jual</th>
                         <th width="15%">Jumlah</th>
-                        <th>Diskon</th>
                         <th>Subtotal</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
@@ -87,9 +86,7 @@
                             <div class="form-group row">
                                 <label for="diskon" class="col-lg-2 control-label">Diskon</label>
                                 <div class="col-lg-8">
-                                    <input type="number" name="diskon" id="diskon" class="form-control" 
-                                        value="{{ $penjualans->diskon ?? 0 }}" 
-                                        readonly>
+                                    <input type="number" name="diskon" id="diskon" class="form-control" value="{{ $diskon }}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -146,7 +143,6 @@
                 {data: 'nama_produk'},
                 {data: 'harga_jual'},
                 {data: 'jumlah'},
-                 {data: 'diskon'},
                 {data: 'subtotal'},
                 {data: 'aksi', searchable: false, sortable: false},
             ],

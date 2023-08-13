@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Produk;
 use App\Models\Supplier;
 use Yajra\DataTables\DataTables;
@@ -15,52 +16,53 @@ class PembelianDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function index()
-     {
+    public function index()
+    {
         $id_pembelian = session('id_pembelian');
         $produks = Produk::orderBy('nama_produk')->get();
         $kode_supplier = session('kode_supplier');
-        $suppliers = Supplier::where('kode_supplier', $kode_supplier)->first();        
+        $suppliers = Supplier::where('kode_supplier', $kode_supplier)->first();
         $diskon = Pembelian::find($id_pembelian)->diskon ?? 0;
-    
 
-        if (! $suppliers) {
+
+        if (!$suppliers) {
             abort(404);
         }
 
-        return view('admin.dashboard.pembelian_detail.index', compact('id_pembelian', 'produks', 'suppliers','diskon'));
+        return view('admin.dashboard.pembelian_detail.index', compact('id_pembelian', 'produks', 'suppliers', 'diskon'));
     }
 
 
     public function data($id)
     {
- 
+
         // Menampilkan produk yang dipilih
         $detail = PembelianDetail::with('produk')
-        ->where('id_pembelian',$id)
-        ->get();
-         $data = array();
-         $total = 0;
-         $total_item = 0;
+            ->where('id_pembelian', $id)
+            ->get();
+        $data = array();
+        $total = 0;
+        $total_item = 0;
 
-         foreach ($detail as  $item){
+        foreach ($detail as  $item) {
             $row = array();
-            $row['kode_produk'] = '<span class="label label-success">'. $item->produk['kode_produk'] .'</span';
-            $row['nama_produk'] =$item->produk['nama_produk'];
-            $row['harga_beli'] ='Rp. ' .format_uang($item->harga_beli) ;
-            $row['jumlah']      = '<input type="number" class="form-control input-sm quantity" data-id="'. $item->id_pembelian_detail .'" value="'. $item->jumlah .'">';            $row['subtotal'] ='Rp. ' .format_uang($item->subtotal) ;
+            $row['kode_produk'] = '<span class="label label-success">' . $item->produk['kode_produk'] . '</span';
+            $row['nama_produk'] = $item->produk['nama_produk'];
+            $row['harga_beli'] = 'Rp. ' . format_uang($item->harga_beli);
+            $row['jumlah']      = '<input type="number" class="form-control input-sm quantity" data-id="' . $item->id_pembelian_detail . '" value="' . $item->jumlah . '">';
+            $row['subtotal'] = 'Rp. ' . format_uang($item->subtotal);
             $row['aksi'] = ' <div class="btn-group">
-            <button onclick="deleteData(`'. route('pembelian_detail.destroy', $item->id_pembelian_detail) .'`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>                </div>';
-            $data[]=$row;
+            <button onclick="deleteData(`' . route('pembelian_detail.destroy', $item->id_pembelian_detail) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>                </div>';
+            $data[] = $row;
 
-            $total +=$item->harga_beli * $item->jumlah;
-            $total_item+=$item->jumlah;
-         }
+            $total += $item->harga_beli * $item->jumlah;
+            $total_item += $item->jumlah;
+        }
 
-          $data[] = [
+        $data[] = [
             'kode_produk' => '
-                <div class="total hide">'. $total .'</div>
-                <div class="total_item hide">'. $total_item .'</div>',
+                <div class="total hide">' . $total . '</div>
+                <div class="total_item hide">' . $total_item . '</div>',
             'nama_produk' => '',
             'harga_beli'  => '',
             'jumlah'      => '',
@@ -69,11 +71,10 @@ class PembelianDetailController extends Controller
         ];
 
         return datatables()
-        ->of($data)
-        ->addIndexColumn()
-        ->rawColumns(['aksi','kode_produk','jumlah'])
-        ->make(true);
-
+            ->of($data)
+            ->addIndexColumn()
+            ->rawColumns(['aksi', 'kode_produk', 'jumlah'])
+            ->make(true);
     }
 
 
@@ -84,7 +85,6 @@ class PembelianDetailController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -96,7 +96,7 @@ class PembelianDetailController extends Controller
     public function store(Request $request)
     {
         $produks = Produk::where('kode_produk', $request->kode_produk)->first();
-        if (! $produks) {
+        if (!$produks) {
             return response()->json('Data gagal disimpan', 400);
         }
 
@@ -108,14 +108,14 @@ class PembelianDetailController extends Controller
         $detail->subtotal = $produks->harga_beli;
         $detail->save();
 
-        
+
 
         return response()->json('Data berhasil disimpan', 200);
     }
 
 
 
-   
+
 
     /**
      * Display the specified resource.
@@ -123,7 +123,7 @@ class PembelianDetailController extends Controller
      * @param  \App\Models\PembelianDetail  $pembelianDetail
      * @return \Illuminate\Http\Response
      */
-   
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -144,12 +144,11 @@ class PembelianDetailController extends Controller
      */
     public function update(Request $request, $id)
     {
-    
+
         $detail = PembelianDetail::find($id);
         $detail->jumlah = $request->jumlah;
         $detail->subtotal = $detail->harga_beli * $request->jumlah;
         $detail->update();
-    
     }
 
 
@@ -170,15 +169,20 @@ class PembelianDetailController extends Controller
     //untuk kalkulasi data
     public function loadForm($diskon, $total)
     {
+        // Konversi $diskon dan $total ke tipe data numerik (misalnya float atau int)
+        $diskon = (float) $diskon;
+        $total = (float) $total;
+
+        // Lakukan operasi matematika setelah konversi
         $bayar = $total - ($diskon / 100 * $total);
+
         $data  = [
             'totalrp' => format_uang($total),
             'bayar' => $bayar,
             'bayarrp' => format_uang($bayar),
-            'terbilang' => ucwords(terbilang($bayar). ' Rupiah')
+            'terbilang' => ucwords(terbilang($bayar) . ' Rupiah')
         ];
 
         return response()->json($data);
     }
-
 }

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('kode_produk');
             $table->integer('harga_jual');
             $table->integer('jumlah');
-            $table->tinyInteger('diskon')->default(0);
             $table->integer('subtotal');
             $table->timestamps();
         });

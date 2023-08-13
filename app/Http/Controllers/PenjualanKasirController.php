@@ -74,13 +74,11 @@ class PenjualanKasirController extends Controller
         $penjualans->bayar = $request->bayar;
         $penjualans->diterima = $request->diterima;
         $penjualans->update();
-
         $detail = PenjualanDetail::where('id_penjualan', $penjualans->id_penjualan)->get();
         $kodeproduk = [];
 
         foreach ($detail as $item) {
             $kodeproduk[] = $item->kode_produk;
-            $item->diskon = $request->diskon;
             $item->update();
 
             // Ambil produk berdasarkan kode_produk

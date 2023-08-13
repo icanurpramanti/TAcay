@@ -99,7 +99,6 @@ class PenjualanController extends Controller
 
         foreach ($detail as $item) {
             $kodeproduk[] = $item->kode_produk;
-            $item->diskon = $request->diskon;
             $item->update();
 
             // Ambil produk berdasarkan kode_produk
