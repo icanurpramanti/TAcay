@@ -54,13 +54,7 @@ class SatuanController extends Controller
      * @param  \App\Models\Satuan  $satuan
      * @return \Illuminate\Http\Response
      */
-    public function show(Satuan $id)
-    {
-        // $satuan= Satuan::findOrfail($id);
-        return view('admin.dashboard.satuan.detail',[
-            'satuans'=>Satuan::findOrFail($id)
-        ]);
-    }
+
 
     public function detail($id)
     {
@@ -78,7 +72,6 @@ class SatuanController extends Controller
     {
         return view('admin.dashboard.satuan.edit',[
             'satuans' =>Satuan::find($id)
-    
        ]);
     }
 
@@ -111,13 +104,6 @@ class SatuanController extends Controller
     {
         Satuan::destroy($id);
         return redirect('/satuan')-> with('pesan','Data Berhasil Di hapus');
-    }
-
-    public function searchsatuan(Request $request)
-    {
-        $keyword = $request->search;
-        $satuans = Satuan::where('nama_satuan', 'like', "%" . $keyword . "%")->paginate(5);
-        return view('admin.dashboard.satuan.index', compact('satuans'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
 }

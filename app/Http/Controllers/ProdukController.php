@@ -18,10 +18,8 @@ class ProdukController extends Controller
     {
         $kategoris = Kategori::all();
         $satuans = Satuan::all();
-        $produks = Produk::orderBy('kode_produk')->paginate(7); // Mengambil dan mengurutkan produk berdasarkan kode_supplier
-    
+        $produks = Produk::orderBy('kode_produk')->paginate(7); 
         
-       
         return view('admin.dashboard.produk.index', compact('kategoris', 'produks', 'satuans'));
     }
 
@@ -72,13 +70,6 @@ class ProdukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Produk $id)
-    {
-        // $produk= Produk::findOrfail($id);
-        return view('admin.dashboard.produk.detail', [
-            'produks' => Produk::findOrFail($id)
-        ]);
-    }
 
     public function detail($id)
     {
@@ -142,10 +133,5 @@ class ProdukController extends Controller
         return redirect('/produk')->with('pesan', 'Data Berhasil Di hapus');
     }
 
-    public function searchproduk(Request $request)
-    {
-        $keyword = $request->search;
-        $produks = Produk::where('nama_produk', 'like', "%" . $keyword . "%")->paginate(5);
-        return view('admin.dashboard.produk.index', compact('produks'))->with('i', (request()->input('page', 1) - 1) * 5);
-    }
+
 }

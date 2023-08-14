@@ -84,7 +84,6 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
      Route::get('/supplier-detail/{id}', [SupplierController::class, 'detail'])->name("supplier-detail");
      Route::get('/kategori-detail/{id}', [KategoriController::class, 'detail'])->name("kategori-detail");
      Route::get('/satuan-detail/{id}', [SatuanController::class, 'detail'])->name("satuan-detail");
-     Route::get('/setting_toko-detail/{id}', [SettingTokoController::class, 'detail'])->name("setting_toko-detail");
      Route::get('/user-detail/{id}', [UserController::class, 'detail'])->name("user-detail");
  
 });

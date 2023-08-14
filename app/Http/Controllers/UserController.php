@@ -39,38 +39,41 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $validatedData = $request->validate([
             'nama' => 'required',
             'level' => 'required',
-            'email' => 'required',
-            'foto_user' => 'required',
+            'email' => 'required|email|unique:users,email', 
+            'foto_user' => 'required|image|mimes:jpeg,png,jpg,gif', 
             'password' => 'required',
             'alamat_user' => 'required',
             'no_hp' => 'required',
-
         ]);
-
-        $filename = time() . "." . $request->foto_user->getClientOriginalExtension();
-        $request->file('foto_user')->move('produk_image', $filename);
-
-        // Jika validasi tidak ada, maka lakukan simpan data
-
-        $save = User::create(
-            [
-                'nama' => $request->nama,
-                'level' => $request->level,
-                'email' => $request->email,
-                'foto_user' => $filename,
-                'password' => Hash::make($request->password),
-                'alamat_user' => $request->alamat_user,
-                'no_hp' => $request->no_hp,
-            ]
-        );
-
-
-
-        return redirect('/user')->with('pesan', 'Data Berhasil Di Tambah');
+        
+        // Penanganan Error saat Upload Gambar
+        if ($request->hasFile('foto_user')) {
+            $filename = time() . "." . $request->foto_user->getClientOriginalExtension();
+            $request->file('foto_user')->move('produk_image', $filename);
+        } else {
+            return redirect()->back()->withInput()->withErrors(['foto_user' => 'Foto tidak ditemukan.']);
+        }
+        
+        $save = User::create([
+            'nama' => $request->nama,
+            'level' => $request->level,
+            'email' => $request->email,
+            'foto_user' => $filename,
+            'password' => Hash::make($request->password),
+            'alamat_user' => $request->alamat_user,
+            'no_hp' => $request->no_hp,
+        ]);
+        
+        if ($save) {
+            return redirect('/user')->with('pesan', 'Data Berhasil Di Tambah');
+        } else {
+            return redirect()->back()->withInput()->withErrors(['pesan' => 'Gagal menyimpan data.']);
+        }
+        
     }
 
 
@@ -81,14 +84,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $id)
-    {
-        // $user= User::findOrfail($id);
-        return view('admin.dashboard.user.detail', [
-            'users' => User::findOrFail($id)
-        ]);
-    }
-
+  
     public function detail($id)
     {
         return view('admin.dashboard.user.detail', [
@@ -122,9 +118,9 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|unique:users,nama,' . $id . ',id',
+            'nama' => 'required',
             'level' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'required',
             'alamat_user' => 'required',
             'no_hp' => 'required',
@@ -155,7 +151,6 @@ class UserController extends Controller
                 'no_hp' => $request->no_hp,
             ]);
         }
-
         return redirect('/user')->with('pesan', 'Data Berhasil Di Ubah');
     }
 
@@ -172,10 +167,4 @@ class UserController extends Controller
         return redirect('/user')->with('pesan', 'Data Berhasil Di hapus');
     }
 
-    public function search(Request $request)
-    {
-        $keyword = $request->search;
-        $users = User::where('nama', 'like', "%" . $keyword . "%")->paginate(5);
-        return view('admin.dashboard.user.index', compact('users'))->with('i', (request()->input('page', 1) - 1) * 5);
-    }
 }

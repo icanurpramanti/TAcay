@@ -50,6 +50,7 @@
   </li>
 
   <li>
+  <li class="{{ Request::is('penjualan') ? 'active' : ''}}">
     <a href="/penjualan">
       <i class="nc-icon nc-money-coins"></i>
       <span>Penjualan</span>

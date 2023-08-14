@@ -41,7 +41,6 @@ class SupplierController extends Controller
             'nama_supplier' => 'required',
             'no_hp' => 'required',
             'alamat_supplier' => 'required',
-
         ]);
 
         $validatedData['kode_supplier'] = Supplier::generateKode();
@@ -55,13 +54,7 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-      public function show(Supplier $id)
-    {
-        // $supplier= Supplier::findOrfail($id);
-        return view('admin.dashboard.supplier.detail',[
-            'suppliers'=>Supplier::findOrFail($id)
-        ]);
-    }
+    
 
     public function detail($id)
     {
@@ -80,7 +73,6 @@ class SupplierController extends Controller
     {
         return view('admin.dashboard.supplier.edit',[
             'suppliers' =>Supplier::find($id)
-
         ]);
     }
     /**
@@ -112,13 +104,6 @@ class SupplierController extends Controller
     {
         Supplier::destroy($id);
         return redirect('/supplier')-> with('pesan','Data Berhasil Di hapus');
-    }
-
-   public function searchsupplier(Request $request)
-    {
-        $keyword = $request->search;
-        $suppliers = Supplier::where('nama_supplier', 'like', "%" . $keyword . "%")->paginate(5);
-        return view('admin.dashboard.supplier.index', compact('suppliers'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
 }

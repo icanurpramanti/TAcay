@@ -55,14 +55,7 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function show(Kategori $id)
-    {
-        // $kategori= Kategori::findOrfail($id);
-        return view('admin.dashboard.kategori.detail', [
-            'kategoris' => Kategori::findOrFail($id)
-        ]);
-    }
-
+    
     public function detail($id)
     {
         return view('admin.dashboard.kategori.detail', [
@@ -79,7 +72,6 @@ class KategoriController extends Controller
     {
         return view('admin.dashboard.kategori.edit', [
             'kategoris' => Kategori::find($id)
-
         ]);
     }
 
@@ -112,11 +104,5 @@ class KategoriController extends Controller
         Kategori::destroy($id);
         return redirect('/kategori')->with('pesan', 'Data Berhasil Di hapus');
     }
-
-    public function searchkategori(Request $request)
-    {
-        $keyword = $request->search;
-        $kategoris = Kategori::where('nama_kategori', 'like', "%" . $keyword . "%")->paginate(5);
-        return view('admin.dashboard.kategori.index', compact('kategoris'))->with('i', (request()->input('page', 1) - 1) * 5);
-    }
+ 
 }
