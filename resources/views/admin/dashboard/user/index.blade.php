@@ -133,10 +133,10 @@
                                 @enderror
                             </div>
                         </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -224,4 +224,3 @@
 </div>
 @endforeach
 @endsection
-

@@ -20,11 +20,11 @@
                   </tr>
                   <tr>
                     <th class="text-right" style="width: 30%">Nama Supplier</th>
-                    <td class="text-left">  {{$supplier->nama_supplier}}</td>
+                    <td class="text-left"> {{$supplier->nama_supplier}}</td>
                   </tr>
                   <tr>
                     <th class="text-right" style="width: 30%">No Hp</th>
-                    <td class="text-left">  {{$supplier->no_hp}}</td>
+                    <td class="text-left"> {{$supplier->no_hp}}</td>
                   </tr>
                   <tr>
                     <th class="text-right" style="width: 30%">Alamat Supplier</th>
