@@ -14,6 +14,8 @@ use App\Http\Controllers\PenjualanKasirController;
 use App\Http\Controllers\PenjualanDetailController;
 use App\Http\Controllers\PenjualanDetailKasirController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\LaporanPembelianController;
+use App\Http\Controllers\LaporanPenjualanController;
 use App\Http\Controllers\HomeController;
 
 
@@ -69,16 +71,27 @@ Route::middleware(['auth', 'CheckLevel:admin'])->group(function () {
     //penjualandetail
     Route::get('/transaksi/{id}/data', [PenjualanDetailController::class, 'data'])->name('transaksi.data');
     Route::get('/transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadForm'])->name('transaksi.load_form');
+
     Route::resource('/transaksi', PenjualanDetailController::class)
         ->except('show');
 
+    
+    //laporanpembelian
+    Route::get('/laporanpembelian',[LaporanPembelianController::class,'index'])->name('laporanpembelian.index');
+    Route::get('/laporanpembelian/data/{awal}/{akhir}', [LaporanPembelianController::class, 'data'])->name('laporanpembelian.data');
+    Route::get('/laporanpembelian/pdf/{awal}/{akhir}', [LaporanPembelianController::class, 'exportPDF'])->name('laporanpembelian.export_pdf');
+
+     //laporanpenjualan
+     Route::get('/laporanpenjualan',[LaporanPenjualanController::class,'index'])->name('laporanpenjualan.index');
+     Route::get('/laporanpenjualan/data/{awal}/{akhir}', [LaporanPenjualanController::class, 'data'])->name('laporanpenjualan.data');
+     Route::get('/laporanpenjualan/pdf/{awal}/{akhir}', [LaporanPenjualanController::class, 'exportPDF'])->name('laporanpenjualan.export_pdf');
+ 
      //laporan
      Route::get('/laporan',[LaporanController::class,'index'])->name('laporan.index');
      Route::get('/laporan/data/{awal}/{akhir}', [LaporanController::class, 'data'])->name('laporan.data');
      Route::get('/laporan/pdf/{awal}/{akhir}', [LaporanController::class, 'exportPDF'])->name('laporan.export_pdf');
+   
 
-
-    
      ///route detail
      Route::get('/produk-detail/{id}', [ProdukController::class, 'detail'])->name("produk-detail");
      Route::get('/supplier-detail/{id}', [SupplierController::class, 'detail'])->name("supplier-detail");

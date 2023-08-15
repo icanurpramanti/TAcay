@@ -66,6 +66,21 @@
 
 
   <li>
+    <a href="{{ route('laporanpembelian.index') }}">
+      <i class="nc-icon nc-paper"></i>
+      <span>Laporan Pembelian</span>
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ route('laporanpenjualan.index') }}">
+      <i class="nc-icon nc-paper"></i>
+      <span>Laporan Penjualan</span>
+    </a>
+  </li>
+
+
+  <li>
     <a href="{{ route('laporan.index') }}">
       <i class="nc-icon nc-paper"></i>
       <span>Laporan Pendapatan</span>
