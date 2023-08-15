@@ -20,6 +20,7 @@
                         <th>Total Harga</th>
                         <th>Diskon</th>
                         <th>Total Bayar</th>
+                        <th>User</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
                 </table>
@@ -51,6 +52,7 @@
                 {data: 'total_harga'},
                 {data: 'diskon'},
                 {data: 'bayar'},
+                {data: 'user'},
                 {data: 'aksi', searchable: false, sortable: false},
             ]
         });

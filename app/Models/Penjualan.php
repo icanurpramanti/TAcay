@@ -13,4 +13,9 @@ class Penjualan extends Model
     protected $primaryKey = 'id_penjualan';
     protected $guarded = [];
 
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'id_user');
+    }
+
 }

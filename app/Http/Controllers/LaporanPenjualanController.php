@@ -54,6 +54,7 @@ class LaporanPenjualanController extends Controller
                     'total_harga' => 'Rp. ' . format_uang($item->total_harga),
                     'diskon' => $item->diskon . '%',
                     'bayar' => 'Rp. ' . format_uang($item->bayar),
+                    'user' => $item->user->level, 
                 ];
     
                 $data[] = $row;
@@ -73,6 +74,7 @@ class LaporanPenjualanController extends Controller
             'total_harga' => 'Rp. ' . format_uang($total_harga),
             'diskon' => '',
             'bayar' => 'Rp. ' . format_uang($total_penjualan),
+            'user' => '',
         ];
     
         $data[] = $total_row;

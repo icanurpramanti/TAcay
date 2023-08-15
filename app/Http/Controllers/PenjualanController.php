@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
-use App\Models\Setting;
 use App\Models\PenjualanDetail;
 use App\Models\Penjualan;
 use Illuminate\Http\Request;
@@ -43,6 +42,9 @@ class PenjualanController extends Controller
             ->editColumn('diskon', function ($penjualans) {
                 return $penjualans->diskon . '%';
             })
+            ->editColumn('user', function ($penjualans) {
+                return $penjualans->user->level ?? '';
+            })
             ->addColumn('aksi', function ($penjualans) {
                 return '
                 <div class="btn-group">
@@ -68,6 +70,7 @@ class PenjualanController extends Controller
         $penjualans->diskon = 0;
         $penjualans->bayar = 0;
         $penjualans->diterima = 0;
+        $penjualans->id_user = auth()->id();
         $penjualans->save();
 
         session(['id_penjualan' => $penjualans->id_penjualan]);

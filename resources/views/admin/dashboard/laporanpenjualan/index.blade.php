@@ -29,10 +29,11 @@
                     <thead>
                         <th width="5%">No</th>
                         <th>Tanggal</th>
-                        <th>Total_item</th>
-                        <th>Total_harga</th>
+                        <th>Total Item</th>
+                        <th>Total Harga</th>
                         <th>Diskon</th>
                         <th>Bayar</th>
+                        <th>User</th>
                     </thead>
                 </table>
             </div>
@@ -64,6 +65,7 @@
                 {data: 'total_harga'},
                 {data: 'diskon'},
                 {data: 'bayar'},
+                {data: 'user'},
             ],
             dom: 'Brt',
             bSort: false,
