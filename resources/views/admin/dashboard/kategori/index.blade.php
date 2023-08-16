@@ -19,7 +19,7 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table" id="tabel-data">
+                    <table class="table table table-striped table-hover" id="tabel-data">
                         <thead class="text-primary">
                             <th>NO</th>
                             <th>Kode Kategori</th>

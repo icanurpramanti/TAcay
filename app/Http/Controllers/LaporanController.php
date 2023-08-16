@@ -84,12 +84,19 @@ class LaporanController extends Controller
             ->make(true);
     }
 
+    // public function exportPDF($awal, $akhir)
+    // {
+    //     $data = $this->getData($awal, $akhir);
+    //     $pdf  = PDF::loadView('admin.dashboard.laporan.pdf', compact('awal', 'akhir', 'data'));
+    //     $pdf->setPaper('a4', 'potrait');
+
+    //     return $pdf->stream('Laporan-pendapatan-' . date('Y-m-d-his') . '.pdf');
+    // }
+
     public function exportPDF($awal, $akhir)
     {
         $data = $this->getData($awal, $akhir);
-        $pdf  = PDF::loadView('admin.dashboard.laporan.pdf', compact('awal', 'akhir', 'data'));
-        $pdf->setPaper('a4', 'potrait');
-
-        return $pdf->stream('Laporan-pendapatan-' . date('Y-m-d-his') . '.pdf');
+        return view('admin.dashboard.laporan.pdf', compact('awal', 'akhir', 'data'));
+      
     }
 }

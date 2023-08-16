@@ -2,7 +2,7 @@
 
 
 @section('title')
-    Laporan Pendapatan {{ tanggal_indonesia($tanggalAwal, false) }} s/d {{ tanggal_indonesia($tanggalAkhir, false) }}
+    Laporan Pembelian {{ tanggal_indonesia($tanggalAwal, false) }} s/d {{ tanggal_indonesia($tanggalAkhir, false) }}
 @endsection
 
 @push('css')
@@ -30,10 +30,10 @@
                         <th width="5%">No</th>
                         <th>Tanggal</th>
                         <th>Supplier</th>
-                        <th>Total_item</th>
-                        <th>Total_harga</th>
+                        <th>Total Item</th>
+                        <th>Total Harga</th>
                         <th>Diskon</th>
-                        <th>Total_bayar</th>
+                        <th>Total Bayar</th>
                     </thead>
                 </table>
             </div>

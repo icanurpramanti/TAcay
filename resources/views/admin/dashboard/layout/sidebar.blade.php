@@ -57,14 +57,14 @@
 
   <li class="{{ Request::routeIs('laporanpembelian.index') ? 'active' : ''}}">
     <a href="{{ route('laporanpembelian.index') }}">
-      <i class="nc-icon nc-paper"></i>
+      <i class="nc-icon nc-bag-16"></i>
       <span>Laporan Pembelian</span>
     </a>
   </li>
 
   <li class="{{ Request::routeIs('laporanpenjualan.index') ? 'active' : ''}}">
     <a href="{{ route('laporanpenjualan.index') }}">
-      <i class="nc-icon nc-paper"></i>
+      <i class="nc-icon nc-money-coins"></i>
       <span>Laporan Penjualan</span>
     </a>
   </li>

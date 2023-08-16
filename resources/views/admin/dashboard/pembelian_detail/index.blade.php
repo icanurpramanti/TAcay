@@ -25,8 +25,9 @@
     }
 
     .label-column {
-    width: 180px; /* Adjust the width as needed */
-}
+        width: 180px;
+        /* Adjust the width as needed */
+    }
 
     @media (max-width: 768px) {
         .tampil-bayar {
@@ -41,26 +42,26 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="box">
-        <div class="box-header with-border">
-    @if($suppliers)
-    <table>
-        <tr>
-            <td class="label-column">Nama Supplier</td>
-            <td class="data-column">: {{ $suppliers->nama_supplier }}</td>
-        </tr>
-        <tr>
-            <td class="label-column">Telepon</td>
-            <td class="data-column">: {{ $suppliers->no_hp }}</td>
-        </tr>
-        <tr>
-            <td class="label-column">Alamat</td>
-            <td class="data-column">: {{ $suppliers->alamat_supplier }}</td>
-        </tr>
-    </table>
-    @else
-    <p>Informasi supplier tidak tersedia.</p>
-    @endif
-</div>
+            <div class="box-header with-border">
+                @if($suppliers)
+                <table>
+                    <tr>
+                        <td class="label-column">Nama Supplier</td>
+                        <td class="data-column">: {{ $suppliers->nama_supplier }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label-column">Telepon</td>
+                        <td class="data-column">: {{ $suppliers->no_hp }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label-column">Alamat</td>
+                        <td class="data-column">: {{ $suppliers->alamat_supplier }}</td>
+                    </tr>
+                </table>
+                @else
+                <p>Informasi supplier tidak tersedia.</p>
+                @endif
+            </div>
 
 
             <div class="box-body">

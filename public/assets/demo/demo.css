@@ -427,6 +427,11 @@ a:hover{
 		justify-content: center;
 	}
  
+  .text-right.blue-bg {
+    background-color: blue;
+    color: white; /* Mengatur warna teks menjadi putih agar terlihat jelas di latar biru */
+  }
+
   
   
 }

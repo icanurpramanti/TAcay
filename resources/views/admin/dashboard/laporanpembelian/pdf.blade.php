@@ -7,7 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Laporan Pembelian</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css">
+
+   <style>
         /* Tambahkan gaya khusus untuk tabel */
         table {
             width: 100%;
@@ -29,12 +31,35 @@
             background-color: #f2f2f2;
         }
 
+        .kopsurat {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #000;
+        }
+
+        .image {
+            flex-basis: 25%;
+            padding-right: 20px;
+        }
+
+        .image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .title {
+            flex-basis: 60%;
+            text-align: center;
+        }
+
+
         /* Gaya untuk judul laporan */
         .laporan-title {
             font-size: 24px;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 10px;
+            margin-top:15px;
         }
 
         /* Gaya untuk tanggal laporan */
@@ -53,38 +78,50 @@
     </style>
 </head>
 
-<body>
-    <div class="container">
-        <div class="laporan-title">Laporan Pembelian SRC Rani Cell</div>
-        <div class="laporan-date">
-            Tanggal {{ tanggal_indonesia($awal, false) }} s/d Tanggal {{ tanggal_indonesia($akhir, false) }}
-        </div>
+<body class="A4">
+    <section class="sheet padding-10mm">
+        <div class="container">
+            <header class="kopsurat">
+                <div class="image" width="25%">
+                    <img src="{{asset('assets/img/logoca.jpg')}}" alt="Logo">
+                </div>
+                <div class="title">
+                    <h1>SRC RANI CELL</h1>
+                    <p class="nohp">No Hp: 081363437701</p>
+                    <p class="address">Jalan Gurun Laweh NAN XX Kecamatan Lubuk Begalung</p>
+                </div>
+            </header>
+            <div class="laporan-title">Laporan Pembelian SRC Rani Cell</div>
+            <div class="laporan-date">
+                Tanggal {{ tanggal_indonesia($awal, false) }} s/d Tanggal {{ tanggal_indonesia($akhir, false) }}
+            </div>
 
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th width="5%">No</th>
-                        <th>Tanggal</th>
-                        <th>Supplier</th>
-                        <th>Total Item</th>
-                        <th>Total Harga</th>
-                        <th> Diskon</th>
-                        <th>Total Bayar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($data as $index => $row)
-                    <tr>
-                        @foreach ($row as $col)
-                        <td>{{ $col }}</td>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="5%">No</th>
+                            <th>Tanggal</th>
+                            <th>Supplier</th>
+                            <th>Total Item</th>
+                            <th>Total Harga</th>
+                            <th> Diskon</th>
+                            <th>Total Bayar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $index => $row)
+                        <tr>
+                            @foreach ($row as $col)
+                            <td>{{ $col }}</td>
+                            @endforeach
+                        </tr>
                         @endforeach
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    </section>
 </body>
 
 </html>

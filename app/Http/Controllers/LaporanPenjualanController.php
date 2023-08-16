@@ -91,12 +91,19 @@ class LaporanPenjualanController extends Controller
             ->make(true);
     }
 
+    // public function exportPDF($awal, $akhir)
+    // {
+    //     $data = $this->getData($awal, $akhir);
+    //     $pdf  = PDF::loadView('admin.dashboard.laporanpenjualan.pdf', compact('awal', 'akhir', 'data'));
+    //     $pdf->setPaper('a4', 'potrait');
+
+    //     return $pdf->stream('Laporan-Penjualan-' . date('Y-m-d-his') . '.pdf');
+    // }
+
     public function exportPDF($awal, $akhir)
     {
         $data = $this->getData($awal, $akhir);
-        $pdf  = PDF::loadView('admin.dashboard.laporanpenjualan.pdf', compact('awal', 'akhir', 'data'));
-        $pdf->setPaper('a4', 'potrait');
-
-        return $pdf->stream('Laporan-Penjualan-' . date('Y-m-d-his') . '.pdf');
+        return view('admin.dashboard.laporanpenjualan.pdf', compact('awal', 'akhir', 'data'));
+       
     }
 }
