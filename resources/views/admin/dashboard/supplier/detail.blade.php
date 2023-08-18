@@ -15,7 +15,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h5 class="title text-center">Detail Data Kategori</h5>
+            <h5 class="title text-center">Detail Data Supplier</h5>
           </div>
           <div class="card-body">
             <div class="table-responsive-sm">

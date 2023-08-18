@@ -91,20 +91,20 @@ class LaporanPembelianController extends Controller
             ->make(true);
     }
 
-    // public function exportPDF($awal, $akhir)
-    // {
-    //     $data = $this->getData($awal, $akhir);
-    //     $pdf  = PDF::loadView('admin.dashboard.laporanpembelian.pdf', compact('awal', 'akhir', 'data'));
-    //     $pdf->setPaper('a4', 'potrait');
-
-    //     return $pdf->stream('Laporan-Pembelian-' . date('Y-m-d-his') . '.pdf');
-    // }
-
     public function exportPDF($awal, $akhir)
     {
         $data = $this->getData($awal, $akhir);
-       return view('admin.dashboard.laporanpembelian.pdf', compact('awal', 'akhir', 'data'));
-       
+        $pdf  = PDF::loadView('admin.dashboard.laporanpembelian.pdf', compact('awal', 'akhir', 'data'));
+        $pdf->setPaper('a4', 'potrait');
+
+        return $pdf->stream('Laporan-Pembelian-' . date('Y-m-d-his') . '.pdf');
     }
+
+    // public function exportPDF($awal, $akhir)
+    // {
+    //     $data = $this->getData($awal, $akhir);
+    //    return view('admin.dashboard.laporanpembelian.pdf', compact('awal', 'akhir', 'data'));
+       
+    // }
 
 }
