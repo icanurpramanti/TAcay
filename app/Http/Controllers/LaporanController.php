@@ -63,7 +63,7 @@ class LaporanController extends Controller
 
         $total_row = [
             'DT_RowIndex' => '',
-            'tanggal' => 'Total Keseluruhan :',
+            'tanggal' => 'Total Keseluruhan:',
             'penjualan' => 'Rp. ' . format_uang($total_penjualan),
             'pembelian' => 'Rp. ' . format_uang($total_pembelian),
             'pendapatan' => 'Rp. ' . format_uang($total_pendapatan),
@@ -84,19 +84,19 @@ class LaporanController extends Controller
             ->make(true);
     }
 
-    public function exportPDF($awal, $akhir)
-    {
-        $data = $this->getData($awal, $akhir);
-        $pdf  = PDF::loadView('admin.dashboard.laporan.pdf', compact('awal', 'akhir', 'data'));
-        $pdf->setPaper('a4', 'potrait');
-
-        return $pdf->stream('Laporan-pendapatan-' . date('Y-m-d-his') . '.pdf');
-    }
-
     // public function exportPDF($awal, $akhir)
     // {
     //     $data = $this->getData($awal, $akhir);
-    //     return view('admin.dashboard.laporan.pdf', compact('awal', 'akhir', 'data'));
-      
+    //     $pdf  = PDF::loadView('admin.dashboard.laporan.pdf', compact('awal', 'akhir', 'data'));
+    //     $pdf->setPaper('a4', 'potrait');
+
+    //     return $pdf->stream('Laporan-pendapatan-' . date('Y-m-d-his') . '.pdf');
     // }
+
+    public function exportPDF($awal, $akhir)
+    {
+        $data = $this->getData($awal, $akhir);
+        return view('admin.dashboard.laporan.pdf', compact('awal', 'akhir', 'data'));
+      
+    }
 }
