@@ -18,7 +18,7 @@ class ProdukController extends Controller
     {
         $kategoris = Kategori::all();
         $satuans = Satuan::all();
-        $produks = Produk::orderBy('kode_produk')->paginate(7); 
+        $produks = Produk::orderBy('kode_produk')->paginate(50); 
         
         return view('admin.dashboard.produk.index', compact('kategoris', 'produks', 'satuans'));
     }

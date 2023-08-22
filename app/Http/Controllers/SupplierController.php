@@ -15,7 +15,7 @@ class SupplierController extends Controller
     public function index()
     {
         return view('admin.dashboard.supplier.index',[
-            'suppliers' => Supplier::orderBy('kode_supplier')->paginate(7)
+            'suppliers' => Supplier::orderBy('kode_supplier')->paginate(50)
       ]);
     }
 

@@ -18,10 +18,5 @@ class PembelianDetail extends Model
     {
         return $this->hasOne(Produk::class, 'kode_produk', 'kode_produk');
     }
-
-    // public function supplier()
-    // {
-    //     return $this->belongsTo(Supplier::class, 'kode_supplier', 'kode_supplier');
-    // }
   
 }
