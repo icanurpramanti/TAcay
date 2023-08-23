@@ -19,7 +19,7 @@
         padding: 10px;
         background: #f0f0f0;
     }
-    .table-pembelian tbody tr:last-child {
+    .table-penjualan tbody tr:last-child {
         display: none;
     }
     @media(max-width: 768px) {

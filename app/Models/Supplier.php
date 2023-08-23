@@ -28,7 +28,4 @@ class Supplier extends Model
         return $newCode;
     }
 
-    public function pembelianDetail(){
-        return $this->belongsTo(PembelianDetail::class,'kode_supplier','kode_supplier');
-    }
 }

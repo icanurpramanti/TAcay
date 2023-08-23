@@ -53,8 +53,8 @@ class PenjualanDetailController extends Controller
 
         $data[] = [
             'kode_produk' => '
-                <div class="total hide" hidden>' . $total . '</div>
-                <div class="total_item hide" hidden>' . $total_item . '</div>',
+                <div class="total hide" >' . $total . '</div>
+                <div class="total_item hide" >' . $total_item . '</div>',
             'nama_produk' => '',
             'harga_jual'  => '',
             'jumlah'      => '',
